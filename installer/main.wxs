@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Gander host installer (WP-1A): WiX Toolset v5 source (the v4 schema), built with `wix build`.
+
+  Build (needs the .NET SDK 8, the `wix` tool 5.0.x and its UI extension, see installer/README.md):
+      cargo xtask installer-build            (builds the binaries, icon and notices, then runs `wix build`)
+
+  What the MSI does, and deliberately does not do:
+    - PER-USER install into %LOCALAPPDATA%\Programs\Gander. No UAC prompt, no service, no
+      machine-wide state (ADR-0007).
+    - Starts the host at sign-in through a Task Scheduler logon task registered as the
+      current user (RunLevel LeastPrivilege): CA_AutostartOn runs gander-host.exe with its autostart-on flag.
+    - Windows Firewall rules are NOT written by the MSI itself: a per-user installer has no right to,
+      and nothing here asks for elevation silently. CA_NetworkSetup runs firewall-rules.ps1, which
+      asks Windows for administrator permission (one UAC prompt) and creates the allow rules scoped
+      to the tailnet and the configured private CIDRs. Decline the prompt, or install with
+      NETWORKSETUP=0, and the same step stays available as the Start menu entry
+      "Gander network setup (administrator)".
+    - Uninstall removes the sign-in task (CA_AutostartOff) and, with another UAC prompt, the firewall
+      rules (CA_NetworkRemove, rule group "Gander"). Both are best effort (Return="ignore"): a
+      declined prompt never blocks the uninstall. Configuration, device records and keys under
+      %APPDATA%\Gander and %LOCALAPPDATA%\Gander are kept.
+    - The build is UNSIGNED. Signing is a human step (installer/README.md).
+
+  Variables supplied by `cargo xtask installer-build` (or `wix build -d`/`-bindpath` yourself):
+    Version                    the product version (the workspace version in Cargo.toml)
+    bindpath.bin               target/release         gander-host.exe, gander-render.exe
+    bindpath.repo              the repository root    LICENSE
+    bindpath.installer         installer/             the firewall scripts
+    bindpath.notices           target/installer       THIRD-PARTY-NOTICES.txt, License.rtf (`cargo xtask notices`)
+    bindpath.sbom              target/sbom            gander-host.cdx.json, the CycloneDX SBOM (`cargo xtask sbom`)
+    bindpath.assets            host/gander-host/assets  gander.ico (`cargo xtask icons`)
+
+  `cargo xtask installer-check` verifies this file is well-formed and keeps the ids below.
+-->
+<?if $(sys.BUILDARCH) != x64 ?>
+  <?error Gander ships for x64 only; build with: wix build -arch x64 ?>
+<?endif?>
+
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="Gander"
+           Manufacturer="Arlo"
+           Version="$(Version)"
+           UpgradeCode="D86137D4-C26A-43BB-AA8E-C77C7B536282"
+           Language="1033"
+           Scope="perUser"
+           InstallerVersion="500"
+           Compressed="yes">
+
+    <SummaryInformation Description="Gander host: reach your files from your phone over your own private network"
+                        Keywords="Installer" />
+
+    <MajorUpgrade Schedule="afterInstallInitialize"
+                  DowngradeErrorMessage="A newer version of Gander is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Launch Condition="Installed OR (VersionNT >= 603 AND WindowsBuild >= 17763)"
+            Message="Gander needs Windows 10 version 1809 or later (Windows 11 recommended)." />
+
+    <!-- The icon shown in Settings, Apps (and for the shortcuts). The exe carries the same icon. -->
+    <Icon Id="Gander.ico" SourceFile="!(bindpath.assets)\gander.ico" />
+    <Property Id="ARPPRODUCTICON" Value="Gander.ico" />
+    <Property Id="ARPCOMMENTS" Value="Reach your files from your phone over your own private network." />
+    <!-- msiexec /i Gander.msi NETWORKSETUP=0  skips the firewall step (and its UAC prompt). -->
+    <Property Id="NETWORKSETUP" Value="1" Secure="yes" />
+    <!-- msiexec /i Gander.msi AUTOSTART=0  does not register the sign-in task. -->
+    <Property Id="AUTOSTART" Value="1" Secure="yes" />
+
+    <!-- ===== Folders: per-user, no elevation ===== -->
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="ProgramsDir" Name="Programs">
+        <Directory Id="APPLICATIONFOLDER" Name="Gander">
+          <Directory Id="SbomDir" Name="sbom" />
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="AppProgramMenuDir" Name="Gander" />
+    </StandardDirectory>
+
+    <!-- ===== Files. Each component's key path is an HKCU value (per-user rule ICE38) ===== -->
+    <DirectoryRef Id="APPLICATIONFOLDER">
+      <Component Id="Cmp_HostExe" Guid="DEECB382-A3FF-4583-BC1F-C6133D969CDB">
+        <RegistryValue Root="HKCU" Key="Software\Arlo\Gander\Installer" Name="HostExe" Type="integer" Value="1" KeyPath="yes" />
+        <File Id="Fil_HostExe" Name="gander-host.exe" Source="!(bindpath.bin)\gander-host.exe" />
+        <RemoveFolder Id="Rmv_AppDir" Directory="APPLICATIONFOLDER" On="uninstall" />
+        <RemoveFolder Id="Rmv_ProgramsDir" Directory="ProgramsDir" On="uninstall" />
+      </Component>
+
+      <!-- The preview and thumbnail worker; the host looks for it next to its own executable. -->
+      <Component Id="Cmp_RenderExe" Guid="FA2061AC-61A3-408E-AE86-9048E849B1CF">
+        <RegistryValue Root="HKCU" Key="Software\Arlo\Gander\Installer" Name="RenderExe" Type="integer" Value="1" KeyPath="yes" />
+        <File Id="Fil_RenderExe" Name="gander-render.exe" Source="!(bindpath.bin)\gander-render.exe" />
+      </Component>
+
+      <!-- Licence texts: the Gander licence and the generated third-party notices (egui's bundled
+           fonts under OFL-1.1 and Ubuntu-font-1.0, the Boost-licensed crates, and every other
+           dependency). `cargo xtask notices` writes the second file. -->
+      <Component Id="Cmp_Docs" Guid="B90461D8-C9F1-4F72-A4DB-61338881134A">
+        <RegistryValue Root="HKCU" Key="Software\Arlo\Gander\Installer" Name="Docs" Type="integer" Value="1" KeyPath="yes" />
+        <File Id="Fil_License" Name="LICENSE.txt" Source="!(bindpath.repo)\LICENSE" />
+        <File Id="Fil_ThirdPartyNotices" Name="THIRD-PARTY-NOTICES.txt" Source="!(bindpath.notices)\THIRD-PARTY-NOTICES.txt" />
+      </Component>
+
+      <!-- The software bill of materials (CycloneDX 1.5) of everything linked into or built with the
+           two executables, so a scanner can audit an installed copy without the source tree.
+           `cargo xtask sbom` writes it; `installer-build` generates it before the binaries. The
+           executables also carry the same list in a `.dep-v0` section (cargo-auditable format). -->
+      <Component Id="Cmp_Sbom" Directory="SbomDir" Guid="62BFBE81-C92D-49CB-9B9C-8193D623F81F">
+        <RegistryValue Root="HKCU" Key="Software\Arlo\Gander\Installer" Name="Sbom" Type="integer" Value="1" KeyPath="yes" />
+        <File Id="Fil_Sbom" Name="gander-host.cdx.json" Source="!(bindpath.sbom)\gander-host.cdx.json" />
+        <RemoveFolder Id="Rmv_SbomDir" Directory="SbomDir" On="uninstall" />
+      </Component>
+
+      <!-- The elevated network setup: see firewall-rules.ps1. Not executed by install unless
+           NETWORKSETUP=1 (default), and then only through CA_NetworkSetup below. -->
+      <Component Id="Cmp_NetworkScripts" Guid="B0CB3930-2A9C-46E9-A11B-862A4A8A6207">
+        <RegistryValue Root="HKCU" Key="Software\Arlo\Gander\Installer" Name="NetworkScripts" Type="integer" Value="1" KeyPath="yes" />
+        <File Id="Fil_FirewallCommon" Name="firewall-common.ps1" Source="!(bindpath.installer)\firewall-common.ps1" />
+        <File Id="Fil_FirewallRules" Name="firewall-rules.ps1" Source="!(bindpath.installer)\firewall-rules.ps1" />
+        <File Id="Fil_VerifyRules" Name="verify-rules.ps1" Source="!(bindpath.installer)\verify-rules.ps1" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- ===== Start menu ===== -->
+    <DirectoryRef Id="AppProgramMenuDir">
+      <!-- "Gander" opens the settings window (gander-host.exe started with the open flag); with the host already running
+           the tray icon is the way in, and a second start does nothing harmful (see README). -->
+      <Component Id="Cmp_StartMenu">
+        <Shortcut Id="Shc_Gander"
+                  Name="Gander"
+                  Description="Open the Gander settings window (the tray application starts if it is not running)"
+                  Target="[APPLICATIONFOLDER]gander-host.exe"
+                  Arguments="--open"
+                  WorkingDirectory="APPLICATIONFOLDER" />
+        <RemoveFolder Id="Rmv_StartMenuDir" Directory="AppProgramMenuDir" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Arlo\Gander\Installer" Name="StartMenu" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+
+      <!-- Runs firewall-rules.ps1; the script asks for administrator permission itself. -->
+      <Component Id="Cmp_NetworkShortcut">
+        <Shortcut Id="Shc_NetworkSetup"
+                  Name="Gander network setup (administrator)"
+                  Description="Create the Windows Firewall rules for Gander (asks for administrator permission)"
+                  Target="[System64Folder]WindowsPowerShell\v1.0\powershell.exe"
+                  Arguments="-NoProfile -NoExit -ExecutionPolicy Bypass -File &quot;[APPLICATIONFOLDER]firewall-rules.ps1&quot; -Action Install -ProgramPath &quot;[APPLICATIONFOLDER]gander-host.exe&quot;"
+                  WorkingDirectory="APPLICATIONFOLDER"
+                  Icon="Gander.ico" />
+        <RegistryValue Root="HKCU" Key="Software\Arlo\Gander\Installer" Name="NetworkShortcut" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- ===== Features ===== -->
+    <Feature Id="Feature_Host"
+             Title="Gander host"
+             Description="The Gander tray application, its preview worker, the licence texts and the software bill of materials."
+             Level="1"
+             AllowAbsent="no">
+      <ComponentRef Id="Cmp_HostExe" />
+      <ComponentRef Id="Cmp_RenderExe" />
+      <ComponentRef Id="Cmp_Docs" />
+      <ComponentRef Id="Cmp_Sbom" />
+      <ComponentRef Id="Cmp_StartMenu" />
+    </Feature>
+    <Feature Id="Feature_Network"
+             Title="Firewall setup"
+             Description="The scripts that create and check the Windows Firewall rules (they need administrator permission to change rules)."
+             Level="1">
+      <ComponentRef Id="Cmp_NetworkScripts" />
+      <ComponentRef Id="Cmp_NetworkShortcut" />
+    </Feature>
+
+    <!-- ===== Custom actions (all immediate, as the signed-in user; none is required to succeed) ===== -->
+
+    <!-- Sign-in task. Same code as the Settings switch; no elevation. -->
+    <CustomAction Id="CA_AutostartOn" FileRef="Fil_HostExe" ExeCommand="--autostart on"
+                  Execute="immediate" Impersonate="yes" Return="ignore" />
+    <CustomAction Id="CA_AutostartOff" FileRef="Fil_HostExe" ExeCommand="--autostart off"
+                  Execute="immediate" Impersonate="yes" Return="ignore" />
+
+    <!-- Firewall rules. firewall-rules.ps1 re-launches itself elevated (UAC), waits at most two
+         minutes, and exits 5 when permission is not given; the exit code is ignored here. -->
+    <CustomAction Id="CA_NetworkSetup" Directory="APPLICATIONFOLDER"
+                  ExeCommand="&quot;[System64Folder]WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File &quot;[APPLICATIONFOLDER]firewall-rules.ps1&quot; -Action Install -ProgramPath &quot;[APPLICATIONFOLDER]gander-host.exe&quot; -Quiet"
+                  Execute="immediate" Impersonate="yes" Return="ignore" />
+    <CustomAction Id="CA_NetworkRemove" Directory="APPLICATIONFOLDER"
+                  ExeCommand="&quot;[System64Folder]WindowsPowerShell\v1.0\powershell.exe&quot; -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File &quot;[APPLICATIONFOLDER]firewall-rules.ps1&quot; -Action Remove -ProgramPath &quot;[APPLICATIONFOLDER]gander-host.exe&quot; -Quiet"
+                  Execute="immediate" Impersonate="yes" Return="ignore" />
+
+    <InstallExecuteSequence>
+      <!-- Install: first install only (an upgrade keeps the owner's choices). -->
+      <Custom Action="CA_AutostartOn" After="InstallFinalize" Condition='AUTOSTART = "1" AND NOT Installed AND NOT WIX_UPGRADE_DETECTED' />
+      <Custom Action="CA_NetworkSetup" After="CA_AutostartOn" Condition='NETWORKSETUP = "1" AND NOT Installed AND NOT WIX_UPGRADE_DETECTED AND &amp;Feature_Network = 3' />
+      <!-- Uninstall (but not the removal step of an upgrade): files still exist at this point. -->
+      <Custom Action="CA_AutostartOff" Before="InstallValidate" Condition='REMOVE = "ALL" AND NOT UPGRADINGPRODUCTCODE' />
+      <Custom Action="CA_NetworkRemove" After="CA_AutostartOff" Condition='REMOVE = "ALL" AND NOT UPGRADINGPRODUCTCODE' />
+    </InstallExecuteSequence>
+
+    <!-- ===== Dialogs: licence page and an Install button; the folder is fixed (per-user) ===== -->
+    <WixVariable Id="WixUILicenseRtf" Value="!(bindpath.notices)\License.rtf" />
+    <ui:WixUI Id="WixUI_Minimal" />
+  </Package>
+</Wix>

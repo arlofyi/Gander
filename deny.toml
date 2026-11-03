@@ -1,0 +1,69 @@
+# cargo-deny configuration: `cargo deny check` (host CI runs it on every change).
+# Policy: permissive licences only, no known vulnerabilities, crates.io as the only source.
+
+[graph]
+all-features = true
+
+[advisories]
+# RustSec advisory database; fetched from GitHub on first use.
+version = 2
+yanked = "deny"
+# Every entry needs a reason and a way out. All four are "unmaintained" notices (no known
+# vulnerability, no unsafe upgrade path) that arrive through the UI stack (WP-18, eframe 0.33.3).
+# Reviewed 2026-11-02. Remove them when eframe moves past these crates (eframe 0.34+ needs Rust
+# 1.92 and 0.36+ needs 1.95, above this workspace's MSRV of 1.90: raise the MSRV, then upgrade).
+ignore = [
+    { id = "RUSTSEC-2026-0192", reason = "ttf-parser: font parser inside egui's epaint (ab_glyph); parses only the bundled fonts and system fonts the owner already has; replaced by skrifa in later egui releases" },
+    { id = "RUSTSEC-2026-0370", reason = "zvariant: reached only through accesskit_unix, which is compiled on Linux and BSD only; the host is Windows-only until the Linux host exists" },
+    { id = "RUSTSEC-2026-0371", reason = "zbus_names: same Linux-only accesskit_unix path as zvariant" },
+    { id = "RUSTSEC-2026-0372", reason = "zvariant_derive: same Linux-only accesskit_unix path as zvariant" },
+]
+
+[licenses]
+version = 2
+# Permissive only. Copyleft (GPL, LGPL, AGPL, MPL, EPL) is intentionally absent: adding one is a
+# decision for the owner and an ADR, not a drive-by edit.
+allow = [
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "MIT",
+    "MIT-0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "ISC",
+    "Zlib",
+    "Unicode-3.0",
+    "CC0-1.0",
+    "0BSD",
+]
+confidence-threshold = 0.9
+# The allow list is a policy, not an inventory: do not warn about entries no crate uses yet.
+unused-allowed-license = "allow"
+
+# Narrow, per-crate exceptions (WP-18). These are permissive licences, but not ones the allow list
+# above names, so each is scoped to the one crate that needs it rather than allowed everywhere.
+# Shipping a binary that embeds these fonts needs their licence texts in the installer's third-party
+# notices: `cargo xtask notices` (WP-1A) writes them into THIRD-PARTY-NOTICES.txt, and
+# `cargo xtask installer-check` fails if the OFL-1.1, Ubuntu-font-1.0 or Boost texts are missing.
+[[licenses.exceptions]]
+name = "epaint_default_fonts"   # egui's bundled fonts: Ubuntu-Light, Hack, NotoEmoji, emoji-icon-font
+allow = ["OFL-1.1", "Ubuntu-font-1.0"]
+
+[[licenses.exceptions]]
+name = "clipboard-win"          # egui-winit's clipboard on Windows (Boost licence, permissive)
+allow = ["BSL-1.0"]
+
+[[licenses.exceptions]]
+name = "error-code"             # clipboard-win's error type (Boost licence, permissive)
+allow = ["BSL-1.0"]
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+highlight = "all"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []

@@ -1,0 +1,37 @@
+# spike-webrtc (WP-43) nvidia-throttle-400
+webrtc-rs 0.21.1 (rtc 0.21.1, crypto ring); GCC initial 3000 min 300 max 8000 kbps; headroom 0.85; relay on (queue 200 ms); NACK off; steps [(20.0, 400), (35.0, 0)]; 50 s
+source: NVIDIA GeForce RTX 5060 Laptop GPU / NVIDIA H.264 Encoder MFT (constrained-baseline), 1080x2280 @ 30 fps from a 691x1487 window, GOP 60
+offer candidates (host): ["a=candidate:2693830880 1 udp 2130706431 127.0.0.1 65096 typ host", "a=candidate:2693830880 2 udp 2130706431 127.0.0.1 65096 typ host"]
+answer candidates (viewer): ["a=candidate:2693830880 1 udp 2130706431 127.0.0.1 65095 typ host", "a=candidate:2693830880 2 udp 2130706431 127.0.0.1 65095 typ host"]
+answer fmtp/rtcp-fb/extmap: ["a=fmtp:102 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e032", "a=rtcp-fb:102 nack pli", "a=rtcp-fb:102 ccm fir", "a=rtcp-fb:102 transport-cc", "a=extmap:1 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01"]
+connect (ws accept -> Connected): 205 ms
+frames: captured+fed 1478 encoded 1478 (IDR 32) sent 1478 received-clean 1304 decoded 1304 (ffmpeg lines 1304) | lost pkts 308 late/dup pkts 0 lost AUs 123 skipped-until-IDR 31 PLI sent 10 recv 10 | sender queue full 0 | wall 50.0 s
+RTCP seen by the host track: {"PayloadSpecificFeedback": 10}
+encoder rate control: codecapi (0 re-creations, - ms each p50, max NaN ms; 0 in-flight frames lost)
+latency [steady (3 s .. first cap)]:
+  capture->encoded  p50 5.1 / p95 9.3 / max 20.5 ms (n=507)
+  encoded->sent     p50 1.3 / p95 3.5 / max 5.1 ms (n=507)
+  sent->received    p50 0.4 / p95 0.7 / max 3.8 ms (n=507)
+  capture->received p50 6.9 / p95 12.0 / max 25.2 ms (n=507)
+  received->decoded p50 67.9 / p95 85.0 / max 190.0 ms (n=507)
+  capture->decoded  p50 74.9 / p95 91.6 / max 199.3 ms (n=507)
+latency [throttled]:
+  capture->encoded  p50 4.0 / p95 8.3 / max 11.2 ms (n=440)
+  encoded->sent     p50 1.1 / p95 2.9 / max 4.5 ms (n=440)
+  sent->received    p50 131.4 / p95 527.6 / max 573.6 ms (n=266)
+  capture->received p50 137.4 / p95 538.3 / max 578.2 ms (n=266)
+  received->decoded p50 56.2 / p95 329.6 / max 3596.0 ms (n=266)
+  capture->decoded  p50 210.1 / p95 626.8 / max 3758.2 ms (n=266)
+latency [whole run]:
+  capture->encoded  p50 4.1 / p95 8.7 / max 20.5 ms (n=1478)
+  encoded->sent     p50 1.2 / p95 3.1 / max 5.1 ms (n=1478)
+  sent->received    p50 0.4 / p95 302.5 / max 573.6 ms (n=1304)
+  capture->received p50 7.2 / p95 310.5 / max 578.2 ms (n=1304)
+  received->decoded p50 67.3 / p95 89.7 / max 6553.7 ms (n=1304)
+  capture->decoded  p50 76.2 / p95 378.9 / max 6562.4 ms (n=1304)
+data channel echo RTT: p50 0.6 / p95 807.4 / max 1669.2 ms (n=501) (echoed 501)
+adaptation: cap 400 kbps at t=20.0s (GCC before 8000 kbps, set point 6496): first set-point cut after 0.79 s, GCC <= 50 % after 1.25 s, encoded output (1 s window) <= cap after 3.75 s, set point <= cap after 2.81 s, GCC <= cap after 3.25 s
+  settled (last 5 s under the cap, means): GCC 395 kbps, set point 335, encoded 312, received 296, decoded 19.8 fps, capture->received p50 128 ms
+recovery: cap removed at t=35.0s: GCC back to >= 7200 kbps (90 % of pre-cap) after 12.50 s
+encoder set point changes: 93
+RESULT: PASS

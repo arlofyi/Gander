@@ -1,0 +1,14 @@
+# adb-driven taps (alt8): 8 issued, 8 received by the host
+| seq | aimed client | mode | clicked | hit | host inject->colour ms | phone tap->pixels ms | echo rtt ms |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | (198, 1128) | sendinput | true | true | 0.1 | 285 | 4.3 |
+| 2 | (416, 1273) | postmessage | true | true | 3.0 | 182 | 6.2 |
+| 3 | (614, 1155) | sendinput | true | true | 0.2 | 293 | 11.9 |
+| 4 | (358, 983) | postmessage | true | true | 0.1 | 270 | 10.5 |
+| 5 | (100, 811) | sendinput | true | true | 0.2 | 235 | 3.8 |
+| 6 | (262, 633) | postmessage | true | true | 0.1 | 226 | 10.2 |
+| 7 | (520, 461) | sendinput | true | true | 0.2 | 156 | 4.3 |
+| 8 | (533, 311) | postmessage | true | true | 0.1 | 168 | 2.6 |
+hits 8/8 taps; phone tap->changed pixels p50 226 / p95 293 / max 293 ms (n=8); host inject->colour change (pipe poll) p50 0.1 ms (n=8); command->host rx p50 127 ms
+phone decoded 366 frames in 13.0 s = 28.1 fps; last stats: {"bytes_received":5809658,"decode_ms_per_frame":19.82442748091603,"decoder":"c2.goldfish.h264.decoder","ev":"inbound_video","frame_height":2280,"frame_width":1080,"frames_decoded":393,"frames_dropped":1,"frames_per_second":29,"frames_received":397,"freeze_count":1,"jitter_buffer_ms":69.68948101265823,"key_frames_decoded":8,"nack_count":0,"packets_lost":0,"packets_received":5753,"pli_count":0,"t_ns":279100739000}
+phone events: 85 total, 8 echo, 8 tap_effect, 0 colour_change

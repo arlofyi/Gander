@@ -1,0 +1,83 @@
+--------- beginning of main
+11-02 11:13:29.983  4285  4285 I GanderSpike: {"ev":"start","t_ns":333762720700,"signal":"ws:\/\/10.0.2.2:47440\/","client":"emulator-strip6","texture_decode":false,"sdk":36}
+11-02 11:13:30.178  4285  4285 I GanderSpike: {"ev":"mediacodec_avc_decoders","t_ns":333958377600,"decoders":"c2.goldfish.h264.decoder hw=true sw=false vendor=true | c2.android.avc.decoder hw=false sw=true vendor=false | OMX.google.h264.decoder hw=false sw=true vendor=false"}
+11-02 11:13:30.259  4285  4285 I GanderSpike: {"ev":"receiver_codecs","t_ns":334039281500,"codecs":"video\/VP8 pt=96 {} | video\/rtx pt=97 {} | video\/VP9 pt=98 {} | video\/H264 pt=100 {level-asymmetry-allowed=1, packetization-mode=1, profile-level-id=42e01f} | video\/H265 pt=35 {} | video\/red pt=102 {} | video\/ulpfec pt=104 {} | video\/flexfec-03 pt=37 {repair-window=10000000}"}
+11-02 11:13:30.269  4285  4285 I GanderSpike: {"ev":"state","t_ns":334048662500,"state":"connecting"}
+11-02 11:13:30.488  4285  4285 I GanderSpike: {"ev":"layout","t_ns":334268146000,"view_w":1080,"view_h":2400,"view_x":0,"view_y":0,"video_w":0,"video_h":0}
+11-02 11:13:30.554  4285  4309 I GanderSpike: {"ev":"ws_open","t_ns":334333801100,"url":"ws:\/\/10.0.2.2:47440\/","attempt":1}
+11-02 11:13:30.619  4285  4309 I GanderSpike: {"ev":"offer","t_ns":334398653200,"bytes":1219,"candidates":"a=candidate:2693830880 1 udp 2130706431 10.0.2.2 64863 typ host | a=candidate:2693830880 2 udp 2130706431 10.0.2.2 64863 typ host"}
+11-02 11:13:30.630  4285  4306 I GanderSpike: {"ev":"signaling","t_ns":334409497100,"state":"HAVE_REMOTE_OFFER"}
+11-02 11:13:30.652  4285  4306 I GanderSpike: {"ev":"track","t_ns":334432252700,"kind":"video","mid":"0"}
+11-02 11:13:30.660  4285  4306 I GanderSpike: {"ev":"signaling","t_ns":334439694800,"state":"STABLE"}
+11-02 11:13:30.691  4285  4306 I GanderSpike: {"ev":"ice_connection","t_ns":334470725000,"state":"CHECKING"}
+11-02 11:13:30.691  4285  4306 I GanderSpike: {"ev":"ice_gathering","t_ns":334471253800,"state":"GATHERING"}
+11-02 11:13:30.704  4285  4306 I GanderSpike: {"ev":"ice_gathering","t_ns":334483940200,"state":"COMPLETE"}
+11-02 11:13:30.706  4285  4306 I GanderSpike: {"ev":"answer","t_ns":334485078300,"bytes":1062,"candidates":""}
+11-02 11:13:30.707  4285  4306 I GanderSpike: {"ev":"state","t_ns":334487406700,"state":"answered"}
+11-02 11:13:30.713  4285  4306 I GanderSpike: {"ev":"connection","t_ns":334493450000,"state":"CONNECTING"}
+11-02 11:13:30.714  4285  4306 I GanderSpike: {"ev":"local_candidate","t_ns":334494324400,"sdp":"candidate:3567290309 1 udp 2122260223 10.0.2.15 52214 typ host generation 0 ufrag X7sM network-id 3 network-cost 900"}
+11-02 11:13:30.721  4285  4306 I GanderSpike: {"ev":"local_candidate","t_ns":334500673100,"sdp":"candidate:2411163448 1 udp 2122187263 fec0::5054:ff:fe12:3456 53918 typ host generation 0 ufrag X7sM network-id 4 network-cost 900"}
+11-02 11:13:32.303  4285  4306 I GanderSpike: {"ev":"connection","t_ns":336082981800,"state":"CONNECTED"}
+11-02 11:13:32.303  4285  4306 I GanderSpike: {"ev":"state","t_ns":336083646100,"state":"connected"}
+11-02 11:13:32.307  4285  4306 I GanderSpike: {"ev":"ice_connection","t_ns":336087326200,"state":"CONNECTED"}
+11-02 11:13:32.341  4285  4306 I GanderSpike: {"ev":"data_channel","t_ns":336121264000,"label":"input","state":"CONNECTING"}
+11-02 11:13:32.349  4285  4306 I GanderSpike: {"ev":"data_channel_state","t_ns":336129154900,"state":"OPEN"}
+11-02 11:13:32.685  4285  4320 I GanderSpike: {"ev":"first_frame_rendered","t_ns":336464510600}
+11-02 11:13:32.694  4285  4320 I GanderSpike: {"ev":"layout","t_ns":336474442500,"view_w":1080,"view_h":2400,"view_x":0,"view_y":0,"video_w":1080,"video_h":2280,"pic_l":0,"pic_t":60,"pic_w":1080,"pic_h":2280}
+11-02 11:13:33.336  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":337116323800,"frames_received":29,"frames_decoded":27,"frames_dropped":1,"key_frames_decoded":1,"frames_per_second":42,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":119.18518518518519,"jitter_buffer_ms":76.49731034482758,"packets_received":226,"packets_lost":0,"bytes_received":184300,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:33.344  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":337123802200,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.018,"bytes_received":197161}
+11-02 11:13:34.362  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":338141872300,"frames_received":60,"frames_decoded":56,"frames_dropped":1,"key_frames_decoded":1,"frames_per_second":29,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":64.69642857142857,"jitter_buffer_ms":55.291982758620684,"packets_received":535,"packets_lost":0,"bytes_received":470883,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:34.362  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":338142612300,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.018,"bytes_received":515108}
+11-02 11:13:34.598  4285  4285 I GanderSpike: {"ev":"tap_sent","t_ns":338376884500,"seq":1,"x":0.16296295821666718,"y":0.7486842274665833}
+11-02 11:13:34.599  4285  4285 I GanderSpike: {"ev":"touch","t_ns":338379195900,"seq":1,"view_x":176,"view_y":1767,"press_ms":1.6757}
+11-02 11:13:34.601  4285  4306 I GanderSpike: {"ev":"echo","t_ns":338381162200,"seq":1,"rtt_ms":12.7905,"host_rx":3254529952453}
+11-02 11:13:34.934  4285  4320 I GanderSpike: {"ev":"tap_effect","t_ns":338714580200,"seq":1,"ms":307.6456,"colour":"blue"}
+11-02 11:13:35.350  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":339129481100,"frames_received":86,"frames_decoded":84,"frames_dropped":2,"key_frames_decoded":2,"frames_per_second":28,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":50.464285714285715,"jitter_buffer_ms":54.039858823529414,"packets_received":866,"packets_lost":0,"bytes_received":796443,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:35.351  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":339130922300,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.018,"bytes_received":823893}
+11-02 11:13:36.106  4285  4285 I GanderSpike: {"ev":"tap_sent","t_ns":339885741900,"seq":2,"x":0.4722222089767456,"y":0.8456140160560608}
+11-02 11:13:36.107  4285  4285 I GanderSpike: {"ev":"touch","t_ns":339887218700,"seq":2,"view_x":510,"view_y":1988,"press_ms":10.0696}
+11-02 11:13:36.112  4285  4306 I GanderSpike: {"ev":"echo","t_ns":339891689800,"seq":2,"rtt_ms":14.9098,"host_rx":3254545052140}
+11-02 11:13:36.348  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":340128092800,"frames_received":112,"frames_decoded":108,"frames_dropped":2,"key_frames_decoded":3,"frames_per_second":24,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":44.592592592592595,"jitter_buffer_ms":46.70544036697247,"packets_received":1086,"packets_lost":0,"bytes_received":980361,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:36.353  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":340132981200,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.01,"bytes_received":1014703}
+11-02 11:13:36.411  4285  4320 I GanderSpike: {"ev":"tap_effect","t_ns":340191245800,"seq":2,"ms":280.293,"colour":"yellow"}
+11-02 11:13:37.366  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":341145812600,"frames_received":142,"frames_decoded":137,"frames_dropped":2,"key_frames_decoded":3,"frames_per_second":29,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":38.17518248175182,"jitter_buffer_ms":49.986410071942444,"packets_received":1446,"packets_lost":0,"bytes_received":1329321,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:37.366  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":341146165800,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.01,"bytes_received":1374547}
+11-02 11:13:37.543  4285  4285 I GanderSpike: {"ev":"tap_sent","t_ns":341323213800,"seq":3,"x":0.8592592477798462,"y":0.8390350937843323}
+11-02 11:13:37.543  4285  4285 I GanderSpike: {"ev":"touch","t_ns":341323535200,"seq":3,"view_x":928,"view_y":1973,"press_ms":3.5252}
+11-02 11:13:37.556  4285  4306 I GanderSpike: {"ev":"echo","t_ns":341336276300,"seq":3,"rtt_ms":15.2519,"host_rx":3254559486150}
+11-02 11:13:37.864  4285  4320 I GanderSpike: {"ev":"tap_effect","t_ns":341644082000,"seq":3,"ms":280.589,"colour":"red"}
+11-02 11:13:38.350  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":342130626600,"frames_received":172,"frames_decoded":167,"frames_dropped":2,"key_frames_decoded":4,"frames_per_second":30,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":34.880239520958085,"jitter_buffer_ms":52.78960355029585,"packets_received":1916,"packets_lost":0,"bytes_received":1798527,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:38.351  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":342131526000,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.001,"bytes_received":1858103}
+11-02 11:13:39.021  4285  4285 I GanderSpike: {"ev":"tap_sent","t_ns":342801180100,"seq":4,"x":0.6083333492279053,"y":0.7184210419654846}
+11-02 11:13:39.021  4285  4285 I GanderSpike: {"ev":"touch","t_ns":342801502500,"seq":4,"view_x":657,"view_y":1698,"press_ms":0.891}
+11-02 11:13:39.024  4285  4306 I GanderSpike: {"ev":"echo","t_ns":342803761800,"seq":4,"rtt_ms":15.5844,"host_rx":3254574223574}
+11-02 11:13:39.291  4285  4320 I GanderSpike: {"ev":"tap_effect","t_ns":343070832100,"seq":4,"ms":264.5448,"colour":"orange"}
+11-02 11:13:39.379  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":343159081300,"frames_received":201,"frames_decoded":197,"frames_dropped":2,"key_frames_decoded":4,"frames_per_second":30,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":32.17258883248731,"jitter_buffer_ms":55.457391959799,"packets_received":2448,"packets_lost":0,"bytes_received":2326735,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:39.382  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":343159945700,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.001,"bytes_received":2411127}
+11-02 11:13:40.367  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":344146710300,"frames_received":231,"frames_decoded":226,"frames_dropped":2,"key_frames_decoded":5,"frames_per_second":29,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":30.08407079646017,"jitter_buffer_ms":58.3776447368421,"packets_received":2983,"packets_lost":0,"bytes_received":2863259,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:40.367  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":344146996800,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.001,"bytes_received":2957615}
+11-02 11:13:40.370  4285  4285 I GanderSpike: {"ev":"tap_sent","t_ns":344150031200,"seq":5,"x":0.23981481790542603,"y":0.6043859720230103}
+11-02 11:13:40.370  4285  4285 I GanderSpike: {"ev":"touch","t_ns":344150335600,"seq":5,"view_x":259,"view_y":1438,"press_ms":3.5543}
+11-02 11:13:40.375  4285  4306 I GanderSpike: {"ev":"echo","t_ns":344155488500,"seq":5,"rtt_ms":7.6522,"host_rx":3254587751133}
+11-02 11:13:40.654  4285  4320 I GanderSpike: {"ev":"tap_effect","t_ns":344434278000,"seq":5,"ms":253.3804,"colour":"blue"}
+11-02 11:13:41.360  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":345140345700,"frames_received":261,"frames_decoded":256,"frames_dropped":2,"key_frames_decoded":5,"frames_per_second":30,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":28.30078125,"jitter_buffer_ms":60.91987596899224,"packets_received":3513,"packets_lost":0,"bytes_received":3390229,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:41.361  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":345141100100,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.006,"bytes_received":3498341}
+11-02 11:13:41.739  4285  4285 I GanderSpike: {"ev":"tap_sent","t_ns":345519229000,"seq":6,"x":0.2666666805744171,"y":0.4925438463687897}
+11-02 11:13:41.739  4285  4285 I GanderSpike: {"ev":"touch","t_ns":345519699800,"seq":6,"view_x":288,"view_y":1183,"press_ms":6.9102}
+11-02 11:13:41.745  4285  4306 I GanderSpike: {"ev":"echo","t_ns":345524877800,"seq":6,"rtt_ms":6.4527,"host_rx":3254601454344}
+11-02 11:13:41.990  4285  4320 I GanderSpike: {"ev":"tap_effect","t_ns":345770300200,"seq":6,"ms":196.0049,"colour":"yellow"}
+11-02 11:13:42.361  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":346141578100,"frames_received":291,"frames_decoded":287,"frames_dropped":2,"key_frames_decoded":6,"frames_per_second":31,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":26.630662020905923,"jitter_buffer_ms":62.33207986111111,"packets_received":4049,"packets_lost":0,"bytes_received":3926755,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:42.362  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":346142160200,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.006,"bytes_received":4051239}
+11-02 11:13:43.402  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":347182062900,"frames_received":320,"frames_decoded":315,"frames_dropped":2,"key_frames_decoded":6,"frames_per_second":28,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":25.476190476190474,"jitter_buffer_ms":63.93704088050314,"packets_received":4588,"packets_lost":0,"bytes_received":4463279,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:43.402  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":347182709500,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.002,"bytes_received":4622479}
+11-02 11:13:44.371  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":348151390500,"frames_received":351,"frames_decoded":347,"frames_dropped":2,"key_frames_decoded":7,"frames_per_second":32,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":24.417867435158495,"jitter_buffer_ms":64.70989367816092,"packets_received":5125,"packets_lost":0,"bytes_received":4999813,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:44.372  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":348151813100,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.002,"bytes_received":5156661}
+11-02 11:13:44.775  4285  4306 I GanderSpike: {"ev":"data_channel_state","t_ns":348555169200,"state":"CLOSING"}
+11-02 11:13:44.776  4285  4306 I GanderSpike: {"ev":"data_channel_state","t_ns":348555778300,"state":"CLOSED"}
+11-02 11:13:44.776  4285  4306 I GanderSpike: {"ev":"ice_connection","t_ns":348556366200,"state":"DISCONNECTED"}
+11-02 11:13:44.779  4285  4309 I GanderSpike: {"ev":"bye","t_ns":348559359000}
+11-02 11:13:44.779  4285  4309 I GanderSpike: {"ev":"state","t_ns":348559696300,"state":"host said bye"}
+11-02 11:13:44.782  4285  4309 I GanderSpike: {"ev":"ws_failure","t_ns":348561837200,"error":"java.io.EOFException","attempt":1}
+11-02 11:13:44.782  4285  4309 I GanderSpike: {"ev":"state","t_ns":348562162400,"state":"signalling failed: null"}
+11-02 11:13:45.374  4285  4306 I GanderSpike: {"ev":"inbound_video","t_ns":349153827200,"frames_received":360,"frames_decoded":358,"frames_dropped":2,"key_frames_decoded":7,"frames_per_second":11,"frame_width":1080,"frame_height":2280,"decode_ms_per_frame":24.29608938547486,"jitter_buffer_ms":64.81023398328689,"packets_received":5287,"packets_lost":0,"bytes_received":5160773,"pli_count":0,"nack_count":0,"freeze_count":0,"decoder":"c2.goldfish.h264.decoder"}
+11-02 11:13:45.374  4285  4306 I GanderSpike: {"ev":"candidate_pair","t_ns":349154206200,"local":"prflx 127.0.0.1:64864 udp","remote":"host 10.0.2.2:64863 udp","rtt_s":0.002,"bytes_received":5322619}

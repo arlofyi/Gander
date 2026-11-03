@@ -1,0 +1,8 @@
+06:17:44.614 tid=2769 PROVIDER_CREATE pid=2769
+06:17:44.640 tid=2783 QUERY_ROOTS pkg=com.google.android.documentsui uid=10103
+06:17:44.722 tid=2783 QUERY_ROOTS pkg=com.google.android.documentsui uid=10103
+06:17:44.838 tid=2795 QUERY_DOCUMENT id=root pkg=com.google.android.documentsui uid=10103
+06:17:45.461 tid=2795 QUERY_CHILDREN parent=root pkg=com.google.android.documentsui uid=10103
+06:17:45.742 tid=2795 HTTP_LISTEN addr=127.0.0.1 port=45763
+06:17:45.803 tid=2795 HEAD name=sample-faststart.mp4 size=30811338
+06:17:45.890 tid=2795 HEAD name=sample-moovend.mp4 size=30811338

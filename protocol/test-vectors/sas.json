@@ -1,0 +1,90 @@
+{
+ "description": "Short authentication string (SAS) vectors for pairing (docs/specs/2026-11-01-pairing-and-trust.md). digest = SHA-256(ASCII 'gander-sas-v1' || host_spki || device_nonce || host_nonce), plain concatenation, no length prefixes. host_spki is the DER-encoded SubjectPublicKeyInfo of the host's leaf certificate as seen in the TLS handshake (the same bytes whose SHA-256, base64url without padding, is host_id), NOT its hash. device_nonce and host_nonce are the raw 16 bytes (base64url-decoded from the wire), device first. first_20_bits = digest[0]<<12 | digest[1]<<4 | digest[2]>>4 (big-endian). Because 20 bits reach 1048575 (7 digits) the code is first_20_bits mod 1000000, zero-padded to 6 digits ('sas_digits') and displayed as 3+3 digits separated by one space ('sas'). The keys are public P-256 points (G and 2G), not real host keys; nonces are fixed test inputs. Rust runner: host/gander-core/tests/sas_vectors.rs.",
+ "version": 1,
+ "vectors": [
+  {
+   "id": "sas-basic",
+   "note": "Host key is the P-256 generator point (private key 1, a public test value).",
+   "host_spki_der_hex": "3059301306072a8648ce3d020106082a8648ce3d030107034200046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+   "host_id": "XNJS-wzokyQ2-vjM0QQJgbie5K1rn-niorfnGqyyfNM",
+   "device_nonce_hex": "000102030405060708090a0b0c0d0e0f",
+   "device_nonce_b64url": "AAECAwQFBgcICQoLDA0ODw",
+   "host_nonce_hex": "101112131415161718191a1b1c1d1e1f",
+   "host_nonce_b64url": "EBESExQVFhcYGRobHB0eHw",
+   "sha256_hex": "cb295c71fe8ea03d6cefaa039f29de62aecf47427a7297c5aa55b1e80a386781",
+   "first_20_bits": 832149,
+   "sas_digits": "832149",
+   "sas": "832 149"
+  },
+  {
+   "id": "sas-mitm-other-spki",
+   "note": "Same nonces as sas-basic, different host certificate (P-256 point 2G): what a phone talking to a man in the middle computes. Must differ from sas-basic.",
+   "host_spki_der_hex": "3059301306072a8648ce3d020106082a8648ce3d030107034200047cf27b188d034f7e8a52380304b51ac3c08969e277f21b35a60b48fc4766997807775510db8ed040293d9ac69f7430dbba7dade63ce982299e04b79d227873d1",
+   "host_id": "3AzmM9vMkT2vr6S4msRNjOaD_fw_YMi98hITufK1NLo",
+   "device_nonce_hex": "000102030405060708090a0b0c0d0e0f",
+   "device_nonce_b64url": "AAECAwQFBgcICQoLDA0ODw",
+   "host_nonce_hex": "101112131415161718191a1b1c1d1e1f",
+   "host_nonce_b64url": "EBESExQVFhcYGRobHB0eHw",
+   "sha256_hex": "37a5b163eb2525b7379fe41d5cd596d0b07890b77d2225f5e80371c14eeca518",
+   "first_20_bits": 227931,
+   "sas_digits": "227931",
+   "sas": "227 931"
+  },
+  {
+   "id": "sas-swapped-nonces",
+   "note": "sas-basic with device and host nonces swapped: order matters.",
+   "host_spki_der_hex": "3059301306072a8648ce3d020106082a8648ce3d030107034200046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+   "host_id": "XNJS-wzokyQ2-vjM0QQJgbie5K1rn-niorfnGqyyfNM",
+   "device_nonce_hex": "101112131415161718191a1b1c1d1e1f",
+   "device_nonce_b64url": "EBESExQVFhcYGRobHB0eHw",
+   "host_nonce_hex": "000102030405060708090a0b0c0d0e0f",
+   "host_nonce_b64url": "AAECAwQFBgcICQoLDA0ODw",
+   "sha256_hex": "9037f76cc6ed3b05035f5222f490d54e2a47fde9c3491ba156a7b0654724c4a4",
+   "first_20_bits": 590719,
+   "sas_digits": "590719",
+   "sas": "590 719"
+  },
+  {
+   "id": "sas-zero-nonces",
+   "note": "All-zero nonces.",
+   "host_spki_der_hex": "3059301306072a8648ce3d020106082a8648ce3d030107034200046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+   "host_id": "XNJS-wzokyQ2-vjM0QQJgbie5K1rn-niorfnGqyyfNM",
+   "device_nonce_hex": "00000000000000000000000000000000",
+   "device_nonce_b64url": "AAAAAAAAAAAAAAAAAAAAAA",
+   "host_nonce_hex": "00000000000000000000000000000000",
+   "host_nonce_b64url": "AAAAAAAAAAAAAAAAAAAAAA",
+   "sha256_hex": "ab257abb91cddc37295712fdb0b9d2d7c87ebc917573d6c8856d7401e0273b61",
+   "first_20_bits": 701015,
+   "sas_digits": "701015",
+   "sas": "701 015"
+  },
+  {
+   "id": "sas-leading-zero",
+   "note": "Code below 100000: zero-padded to six digits.",
+   "host_spki_der_hex": "3059301306072a8648ce3d020106082a8648ce3d030107034200046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+   "host_id": "XNJS-wzokyQ2-vjM0QQJgbie5K1rn-niorfnGqyyfNM",
+   "device_nonce_hex": "0000000000000000000000000000000c",
+   "device_nonce_b64url": "AAAAAAAAAAAAAAAAAAAADA",
+   "host_nonce_hex": "101112131415161718191a1b1c1d1e1f",
+   "host_nonce_b64url": "EBESExQVFhcYGRobHB0eHw",
+   "sha256_hex": "1369b1a8c2cf34de031afa5309655b6af9fb6b0b0d7f482436613b8e827b3654",
+   "first_20_bits": 79515,
+   "sas_digits": "079515",
+   "sas": "079 515"
+  },
+  {
+   "id": "sas-reduced-modulo",
+   "note": "first_20_bits >= 1000000: the code is first_20_bits mod 1000000.",
+   "host_spki_der_hex": "3059301306072a8648ce3d020106082a8648ce3d030107034200046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+   "host_id": "XNJS-wzokyQ2-vjM0QQJgbie5K1rn-niorfnGqyyfNM",
+   "device_nonce_hex": "0000000000000000000000000000004b",
+   "device_nonce_b64url": "AAAAAAAAAAAAAAAAAAAASw",
+   "host_nonce_hex": "101112131415161718191a1b1c1d1e1f",
+   "host_nonce_b64url": "EBESExQVFhcYGRobHB0eHw",
+   "sha256_hex": "fe73ed52c3f8b043ddcc5f69663dbed4db8dd459c91e012a1239f59bd8c0c998",
+   "first_20_bits": 1042238,
+   "sas_digits": "042238",
+   "sas": "042 238"
+  }
+ ]
+}

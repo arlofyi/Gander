@@ -1,0 +1,30 @@
+.env
+.env.*
+!.env.example
+node_modules/
+target/
+dist/
+build/
+*.log
+.DS_Store
+Thumbs.db
+
+# Local Claude/Conduit session config (machine-specific hook paths)
+.claude/
+
+# Conductor worker worktrees (night runs)
+.worktrees/
+
+# Android / Gradle (client/android)
+.gradle/
+.kotlin/
+local.properties
+*.iml
+.idea/
+captures/
+.cxx/
+*.keystore
+*.jks
+
+# Machine-specific notes (real paths, device names); never committed
+docs/local/

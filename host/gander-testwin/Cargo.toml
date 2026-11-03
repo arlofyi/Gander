@@ -1,0 +1,51 @@
+[package]
+name = "gander-testwin"
+description = "Deterministic test window for the stream spike and tests."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lib]
+name = "gander_testwin"
+path = "src/lib.rs"
+
+[[bin]]
+name = "gander-testwin"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+windows = { workspace = true, features = [
+    "Win32_Foundation",
+    "Win32_Graphics_Gdi",
+    "Win32_Media_Audio",
+    "Win32_Security",
+    "Win32_Security_Authorization",
+    "Win32_Storage_FileSystem",
+    "Win32_System_IO",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Pipes",
+    "Win32_System_SystemInformation",
+    "Win32_System_Threading",
+    "Win32_UI_Controls",
+    "Win32_UI_HiDpi",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[target.'cfg(windows)'.dev-dependencies]
+# PrintWindow (read the window's pixels) and SendInput (the ignored Ctrl+P test).
+windows = { workspace = true, features = ["Win32_Storage_Xps", "Win32_UI_Input_KeyboardAndMouse"] }
+# Window discovery tests (WP-51, tests/discovery.rs): gander-win's launcher starts this binary,
+# so the tests live here, where Cargo provides CARGO_BIN_EXE_gander-testwin.
+gander-core.workspace = true
+gander-win.workspace = true
+time.workspace = true
+# Stream input tests (WP-52, tests/input.rs): the stream.state JSON.
+serde_json.workspace = true
+
+[lints]
+workspace = true

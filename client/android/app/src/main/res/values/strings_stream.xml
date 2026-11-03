@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Stream viewer (WP-54). Sentences follow the android-client-v1 spec, "Stream viewer". -->
+<resources>
+    <!-- Top bar -->
+    <string name="stream_title_on_host">on %1$s</string>
+    <string name="stream_leave">Leave stream</string>
+    <string name="stream_mode_direct">Direct touch</string>
+    <string name="stream_mode_trackpad">Trackpad</string>
+    <string name="stream_mode_switch">Touch mode: %1$s. Tap to switch.</string>
+    <string name="stream_zoom_reset">Reset zoom</string>
+    <string name="stream_keyboard_show">Show keyboard bar</string>
+    <string name="stream_sound_mute">Mute the computer\'s sound</string>
+    <string name="stream_sound_unmute">Unmute the computer\'s sound</string>
+    <string name="stream_keyboard_hide">Hide keyboard bar</string>
+
+    <!-- State banner (stream.state): launching, approving on the computer, paused, reconnecting -->
+    <string name="stream_banner_requested">Asking %1$s to start&#8230;</string>
+    <string name="stream_banner_approving">Waiting for approval on %1$s&#8230;</string>
+    <string name="stream_banner_launching">Opening %1$s on %2$s&#8230;</string>
+    <string name="stream_banner_launching_app">Opening the app on %1$s&#8230;</string>
+    <string name="stream_banner_pick">%1$s found more than one window. Tap the one to stream, within %2$s.</string>
+    <string name="stream_banner_pick_none">%1$s has no window to choose from yet. The stream ends in %2$s if none appears.</string>
+    <plurals name="stream_seconds">
+        <item quantity="one">%d second</item>
+        <item quantity="other">%d seconds</item>
+    </plurals>
+    <string name="stream_pick_gone">That window is no longer open. Choose another.</string>
+    <string name="stream_banner_connecting">Connecting to %1$s&#8230;</string>
+    <string name="stream_banner_paused">Paused.</string>
+    <string name="stream_banner_paused_focus">Paused: another window is in front on %1$s.</string>
+    <string name="stream_banner_paused_user">Paused: someone is using %1$s.</string>
+    <string name="stream_banner_paused_network">Paused: the connection to %1$s is weak.</string>
+    <string name="stream_banner_paused_background">Paused while this app was in the background.</string>
+    <string name="stream_banner_backgrounded">Paused while you are away.</string>
+    <string name="stream_banner_reconnecting">Reconnecting to %1$s&#8230;</string>
+    <string name="stream_front_bring">Bring to front</string>
+    <string name="stream_front_sending">Bringing to front&#8230;</string>
+    <string name="stream_front_acquired">The window is in front on %1$s.</string>
+    <string name="stream_front_refused">%1$s did not bring the window forward. Click it on the computer, or try again.</string>
+
+    <!-- Relay warning, shown before the stream starts -->
+    <string name="stream_relay_title">Relayed connection</string>
+    <string name="stream_relay_body_tailscale">Your connection to %1$s is relayed through Tailscale. Expect low quality.</string>
+    <string name="stream_relay_body_generic">Your connection to %1$s is relayed through your private network. Expect low quality.</string>
+    <string name="stream_relay_continue">Stream anyway</string>
+    <string name="stream_relay_cancel">Not now</string>
+
+    <!-- Leaving -->
+    <string name="stream_end_title">Stop streaming?</string>
+    <string name="stream_end_body">%1$s is open on %2$s.</string>
+    <string name="stream_end_body_unknown_app">The app is open on %1$s.</string>
+    <string name="stream_end_leave_open">Leave %1$s open on %2$s</string>
+    <string name="stream_end_leave_open_unknown_app">Leave it open on %1$s</string>
+    <string name="stream_end_close_app">Close %1$s</string>
+    <string name="stream_end_close_app_unknown_app">Close it</string>
+    <string name="stream_end_keep">Keep streaming</string>
+
+    <!-- A stream that is over -->
+    <string name="stream_ended_title">Stream ended</string>
+    <string name="stream_ended_you_left">You stopped the stream.</string>
+    <string name="stream_ended_kill_switch">Someone at %1$s stopped the stream.</string>
+    <string name="stream_ended_window_closed">The window was closed on %1$s.</string>
+    <string name="stream_ended_revoked">%1$s removed this phone, so the stream stopped.</string>
+    <string name="stream_ended_timeout">The stream timed out.</string>
+    <string name="stream_ended_app_unavailable">There was no window to stream. Either %1$s showed none, or none was chosen within %2$s.</string>
+    <string name="stream_ended_locked">%1$s was locked, so the stream stopped. Unlock it to stream again.</string>
+    <string name="stream_ended_error">The stream stopped because of an error on %1$s.</string>
+    <string name="stream_ended_connection_lost">The connection to %1$s was lost.</string>
+    <string name="stream_ended_no_video">The video link to %1$s could not be set up. Streaming needs UDP traffic to get through the private network and the computer\'s firewall.</string>
+    <string name="stream_ended_fetch_saved">The file changed on %1$s while you were streaming.</string>
+    <string name="stream_fetch_saved">Fetch the saved file</string>
+    <string name="stream_done">Done</string>
+    <string name="stream_try_again">Try again</string>
+
+    <!-- Cannot stream -->
+    <string name="stream_failed_title">Can\'t stream</string>
+    <string name="stream_unsupported_phone">This phone can\'t decode H.264 video, which Stream mode needs. Use Preview or Fetch instead.</string>
+    <string name="stream_unsupported_host">%1$s does not stream H.264 video, which this app needs. Use Preview or Fetch instead.</string>
+    <string name="stream_host_missing">This computer is no longer paired with this phone.</string>
+    <string name="stream_preparing">Checking %1$s&#8230;</string>
+
+    <!-- Keyboard bar and local text box -->
+    <string name="stream_key_ctrl">Ctrl</string>
+    <string name="stream_key_alt">Alt</string>
+    <string name="stream_key_shift">Shift</string>
+    <string name="stream_key_esc">Esc</string>
+    <string name="stream_key_tab">Tab</string>
+    <string name="stream_key_enter">Enter</string>
+    <string name="stream_key_backspace">Bksp</string>
+    <string name="stream_key_delete">Del</string>
+    <string name="stream_key_left">Left arrow</string>
+    <string name="stream_key_right">Right arrow</string>
+    <string name="stream_key_up">Up arrow</string>
+    <string name="stream_key_down">Down arrow</string>
+    <string name="stream_key_fn">Fn</string>
+    <string name="stream_key_undo">Ctrl+Z</string>
+    <string name="stream_key_redo">Ctrl+Y</string>
+    <string name="stream_key_save">Ctrl+S</string>
+    <string name="stream_key_type">Type</string>
+    <string name="stream_key_system_keyboard">Keyboard</string>
+    <string name="stream_key_paste_to_computer">Paste to computer</string>
+    <string name="stream_key_copy_from_computer">Copy from computer</string>
+    <string name="stream_text_hint">Type here, then send</string>
+    <string name="stream_text_send">Send</string>
+
+    <!-- Clipboard text (what the phone says after "Paste to computer" or "Copy from computer"; never the text itself) -->
+    <string name="stream_clipboard_copied">Copied from the computer</string>
+    <string name="stream_clipboard_pasted">Sent to the computer\'s clipboard</string>
+    <string name="stream_clipboard_phone_empty">Nothing to send: the phone\'s clipboard has no text</string>
+    <string name="stream_clipboard_computer_empty">The computer\'s clipboard has no text</string>
+    <string name="stream_clipboard_too_large">That text is too long: the limit is 64 KB</string>
+    <string name="stream_clipboard_disabled">The computer\'s owner has not allowed this in Gander\'s settings</string>
+    <string name="stream_clipboard_locked">The computer is locked</string>
+    <string name="stream_clipboard_not_active">Not now: the stream is paused, or someone is using the computer</string>
+    <string name="stream_clipboard_busy">The computer\'s clipboard is busy. Try again</string>
+    <string name="stream_clipboard_failed">The clipboard could not be used right now</string>
+    <string name="stream_clipboard_no_answer">The computer did not answer</string>
+</resources>

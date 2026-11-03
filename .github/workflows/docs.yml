@@ -1,0 +1,65 @@
+name: docs
+
+# Documentation gate (WP-1C): every relative link, image and #anchor in the Markdown files must
+# resolve, checked case-sensitively the way GitHub renders them. `cargo xtask docs-check` is plain
+# Rust (xtask/src/docs.rs), so the same command runs on a developer machine and here. External
+# links are counted, never fetched.
+# Actions are pinned to commit SHAs (tag in the trailing comment); bump deliberately (WP-82).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.md"
+      - "xtask/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - ".github/workflows/docs.yml"
+  pull_request:
+    paths:
+      - "**/*.md"
+      - "xtask/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  links:
+    name: Markdown links and anchors (ubuntu-latest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Cache cargo registry and build output
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            ~/.cargo/git/db
+            target
+          key: docs-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            docs-${{ runner.os }}-
+
+      - name: Test the link checker
+        run: cargo test -p xtask --locked -- "docs::"
+
+      - name: Check links
+        run: cargo xtask docs-check

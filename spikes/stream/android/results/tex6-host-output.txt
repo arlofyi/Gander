@@ -1,0 +1,38 @@
+spike-input ready signalling=ws://127.0.0.1:47440/ port=47440 advertise=Some(10.0.2.2) inject=postmessage
+connected in 1741 ms; offer candidates ["a=candidate:2693830880 1 udp 2130706431 127.0.0.1 49799 typ host", "a=candidate:2693830880 2 udp 2130706431 127.0.0.1 49799 typ host"]; answer candidates []
+driver: phone layout {"ev":"layout","pic_h":2280,"pic_l":0,"pic_t":60,"pic_w":1080,"t_ns":643880658600,"video_h":2280,"video_w":1080,"view_h":2400,"view_w":1080,"view_x":0,"view_y":0}
+tap seq 1 (0.824, 0.850) postmessage client Some((567, 1218)): rx->inject 2.8 ms, inject 0.01 ms, effect 2.6 ms after inject; PostMessage accepted 3/3 error None
+status epoch_ms=1793600325180 frames_sent=135 dc_echoed=1
+driver: tap 0 at screen (890, 1997) aimed at client (567, 1218); host rx 183 ms after the command; phone tap_effect none
+tap seq 2 (0.381, 0.648) postmessage client Some((261, 918)): rx->inject 0.7 ms, inject 0.02 ms, effect 2.4 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 1 at screen (412, 1537) aimed at client (261, 918); host rx 107 ms after the command; phone tap_effect none
+tap seq 3 (0.418, 0.446) postmessage client Some((286, 617)): rx->inject 0.6 ms, inject 0.06 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+status epoch_ms=1793600330220 frames_sent=277 dc_echoed=3
+driver: tap 2 at screen (451, 1076) aimed at client (286, 617); host rx 167 ms after the command; phone tap_effect none
+tap seq 4 (0.733, 0.227) postmessage client Some((504, 292)): rx->inject 0.6 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 3 at screen (792, 577) aimed at client (504, 292); host rx 96 ms after the command; phone tap_effect none
+tap seq 5 (0.081, 0.360) postmessage client Some((53, 489)): rx->inject 0.6 ms, inject 0.02 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+status epoch_ms=1793600335263 frames_sent=420 dc_echoed=5
+driver: tap 4 at screen (87, 880) aimed at client (53, 489); host rx 114 ms after the command; phone tap_effect none
+tap seq 6 (0.742, 0.568) postmessage client Some((510, 800)): rx->inject 0.7 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 5 at screen (801, 1356) aimed at client (510, 800); host rx 101 ms after the command; phone tap_effect none
+status epoch_ms=1793600340296 frames_sent=561 dc_echoed=6
+
+# adb-driven taps (tex6): 6 issued, 6 received by the host
+| seq | aimed client | mode | clicked | hit | host inject->colour ms | phone tap->pixels ms | echo rtt ms |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | (567, 1218) | postmessage | true | true | 2.6 | - | 5.3 |
+| 2 | (261, 918) | postmessage | true | true | 2.4 | - | 3.3 |
+| 3 | (286, 617) | postmessage | true | true | 0.1 | - | 20.1 |
+| 4 | (504, 292) | postmessage | true | true | 0.1 | - | 2.0 |
+| 5 | (53, 489) | postmessage | true | true | 0.1 | - | 2.7 |
+| 6 | (510, 800) | postmessage | true | true | 0.1 | - | 5.4 |
+hits 6/6 taps; phone tap->changed pixels p50 NaN / p95 NaN / max NaN ms (n=0); host inject->colour change (pipe poll) p50 0.1 ms (n=6); command->host rx p50 107 ms
+phone decoded 518 frames in 19.1 s = 27.2 fps; last stats: {"bytes_received":8771364,"decode_ms_per_frame":16.72552783109405,"decoder":"c2.goldfish.h264.decoder","ev":"inbound_video","frame_height":2280,"frame_width":1080,"frames_decoded":521,"frames_dropped":35,"frames_per_second":27,"frames_received":558,"freeze_count":1,"jitter_buffer_ms":102.29569964028776,"key_frames_decoded":10,"nack_count":0,"packets_lost":0,"packets_received":8830,"pli_count":0,"t_ns":663214725300}
+phone events: 85 total, 6 echo, 0 tap_effect, 0 colour_change
+
+# spike-input serve (tex6)
+source: Intel(R) Graphics / Intel® Quick Sync Video H.264 Encoder MFT, 1080x2280 @ 30 fps
+inject mode postmessage, advertise Some(10.0.2.2), taps handled 6
+postmessage: 6 taps, 6 reached the window (clicks +1), 6 hit the box; rx->inject p50 0.6 ms; inject call p50 0.02 ms; inject->colour change seen on the pipe p50 0.1 / p95 2.6 ms (n=6)
+  first outcome: PostMessage accepted 3/3 error None

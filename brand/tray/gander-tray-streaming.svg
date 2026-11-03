@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <title>Gander tray: streaming</title>
+  <desc>Streaming: a window is being streamed. Solid orange lens with the goose cut out.</desc>
+  <defs>
+    <mask id="goose" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+      <rect width="100" height="100" fill="#fff"/>
+      <path d="M38.5 71.5C33 60 45 57 47 40" fill="none" stroke="#000" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="47" cy="36" r="11.5" fill="#000"/>
+      <path fill="#000" stroke="#000" stroke-width="2" stroke-linejoin="round" d="M55 30.5L70 37L55 43Z"/>
+    </mask>
+  </defs>
+  <circle cx="44" cy="44" r="34.5" fill="#e2682a" mask="url(#goose)"/>
+  <path d="M65 65L84 84" fill="none" stroke="#e2682a" stroke-width="13"/>
+  <circle cx="84" cy="84" r="6.5" fill="#e2682a"/>
+</svg>

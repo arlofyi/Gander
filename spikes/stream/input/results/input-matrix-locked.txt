@@ -1,0 +1,17 @@
+Captured by `spike-input matrix` (before the "C19 probe" row existed) with the session LOCKED, 2026-11-02.
+The session unlocked later the same day (see input-matrix-unlocked.txt); this run could not be repeated locked.
+
+desktop state at start: session_locked=Some(true) input_desktop=Ok(()) foreground=Some((20448578, "Windows.UI.Core.CoreWindow", 44092)) cursor=Some((3497, 1121))
+
+| Id | What | Outcome |
+| --- | --- | --- |
+| C20 testwin | PostMessage (move, down, up) to the HWND at the box centre, 5 rounds, window not foreground | hits +5 / clicks +5; PostMessage accepted 3/3 |
+| C19 uncovered | SendInput (absolute move, left down, left up) at the box centre, 5 rounds, window not covered | A hits +0 / clicks +0; guard: covered by LockScreenBackstopFrame pid 13028, NOT sent |
+| C19 covered, guard | SendInput at A's box centre while test window B covers it, production policy (target only) | A hits +0 / clicks +0, B clicks +0; guard: covered by LockScreenBackstopFrame pid 13028, NOT sent |
+| C19 covered, forced | SendInput at A's box centre while B covers it, guard relaxed to any test window (where do clicks land) | A hits +0 / clicks +0, B clicks +0 (B hits +0); guard: covered by LockScreenBackstopFrame pid 13028, NOT sent |
+| C20 covered | PostMessage to A at its box centre while B covers it | A hits +5 / clicks +5, B clicks +0; PostMessage accepted 3/3 |
+| C3 primary | normalised tap -> window mapping, 25 points, primary monitor | dpi 144, client 687x1440: 25 points; normalise->map round trip worst 0 px; map vs OS ScreenToClient worst 0 px; posted vs testwin last_click worst 0 px; points whose screen position is not over the window 25 |
+| C3 secondary | same, after moving A to the secondary monitor | dpi 96, client 300x628: 25 points; normalise->map round trip worst 0 px; map vs OS ScreenToClient worst 0 px; posted vs testwin last_click worst 0 px; points whose screen position is not over the window 25 |
+| C20 secondary | PostMessage at the box centre on the secondary monitor, 5 rounds | hits +5 / clicks +5; PostMessage accepted 3/3 |
+
+desktop state at end: session_locked=Some(true) input_desktop=Ok(()) foreground=Some((20448578, "Windows.UI.Core.CoreWindow", 44092)) cursor=Some((3497, 1121))

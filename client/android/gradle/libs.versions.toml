@@ -1,0 +1,114 @@
+# Version catalogue for the Gander Android client (WP-20, 2026-11-01).
+# Versions are the newest stable releases (Google Maven / Maven Central, 2026-11-01) that still
+# compile against compileSdk 36. The newest stable lines of androidx.core 1.19, lifecycle 2.11,
+# navigation 2.10, Compose 1.12 (BOM 2026.08.00 and later), Coil 3.6 and OkHttp 5.5 declare
+# minCompileSdk 37, so they come with the targetSdk 37 bump (spec: Phase 3), not before.
+# Pinned deliberately; bump in a dedicated commit and re-run
+# `./gradlew assembleDebug testDebugUnitTest lintDebug` plus `cargo xtask check-elf-alignment`.
+
+[versions]
+# Build toolchain
+agp = "9.5.0"                  # needs Gradle 9.6.0 (wrapper), JDK 17, build-tools 36.0.0
+kotlin = "2.4.21"              # AGP 9 built-in Kotlin; the plugins below pull this KGP version
+ksp = "2.3.13"                 # KSP2 (Room compiler)
+cyclonedx = "3.5.1"            # CycloneDX SBOM plugin (Apache-2.0, built with Gradle 9.8, runs on 9.6); WP-82
+ndk = "28.2.13676358"          # NDK r28c: 16 KB page-size aware linker defaults
+compileSdk = "36"
+targetSdk = "36"
+minSdk = "26"
+
+# AndroidX
+androidx-core = "1.18.0"                 # 1.19.x needs compileSdk 37
+androidx-activity = "1.13.0"
+androidx-lifecycle = "2.10.0"            # 2.11.x needs compileSdk 37
+androidx-navigation = "2.9.8"            # 2.10.x needs compileSdk 37
+androidx-room = "2.8.5"
+androidx-datastore = "1.3.0"
+androidx-biometric = "1.4.0-alpha05"       # app lock; newest line that compiles against compileSdk 36 (alpha06+ needs 36.1)
+androidx-camera = "1.6.2"
+androidx-media3 = "1.11.1"
+compose-bom = "2026.06.01"                # Compose 1.11.4; BOM 2026.08.00+ is 1.12 (compileSdk 37)
+
+# Networking, images, scanning, realtime
+okhttp = "5.4.0"                        # 5.5.x needs compileSdk 37
+coil = "3.5.0"                          # 3.6.x needs compileSdk 37
+zxing = "3.5.4"
+webrtc = "155.0.1"             # org.jitsi:webrtc, the libwebrtc build used by stream mode (ADR-0001)
+kotlinx-coroutines = "1.11.0"
+kotlinx-serialization = "1.12.0"
+
+# Test
+junit = "4.13.2"
+snakeyaml = "2.4"                       # test only: reads protocol/openapi.yaml examples
+androidx-test-ext-junit = "1.3.0"
+androidx-test-runner = "1.7.0"
+androidx-test-espresso = "3.7.0"
+
+[libraries]
+# AndroidX core
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+
+# Compose (versions come from the BOM)
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui" }
+androidx-compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+androidx-compose-material3-windowsizeclass = { module = "androidx.compose.material3:material3-window-size-class" } # tablet layouts (WindowSizeClass)
+androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
+
+# Persistence
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
+
+# App lock (BiometricPrompt with device-credential fallback, Apache-2.0)
+androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "androidx-biometric" }
+
+# Camera and QR (pairing scan)
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "androidx-camera" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "androidx-camera" }
+androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "androidx-camera" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "androidx-camera" }
+zxing-core = { module = "com.google.zxing:core", version.ref = "zxing" }
+
+# Media (preview: video, audio)
+androidx-media3-exoplayer = { module = "androidx.media3:media3-exoplayer", version.ref = "androidx-media3" }
+androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidx-media3" }
+androidx-media3-datasource-okhttp = { module = "androidx.media3:media3-datasource-okhttp", version.ref = "androidx-media3" }
+
+# Networking and images
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
+
+# Stream mode (ships native libraries; the 16 KB ELF check matters for this one)
+webrtc = { module = "org.jitsi:webrtc", version.ref = "webrtc" }
+
+# Kotlin libraries
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+# Test
+junit = { module = "junit:junit", version.ref = "junit" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver3", version.ref = "okhttp" }
+okhttp-tls = { module = "com.squareup.okhttp3:okhttp-tls", version.ref = "okhttp" }
+snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml" }
+androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext-junit" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
+androidx-test-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+cyclonedx = { id = "org.cyclonedx.bom", version.ref = "cyclonedx" }

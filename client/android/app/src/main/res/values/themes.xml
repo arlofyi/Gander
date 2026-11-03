@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Window theme only; all UI is Jetpack Compose (see ui/theme). Matches the system light or
+         dark setting, and the window background is the Gander `bg` token, so the window does not
+         flash a different colour before Compose draws. -->
+    <style name="Theme.Gander" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/gander_window_bg</item>
+    </style>
+</resources>

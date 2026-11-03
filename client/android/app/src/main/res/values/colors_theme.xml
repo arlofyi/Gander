@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The `bg` token, for the window background before Compose draws (ui/theme/Color.kt). -->
+    <color name="gander_window_bg">#F3F4F2</color>
+</resources>

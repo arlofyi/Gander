@@ -1,0 +1,2 @@
+epoch_ms=1793600155975 app sent to the background (HOME)
+epoch_ms=1793600176204 app brought back to the foreground

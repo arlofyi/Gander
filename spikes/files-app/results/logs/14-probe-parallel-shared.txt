@@ -1,0 +1,25 @@
+06:21:53.006 tid=5931 PROBE_BEGIN label=t0 step=seq:65536:20000000:131072 doc=sample-faststart.mp4
+06:21:53.007 tid=5932 PROBE_BEGIN label=t1 step=sleep:1000 doc=sample-faststart.mp4
+06:21:53.022 tid=5931 OPEN fd=9 doc=sample-faststart.mp4 mode=r pkg=fyi.arlo.gander.spike.files uid=10216 cancelable=false
+06:21:53.065 tid=5827 GETSIZE fd=9 size=30811338 thr=spike-proxy-fd
+06:21:53.069 tid=5931 OPEN_OK fd=9 readahead=0 perFdHandler=false
+06:21:54.009 tid=5932 PROBE_BEGIN label=t1 step=seq:65536:0:1048576 doc=sample-faststart.mp4
+06:21:54.010 tid=5932 OPEN fd=10 doc=sample-faststart.mp4 mode=r pkg=fyi.arlo.gander.spike.files uid=10216 cancelable=false
+06:21:58.079 tid=5827 READ fd=9 name=sample-faststart.mp4 off=19996672 size=69632 ret=69632 datalen=131072 cb_ms=5006.90 thr=spike-proxy-fd t=41307us
+06:21:58.080 tid=5827 GETSIZE fd=10 size=30811338 thr=spike-proxy-fd
+06:21:58.081 tid=5932 OPEN_OK fd=10 readahead=0 perFdHandler=false
+06:22:03.084 tid=5827 READ fd=9 name=sample-faststart.mp4 off=20066304 size=131072 ret=131072 datalen=131072 cb_ms=5004.11 thr=spike-proxy-fd t=5049072us
+06:22:03.085 tid=5931 PROBE_END label=t0 step=seq:65536:20000000:131072 client_calls=2 bytes=131072 ms=10079
+06:22:03.087 tid=5827 READ fd=10 name=sample-faststart.mp4 off=0 size=131072 ret=131072 datalen=131072 cb_ms=2.80 thr=spike-proxy-fd t=9073204us
+06:22:03.088 tid=5827 RELEASE fd=9 name=sample-faststart.mp4 opener=fyi.arlo.gander.spike.files reads=2 bytes=200704 http_requests=2 http_bytes=200704 sequential=2 fwd_jumps=0 back_jumps=0 sizes={69632=1, 131072=1} threads=[spike-proxy-fd] max_in_flight=1 life_ms=10056
+06:22:03.091 tid=5827 READ fd=10 name=sample-faststart.mp4 off=131072 size=131072 ret=131072 datalen=131072 cb_ms=2.19 thr=spike-proxy-fd t=9076968us
+06:22:03.095 tid=5827 READ fd=10 name=sample-faststart.mp4 off=262144 size=131072 ret=131072 datalen=131072 cb_ms=2.93 thr=spike-proxy-fd t=9080185us
+06:22:03.097 tid=5827 READ fd=10 name=sample-faststart.mp4 off=393216 size=131072 ret=131072 datalen=131072 cb_ms=1.54 thr=spike-proxy-fd t=9084384us
+06:22:03.109 tid=5827 READ fd=10 name=sample-faststart.mp4 off=524288 size=131072 ret=131072 datalen=131072 cb_ms=11.15 thr=spike-proxy-fd t=9086694us
+06:22:03.113 tid=5827 READ fd=10 name=sample-faststart.mp4 off=655360 size=131072 ret=131072 datalen=131072 cb_ms=3.02 thr=spike-proxy-fd t=9098858us
+06:22:03.116 tid=5827 READ fd=10 name=sample-faststart.mp4 off=786432 size=131072 ret=131072 datalen=131072 cb_ms=2.37 thr=spike-proxy-fd t=9102730us
+06:22:03.121 tid=5827 READ fd=10 name=sample-faststart.mp4 off=917504 size=131072 ret=131072 datalen=131072 cb_ms=3.04 thr=spike-proxy-fd t=9106687us
+06:22:03.124 tid=5827 READ fd=10 name=sample-faststart.mp4 off=1048576 size=131072 ret=131072 datalen=131072 cb_ms=2.01 thr=spike-proxy-fd t=9110785us
+06:22:03.125 tid=5932 PROBE_END label=t1 step=seq:65536:0:1048576 client_calls=16 bytes=1048576 ms=9115
+06:22:03.125 tid=5933 PROBE_ALL_DONE 
+06:22:03.126 tid=5827 RELEASE fd=10 name=sample-faststart.mp4 opener=fyi.arlo.gander.spike.files reads=9 bytes=1179648 http_requests=9 http_bytes=1179648 sequential=9 fwd_jumps=0 back_jumps=0 sizes={131072=9} threads=[spike-proxy-fd] max_in_flight=1 life_ms=9114

@@ -1,0 +1,114 @@
+name: host-windows
+
+# Host gates: format, lint, tests and dependency policy on a real Windows runner. Platform
+# specific code (#[cfg(windows)]) is only proven by building and testing it on Windows.
+# Actions are pinned to commit SHAs (tag in the trailing comment); bump deliberately (WP-82).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: host-windows-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+  RUST_BACKTRACE: "1"
+  CARGO_DENY_VERSION: "0.20.2"
+
+jobs:
+  host:
+    name: fmt, clippy, test, deny (windows-latest)
+    runs-on: windows-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install Rust toolchain
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt --component clippy
+          rustup default stable
+          rustc --version
+          cargo --version
+
+      # Stream audio (WP-55) encodes with libopus, which the opusic-sys crate builds from its bundled
+      # source through CMake and MSVC. The windows-latest image ships both; this fails early and
+      # clearly if CMake ever goes missing (3.16 or newer is required, no NASM or clang).
+      - name: CMake for the libopus build
+        run: cmake --version
+
+      - name: Cache cargo registry and build output
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            ~/.cargo/git/db
+            target
+          key: host-windows-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            host-windows-${{ runner.os }}-
+
+      - name: Cache cargo-deny
+        id: cache-deny
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cargo/bin/cargo-deny.exe
+          key: cargo-deny-${{ runner.os }}-${{ env.CARGO_DENY_VERSION }}
+
+      - name: Install cargo-deny
+        if: steps.cache-deny.outputs.cache-hit != 'true'
+        run: cargo install cargo-deny --locked --version "$CARGO_DENY_VERSION"
+
+      - name: Format
+        run: cargo fmt --all -- --check
+
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      - name: Build
+        run: cargo build --workspace
+
+      - name: Test
+        run: cargo test --workspace
+
+      - name: Test vectors parse
+        run: cargo xtask vectors-check
+
+      # WP-1B: a loopback test host (test-hooks build) on a generated fixture share, paired via
+      # the test hook, then the HTTP conformance suite; report in target/e2e/report.json.
+      # Non-blocking until it has a few green runs on hosted runners (render worker, file
+      # associations and ACLs differ from the dev laptop).
+      - name: Host e2e conformance
+        continue-on-error: true
+        run: cargo xtask e2e-host
+
+      - name: Dependency policy (licences, advisories, bans, sources)
+        run: cargo deny check
+
+      # WP-82: the CycloneDX 1.5 SBOM of the host payload (every crate linked into or built with
+      # gander-host and gander-render, with licences and the Cargo.lock SHA-256 of each), written
+      # by plain Rust (xtask/src/sbom.rs) and validated against the vendored CycloneDX schema. The
+      # MSI ships the same file as sbom/gander-host.cdx.json (`cargo xtask installer-build`).
+      - name: SBOM (CycloneDX 1.5)
+        run: cargo xtask sbom
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: gander-host-sbom
+          path: target/sbom/gander-host.cdx.json
+          if-no-files-found: error

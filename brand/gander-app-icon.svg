@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512">
+  <title>Gander app icon</title>
+  <desc>The lens in paper on a slate tile.</desc>
+  <rect width="100" height="100" rx="22" fill="#1d2a30"/>
+  <g transform="translate(13.8 13.8) scale(0.72)">
+  <g fill="none" stroke="#f4f2ec" stroke-linecap="round">
+    <circle cx="44" cy="44" r="31" stroke-width="8"/>
+    <path d="M37.5 73.5C31 60 44 55 46.5 38" stroke-width="9"/>
+    <path d="M65 65L85 85" stroke-width="11" stroke-linecap="butt"/>
+  </g>
+  <circle cx="85" cy="85" r="5.5" fill="#f4f2ec"/>
+  <path fill="#f4f2ec" fill-rule="evenodd" d="M56.5 33.5a9.5 9.5 0 1 0-19 0a9.5 9.5 0 1 0 19 0ZM53.4 30.7a2.2 2.2 0 1 0-4.4 0a2.2 2.2 0 1 0 4.4 0Z"/>
+  <path fill="#e2682a" stroke="#e2682a" stroke-width="1.6" stroke-linejoin="round" d="M54 28.5L73.5 34.5L54 39.5Z"/>
+  </g>
+</svg>

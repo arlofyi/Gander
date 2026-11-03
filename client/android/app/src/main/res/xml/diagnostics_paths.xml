@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What the diagnostics FileProvider may hand out: the one redacted report under
+     cacheDir/diagnostics/ and nothing else. -->
+<paths>
+    <cache-path name="diagnostics" path="diagnostics/" />
+</paths>

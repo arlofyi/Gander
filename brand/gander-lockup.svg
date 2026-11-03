@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 364 100" width="364" height="100">
+  <title>Gander</title>
+  <desc>The Gander lens with the word Gander set beside it.</desc>
+  <g fill="none" stroke="#1d2a30" stroke-linecap="round">
+    <circle cx="44" cy="44" r="31" stroke-width="8"/>
+    <path d="M37.5 73.5C31 60 44 55 46.5 38" stroke-width="9"/>
+    <path d="M65 65L85 85" stroke-width="11" stroke-linecap="butt"/>
+  </g>
+  <circle cx="85" cy="85" r="5.5" fill="#1d2a30"/>
+  <path fill="#1d2a30" fill-rule="evenodd" d="M56.5 33.5a9.5 9.5 0 1 0-19 0a9.5 9.5 0 1 0 19 0ZM53.4 30.7a2.2 2.2 0 1 0-4.4 0a2.2 2.2 0 1 0 4.4 0Z"/>
+  <path fill="#e2682a" stroke="#e2682a" stroke-width="1.6" stroke-linejoin="round" d="M54 28.5L73.5 34.5L54 39.5Z"/>
+  <!-- Wordmark: "Gander" drawn as monoline strokes (round caps, 7 wide, close to the weight of the lens ring), so it needs no font. -->
+  <g fill="none" stroke="#1d2a30" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" transform="translate(108 0)">
+    <path d="M41.5 31.2A21.5 21.5 0 1 0 46.5 45H28"/>
+    <circle cx="75" cy="52" r="14.5"/>
+    <path d="M89.5 37.5V66.5"/>
+    <path d="M102.5 66.5V37.5M102.5 52A14.5 14.5 0 0 1 131.5 52V66.5"/>
+    <circle cx="159" cy="52" r="14.5"/>
+    <path d="M173.5 23.5V66.5"/>
+    <path d="M186.5 52H215.5A14.5 14.5 0 1 0 212.1 61.3"/>
+    <path d="M228.5 66.5V37.5M228.5 52A14.5 14.5 0 0 1 243 37.5"/>
+  </g>
+</svg>

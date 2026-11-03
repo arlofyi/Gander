@@ -1,0 +1,15 @@
+spike-input ready signalling=ws://127.0.0.1:47440/ port=47440 advertise=Some(10.0.2.2) inject=postmessage
+connected in 1942 ms; offer candidates ["a=candidate:2693830880 1 udp 2130706431 127.0.0.1 52271 typ host", "a=candidate:2693830880 2 udp 2130706431 127.0.0.1 52271 typ host"]; answer candidates ["a=candidate:4278081238 1 udp 2122260223 10.0.2.15 38191 typ host generation 0 network-id 3 network-cost 900", "a=candidate:2783559211 1 udp 2122187263 fec0::5054:ff:fe12:3456 49856 typ host generation 0 network-id 4 network-cost 900"]
+status epoch_ms=1793600251288 frames_sent=140 dc_echoed=0
+status epoch_ms=1793600256328 frames_sent=291 dc_echoed=0
+status epoch_ms=1793600261361 frames_sent=439 dc_echoed=0
+status epoch_ms=1793600266387 frames_sent=589 dc_echoed=0
+status epoch_ms=1793600271415 frames_sent=739 dc_echoed=0
+status epoch_ms=1793600276445 frames_sent=890 dc_echoed=0
+status epoch_ms=1793600281470 frames_sent=1041 dc_echoed=0
+status epoch_ms=1793600286498 frames_sent=1191 dc_echoed=0
+viewer left epoch_ms=1793600288256
+
+# spike-input serve (c14-forcestop)
+source: Intel(R) Graphics / Intel® Quick Sync Video H.264 Encoder MFT, 1080x2280 @ 30 fps
+inject mode postmessage, advertise Some(10.0.2.2), taps handled 0

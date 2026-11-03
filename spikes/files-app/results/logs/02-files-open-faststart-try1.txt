@@ -1,0 +1,62 @@
+06:17:51.540 tid=3480 PROVIDER_CREATE pid=3480
+06:17:51.555 tid=3508 QUERY_ROOTS pkg=com.google.android.documentsui uid=10103
+06:17:51.596 tid=3508 QUERY_DOCUMENT id=root pkg=com.google.android.documentsui uid=10103
+06:17:52.079 tid=3508 QUERY_CHILDREN parent=root pkg=com.google.android.documentsui uid=10103
+06:17:52.118 tid=3508 HTTP_LISTEN addr=127.0.0.1 port=35751
+06:17:52.179 tid=3508 HEAD name=sample-faststart.mp4 size=30811338
+06:17:52.188 tid=3508 HEAD name=sample-moovend.mp4 size=30811338
+06:17:52.309 tid=3497 QUERY_CHILDREN parent=root pkg=com.google.android.documentsui uid=10103
+06:17:58.009 tid=3497 OPEN fd=1 doc=sample-faststart.mp4 mode=r pkg=com.google.android.apps.photos uid=10163 cancelable=false
+06:17:58.048 tid=3685 GETSIZE fd=1 size=30811338 thr=spike-proxy-fd
+06:17:58.055 tid=3497 OPEN_OK fd=1 readahead=0 perFdHandler=false
+06:17:58.078 tid=3685 RELEASE fd=1 name=sample-faststart.mp4 opener=com.google.android.apps.photos reads=0 bytes=0 http_requests=0 http_bytes=0 sequential=0 fwd_jumps=0 back_jumps=0 sizes={} threads=[spike-proxy-fd] max_in_flight=0 life_ms=64
+06:17:58.225 tid=3497 QUERY_DOCUMENT id=sample-faststart.mp4 pkg=com.google.android.apps.photos uid=10163
+06:17:58.229 tid=3497 QUERY_DOCUMENT id=sample-faststart.mp4 pkg=com.google.android.apps.photos uid=10163
+06:17:58.231 tid=3497 QUERY_DOCUMENT id=sample-faststart.mp4 pkg=com.google.android.apps.photos uid=10163
+06:17:58.234 tid=3497 QUERY_DOCUMENT id=sample-faststart.mp4 pkg=com.google.android.apps.photos uid=10163
+06:17:58.241 tid=3497 OPEN fd=2 doc=sample-faststart.mp4 mode=r pkg=com.google.android.apps.photos uid=10163 cancelable=false
+06:17:58.247 tid=3685 GETSIZE fd=2 size=30811338 thr=spike-proxy-fd
+06:17:58.250 tid=3497 OPEN_OK fd=2 readahead=0 perFdHandler=false
+06:17:58.256 tid=3497 QUERY_DOCUMENT id=sample-faststart.mp4 pkg=com.google.android.apps.photos uid=10163
+06:17:58.257 tid=3685 RELEASE fd=2 name=sample-faststart.mp4 opener=com.google.android.apps.photos reads=0 bytes=0 http_requests=0 http_bytes=0 sequential=0 fwd_jumps=0 back_jumps=0 sizes={} threads=[spike-proxy-fd] max_in_flight=0 life_ms=14
+06:17:58.261 tid=3497 QUERY_DOCUMENT id=sample-faststart.mp4 pkg=com.google.android.apps.photos uid=10163
+06:17:58.444 tid=3497 QUERY_DOCUMENT id=sample-faststart.mp4 pkg=com.google.android.apps.photos uid=10163
+06:17:58.481 tid=3497 QUERY_DOCUMENT id=sample-faststart.mp4 pkg=com.google.android.apps.photos uid=10163
+06:17:58.516 tid=3497 QUERY_DOCUMENT id=sample-faststart.mp4 pkg=com.google.android.apps.photos uid=10163
+06:17:58.534 tid=3497 QUERY_DOCUMENT id=sample-faststart.mp4 pkg=com.google.android.apps.photos uid=10163
+06:17:58.604 tid=3497 OPEN fd=3 doc=sample-faststart.mp4 mode=r pkg=com.google.android.apps.photos uid=10163 cancelable=false
+06:17:58.617 tid=3685 GETSIZE fd=3 size=30811338 thr=spike-proxy-fd
+06:17:58.619 tid=3497 OPEN_OK fd=3 readahead=0 perFdHandler=false
+06:17:58.693 tid=3685 READ fd=3 name=sample-faststart.mp4 off=0 size=16384 ret=16384 datalen=131072 cb_ms=3.07 thr=spike-proxy-fd t=85092us
+06:17:58.700 tid=3685 READ fd=3 name=sample-faststart.mp4 off=16384 size=32768 ret=32768 datalen=131072 cb_ms=2.19 thr=spike-proxy-fd t=92361us
+06:17:58.702 tid=3685 READ fd=3 name=sample-faststart.mp4 off=49152 size=65536 ret=65536 datalen=131072 cb_ms=1.19 thr=spike-proxy-fd t=96066us
+06:17:58.707 tid=3685 READ fd=3 name=sample-faststart.mp4 off=114688 size=131072 ret=131072 datalen=131072 cb_ms=1.42 thr=spike-proxy-fd t=100408us
+06:17:58.716 tid=3685 READ fd=3 name=sample-faststart.mp4 off=245760 size=131072 ret=131072 datalen=131072 cb_ms=1.87 thr=spike-proxy-fd t=108919us
+06:17:58.755 tid=3685 READ fd=3 name=sample-faststart.mp4 off=401408 size=8192 ret=8192 datalen=131072 cb_ms=1.58 thr=spike-proxy-fd t=148250us
+06:17:58.757 tid=3685 READ fd=3 name=sample-faststart.mp4 off=446464 size=4096 ret=4096 datalen=131072 cb_ms=1.28 thr=spike-proxy-fd t=150916us
+06:17:58.759 tid=3685 READ fd=3 name=sample-faststart.mp4 off=487424 size=8192 ret=8192 datalen=131072 cb_ms=1.24 thr=spike-proxy-fd t=153037us
+06:17:58.761 tid=3685 READ fd=3 name=sample-faststart.mp4 off=532480 size=4096 ret=4096 datalen=131072 cb_ms=0.94 thr=spike-proxy-fd t=155302us
+06:17:58.764 tid=3685 READ fd=3 name=sample-faststart.mp4 off=573440 size=4096 ret=4096 datalen=131072 cb_ms=0.97 thr=spike-proxy-fd t=157624us
+06:17:58.766 tid=3685 READ fd=3 name=sample-faststart.mp4 off=610304 size=4096 ret=4096 datalen=131072 cb_ms=0.68 thr=spike-proxy-fd t=160237us
+06:17:58.768 tid=3685 READ fd=3 name=sample-faststart.mp4 off=647168 size=4096 ret=4096 datalen=131072 cb_ms=0.98 thr=spike-proxy-fd t=162235us
+06:17:58.771 tid=3685 READ fd=3 name=sample-faststart.mp4 off=679936 size=8192 ret=8192 datalen=131072 cb_ms=1.17 thr=spike-proxy-fd t=164586us
+06:17:58.774 tid=3685 READ fd=3 name=sample-faststart.mp4 off=716800 size=8192 ret=8192 datalen=131072 cb_ms=1.07 thr=spike-proxy-fd t=167904us
+06:17:58.776 tid=3685 READ fd=3 name=sample-faststart.mp4 off=753664 size=4096 ret=4096 datalen=131072 cb_ms=0.75 thr=spike-proxy-fd t=170282us
+06:17:58.778 tid=3685 READ fd=3 name=sample-faststart.mp4 off=782336 size=8192 ret=8192 datalen=131072 cb_ms=1.00 thr=spike-proxy-fd t=172216us
+06:17:58.781 tid=3685 READ fd=3 name=sample-faststart.mp4 off=819200 size=4096 ret=4096 datalen=131072 cb_ms=0.97 thr=spike-proxy-fd t=174574us
+06:17:58.782 tid=3685 READ fd=3 name=sample-faststart.mp4 off=851968 size=4096 ret=4096 datalen=131072 cb_ms=0.87 thr=spike-proxy-fd t=176646us
+06:17:58.785 tid=3685 READ fd=3 name=sample-faststart.mp4 off=880640 size=8192 ret=8192 datalen=131072 cb_ms=1.04 thr=spike-proxy-fd t=179258us
+06:17:58.788 tid=3685 READ fd=3 name=sample-faststart.mp4 off=909312 size=8192 ret=8192 datalen=131072 cb_ms=1.62 thr=spike-proxy-fd t=181089us
+06:17:58.789 tid=3685 READ fd=3 name=sample-faststart.mp4 off=937984 size=4096 ret=4096 datalen=131072 cb_ms=0.98 thr=spike-proxy-fd t=183450us
+06:17:58.791 tid=3685 READ fd=3 name=sample-faststart.mp4 off=950272 size=8192 ret=8192 datalen=131072 cb_ms=0.96 thr=spike-proxy-fd t=184934us
+06:17:58.793 tid=3685 READ fd=3 name=sample-faststart.mp4 off=958464 size=12288 ret=12288 datalen=131072 cb_ms=0.92 thr=spike-proxy-fd t=186696us
+06:17:58.794 tid=3685 READ fd=3 name=sample-faststart.mp4 off=970752 size=73728 ret=73728 datalen=131072 cb_ms=0.95 thr=spike-proxy-fd t=188513us
+06:17:58.797 tid=3685 READ fd=3 name=sample-faststart.mp4 off=1044480 size=131072 ret=131072 datalen=131072 cb_ms=1.23 thr=spike-proxy-fd t=191061us
+06:17:58.801 tid=3685 READ fd=3 name=sample-faststart.mp4 off=376832 size=24576 ret=24576 datalen=131072 cb_ms=0.84 thr=spike-proxy-fd t=194916us
+06:17:58.802 tid=3685 READ fd=3 name=sample-faststart.mp4 off=409600 size=36864 ret=36864 datalen=131072 cb_ms=0.65 thr=spike-proxy-fd t=196194us
+06:17:58.803 tid=3685 READ fd=3 name=sample-faststart.mp4 off=450560 size=36864 ret=36864 datalen=131072 cb_ms=0.69 thr=spike-proxy-fd t=197370us
+06:17:58.804 tid=3685 READ fd=3 name=sample-faststart.mp4 off=495616 size=12288 ret=12288 datalen=131072 cb_ms=0.75 thr=spike-proxy-fd t=198632us
+06:17:58.807 tid=3685 READ fd=3 name=sample-faststart.mp4 off=507904 size=24576 ret=24576 datalen=131072 cb_ms=1.14 thr=spike-proxy-fd t=200790us
+06:17:58.809 tid=3685 READ fd=3 name=sample-faststart.mp4 off=536576 size=36864 ret=36864 datalen=131072 cb_ms=1.00 thr=spike-proxy-fd t=202697us
+06:17:58.813 tid=3685 READ fd=3 name=sample-faststart.mp4 off=577536 size=32768 ret=32768 datalen=131072 cb_ms=3.11 thr=spike-proxy-fd t=204705us
+06:17:58.816 tid=3685 READ fd=3 name=sample-faststart.mp4 off=614400 size=24576 ret=24576 datalen=131072 cb_ms=2.28 thr=spike-proxy-fd t=208675us

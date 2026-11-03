@@ -1,0 +1,273 @@
+06:21:49.373 tid=5902 PROBE_BEGIN label=t0 step=seq:1048576 doc=sample-faststart.mp4
+06:21:49.375 tid=5902 OPEN fd=8 doc=sample-faststart.mp4 mode=r pkg=fyi.arlo.gander.spike.files uid=10216 cancelable=false
+06:21:49.389 tid=5827 GETSIZE fd=8 size=30811338 thr=spike-proxy-fd
+06:21:49.394 tid=5902 OPEN_OK fd=8 readahead=1048576 perFdHandler=false
+06:21:49.402 tid=5827 FETCH fd=8 off=0 len=1048576 got=1048576 http_ms=6.75
+06:21:49.402 tid=5827 READ fd=8 name=sample-faststart.mp4 off=0 size=131072 ret=131072 datalen=131072 cb_ms=7.10 thr=spike-proxy-fd t=18453us
+06:21:49.404 tid=5827 READ fd=8 name=sample-faststart.mp4 off=131072 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=27209us
+06:21:49.405 tid=5827 READ fd=8 name=sample-faststart.mp4 off=262144 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=28020us
+06:21:49.406 tid=5827 READ fd=8 name=sample-faststart.mp4 off=393216 size=131072 ret=131072 datalen=131072 cb_ms=0.09 thr=spike-proxy-fd t=28780us
+06:21:49.406 tid=5827 READ fd=8 name=sample-faststart.mp4 off=524288 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=29595us
+06:21:49.407 tid=5827 READ fd=8 name=sample-faststart.mp4 off=655360 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=30496us
+06:21:49.410 tid=5827 READ fd=8 name=sample-faststart.mp4 off=786432 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=32906us
+06:21:49.412 tid=5827 READ fd=8 name=sample-faststart.mp4 off=917504 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=35013us
+06:21:49.424 tid=5827 FETCH fd=8 off=1048576 len=1048576 got=1048576 http_ms=7.61
+06:21:49.425 tid=5827 READ fd=8 name=sample-faststart.mp4 off=1048576 size=131072 ret=131072 datalen=131072 cb_ms=8.08 thr=spike-proxy-fd t=39854us
+06:21:49.427 tid=5827 READ fd=8 name=sample-faststart.mp4 off=1179648 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=50064us
+06:21:49.429 tid=5827 READ fd=8 name=sample-faststart.mp4 off=1310720 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=51329us
+06:21:49.451 tid=5827 READ fd=8 name=sample-faststart.mp4 off=1441792 size=131072 ret=131072 datalen=131072 cb_ms=0.14 thr=spike-proxy-fd t=74327us
+06:21:49.461 tid=5827 READ fd=8 name=sample-faststart.mp4 off=1572864 size=131072 ret=131072 datalen=131072 cb_ms=0.25 thr=spike-proxy-fd t=79028us
+06:21:49.476 tid=5827 READ fd=8 name=sample-faststart.mp4 off=1703936 size=131072 ret=131072 datalen=131072 cb_ms=0.13 thr=spike-proxy-fd t=98761us
+06:21:49.485 tid=5827 READ fd=8 name=sample-faststart.mp4 off=1835008 size=131072 ret=131072 datalen=131072 cb_ms=0.06 thr=spike-proxy-fd t=107551us
+06:21:49.493 tid=5827 READ fd=8 name=sample-faststart.mp4 off=1966080 size=131072 ret=131072 datalen=131072 cb_ms=0.08 thr=spike-proxy-fd t=116115us
+06:21:49.502 tid=5827 FETCH fd=8 off=2097152 len=1048576 got=1048576 http_ms=8.40
+06:21:49.503 tid=5827 READ fd=8 name=sample-faststart.mp4 off=2097152 size=131072 ret=131072 datalen=131072 cb_ms=8.70 thr=spike-proxy-fd t=116965us
+06:21:49.504 tid=5827 READ fd=8 name=sample-faststart.mp4 off=2228224 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=127167us
+06:21:49.505 tid=5827 READ fd=8 name=sample-faststart.mp4 off=2359296 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=127662us
+06:21:49.505 tid=5827 READ fd=8 name=sample-faststart.mp4 off=2490368 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=128026us
+06:21:49.505 tid=5827 READ fd=8 name=sample-faststart.mp4 off=2621440 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=128425us
+06:21:49.506 tid=5827 READ fd=8 name=sample-faststart.mp4 off=2752512 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=128742us
+06:21:49.506 tid=5827 READ fd=8 name=sample-faststart.mp4 off=2883584 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=129147us
+06:21:49.506 tid=5827 READ fd=8 name=sample-faststart.mp4 off=3014656 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=129495us
+06:21:49.520 tid=5827 FETCH fd=8 off=3145728 len=1048576 got=1048576 http_ms=12.88
+06:21:49.520 tid=5827 READ fd=8 name=sample-faststart.mp4 off=3145728 size=131072 ret=131072 datalen=131072 cb_ms=13.64 thr=spike-proxy-fd t=129817us
+06:21:49.528 tid=5827 READ fd=8 name=sample-faststart.mp4 off=3276800 size=131072 ret=131072 datalen=131072 cb_ms=0.06 thr=spike-proxy-fd t=146979us
+06:21:49.536 tid=5827 READ fd=8 name=sample-faststart.mp4 off=3407872 size=131072 ret=131072 datalen=131072 cb_ms=0.06 thr=spike-proxy-fd t=159065us
+06:21:49.542 tid=5827 READ fd=8 name=sample-faststart.mp4 off=3538944 size=131072 ret=131072 datalen=131072 cb_ms=0.07 thr=spike-proxy-fd t=165424us
+06:21:49.546 tid=5827 READ fd=8 name=sample-faststart.mp4 off=3670016 size=131072 ret=131072 datalen=131072 cb_ms=0.07 thr=spike-proxy-fd t=168565us
+06:21:49.552 tid=5827 READ fd=8 name=sample-faststart.mp4 off=3801088 size=131072 ret=131072 datalen=131072 cb_ms=0.13 thr=spike-proxy-fd t=174685us
+06:21:49.557 tid=5827 READ fd=8 name=sample-faststart.mp4 off=3932160 size=131072 ret=131072 datalen=131072 cb_ms=0.06 thr=spike-proxy-fd t=179713us
+06:21:49.558 tid=5827 READ fd=8 name=sample-faststart.mp4 off=4063232 size=131072 ret=131072 datalen=131072 cb_ms=0.07 thr=spike-proxy-fd t=180836us
+06:21:49.568 tid=5827 FETCH fd=8 off=4194304 len=1048576 got=1048576 http_ms=9.61
+06:21:49.568 tid=5827 READ fd=8 name=sample-faststart.mp4 off=4194304 size=131072 ret=131072 datalen=131072 cb_ms=9.96 thr=spike-proxy-fd t=181563us
+06:21:49.569 tid=5827 READ fd=8 name=sample-faststart.mp4 off=4325376 size=131072 ret=131072 datalen=131072 cb_ms=0.07 thr=spike-proxy-fd t=192108us
+06:21:49.569 tid=5827 READ fd=8 name=sample-faststart.mp4 off=4456448 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=192548us
+06:21:49.570 tid=5827 READ fd=8 name=sample-faststart.mp4 off=4587520 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=193281us
+06:21:49.571 tid=5827 READ fd=8 name=sample-faststart.mp4 off=4718592 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=193642us
+06:21:49.571 tid=5827 READ fd=8 name=sample-faststart.mp4 off=4849664 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=193997us
+06:21:49.571 tid=5827 READ fd=8 name=sample-faststart.mp4 off=4980736 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=194398us
+06:21:49.572 tid=5827 READ fd=8 name=sample-faststart.mp4 off=5111808 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=195026us
+06:21:49.577 tid=5827 FETCH fd=8 off=5242880 len=1048576 got=1048576 http_ms=4.51
+06:21:49.577 tid=5827 READ fd=8 name=sample-faststart.mp4 off=5242880 size=131072 ret=131072 datalen=131072 cb_ms=4.81 thr=spike-proxy-fd t=195468us
+06:21:49.578 tid=5827 READ fd=8 name=sample-faststart.mp4 off=5373952 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=200795us
+06:21:49.583 tid=5827 READ fd=8 name=sample-faststart.mp4 off=5505024 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=205702us
+06:21:49.583 tid=5827 READ fd=8 name=sample-faststart.mp4 off=5636096 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=206360us
+06:21:49.583 tid=5827 READ fd=8 name=sample-faststart.mp4 off=5767168 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=206620us
+06:21:49.584 tid=5827 READ fd=8 name=sample-faststart.mp4 off=5898240 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=206803us
+06:21:49.584 tid=5827 READ fd=8 name=sample-faststart.mp4 off=6029312 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=207302us
+06:21:49.585 tid=5827 READ fd=8 name=sample-faststart.mp4 off=6160384 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=207644us
+06:21:49.588 tid=5827 FETCH fd=8 off=6291456 len=1048576 got=1048576 http_ms=3.73
+06:21:49.589 tid=5827 READ fd=8 name=sample-faststart.mp4 off=6291456 size=131072 ret=131072 datalen=131072 cb_ms=3.98 thr=spike-proxy-fd t=207848us
+06:21:49.589 tid=5827 READ fd=8 name=sample-faststart.mp4 off=6422528 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=212323us
+06:21:49.590 tid=5827 READ fd=8 name=sample-faststart.mp4 off=6553600 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=212728us
+06:21:49.590 tid=5827 READ fd=8 name=sample-faststart.mp4 off=6684672 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=213064us
+06:21:49.591 tid=5827 READ fd=8 name=sample-faststart.mp4 off=6815744 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=213644us
+06:21:49.591 tid=5827 READ fd=8 name=sample-faststart.mp4 off=6946816 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=214098us
+06:21:49.593 tid=5827 READ fd=8 name=sample-faststart.mp4 off=7077888 size=131072 ret=131072 datalen=131072 cb_ms=0.07 thr=spike-proxy-fd t=216121us
+06:21:49.594 tid=5827 READ fd=8 name=sample-faststart.mp4 off=7208960 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=216809us
+06:21:49.602 tid=5827 FETCH fd=8 off=7340032 len=1048576 got=1048576 http_ms=7.70
+06:21:49.602 tid=5827 READ fd=8 name=sample-faststart.mp4 off=7340032 size=131072 ret=131072 datalen=131072 cb_ms=7.89 thr=spike-proxy-fd t=217071us
+06:21:49.602 tid=5827 READ fd=8 name=sample-faststart.mp4 off=7471104 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=225354us
+06:21:49.603 tid=5827 READ fd=8 name=sample-faststart.mp4 off=7602176 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=225715us
+06:21:49.603 tid=5827 READ fd=8 name=sample-faststart.mp4 off=7733248 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=226119us
+06:21:49.603 tid=5827 READ fd=8 name=sample-faststart.mp4 off=7864320 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=226421us
+06:21:49.604 tid=5827 READ fd=8 name=sample-faststart.mp4 off=7995392 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=227172us
+06:21:49.604 tid=5827 READ fd=8 name=sample-faststart.mp4 off=8126464 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=227518us
+06:21:49.605 tid=5827 READ fd=8 name=sample-faststart.mp4 off=8257536 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=227859us
+06:21:49.612 tid=5827 FETCH fd=8 off=8388608 len=1048576 got=1048576 http_ms=6.81
+06:21:49.613 tid=5827 READ fd=8 name=sample-faststart.mp4 off=8388608 size=131072 ret=131072 datalen=131072 cb_ms=7.58 thr=spike-proxy-fd t=228178us
+06:21:49.616 tid=5827 READ fd=8 name=sample-faststart.mp4 off=8519680 size=131072 ret=131072 datalen=131072 cb_ms=0.06 thr=spike-proxy-fd t=239017us
+06:21:49.617 tid=5827 READ fd=8 name=sample-faststart.mp4 off=8650752 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=240049us
+06:21:49.618 tid=5827 READ fd=8 name=sample-faststart.mp4 off=8781824 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=240668us
+06:21:49.618 tid=5827 READ fd=8 name=sample-faststart.mp4 off=8912896 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=241343us
+06:21:49.619 tid=5827 READ fd=8 name=sample-faststart.mp4 off=9043968 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=242010us
+06:21:49.621 tid=5827 READ fd=8 name=sample-faststart.mp4 off=9175040 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=243603us
+06:21:49.621 tid=5827 READ fd=8 name=sample-faststart.mp4 off=9306112 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=244376us
+06:21:49.629 tid=5827 FETCH fd=8 off=9437184 len=1048576 got=1048576 http_ms=7.17
+06:21:49.629 tid=5827 READ fd=8 name=sample-faststart.mp4 off=9437184 size=131072 ret=131072 datalen=131072 cb_ms=7.47 thr=spike-proxy-fd t=245035us
+06:21:49.632 tid=5827 READ fd=8 name=sample-faststart.mp4 off=9568256 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=255115us
+06:21:49.634 tid=5827 READ fd=8 name=sample-faststart.mp4 off=9699328 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=256777us
+06:21:49.635 tid=5827 READ fd=8 name=sample-faststart.mp4 off=9830400 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=257693us
+06:21:49.635 tid=5827 READ fd=8 name=sample-faststart.mp4 off=9961472 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=258399us
+06:21:49.636 tid=5827 READ fd=8 name=sample-faststart.mp4 off=10092544 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=259100us
+06:21:49.637 tid=5827 READ fd=8 name=sample-faststart.mp4 off=10223616 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=259825us
+06:21:49.638 tid=5827 READ fd=8 name=sample-faststart.mp4 off=10354688 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=260967us
+06:21:49.645 tid=5827 FETCH fd=8 off=10485760 len=1048576 got=1048576 http_ms=6.43
+06:21:49.646 tid=5827 READ fd=8 name=sample-faststart.mp4 off=10485760 size=131072 ret=131072 datalen=131072 cb_ms=7.11 thr=spike-proxy-fd t=261868us
+06:21:49.649 tid=5827 READ fd=8 name=sample-faststart.mp4 off=10616832 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=271814us
+06:21:49.650 tid=5827 READ fd=8 name=sample-faststart.mp4 off=10747904 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=272609us
+06:21:49.650 tid=5827 READ fd=8 name=sample-faststart.mp4 off=10878976 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=273365us
+06:21:49.651 tid=5827 READ fd=8 name=sample-faststart.mp4 off=11010048 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=273984us
+06:21:49.652 tid=5827 READ fd=8 name=sample-faststart.mp4 off=11141120 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=274729us
+06:21:49.652 tid=5827 READ fd=8 name=sample-faststart.mp4 off=11272192 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=275359us
+06:21:49.653 tid=5827 READ fd=8 name=sample-faststart.mp4 off=11403264 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=276066us
+06:21:49.660 tid=5827 FETCH fd=8 off=11534336 len=1048576 got=1048576 http_ms=6.76
+06:21:49.661 tid=5827 READ fd=8 name=sample-faststart.mp4 off=11534336 size=131072 ret=131072 datalen=131072 cb_ms=7.13 thr=spike-proxy-fd t=276654us
+06:21:49.662 tid=5827 READ fd=8 name=sample-faststart.mp4 off=11665408 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=284650us
+06:21:49.666 tid=5827 READ fd=8 name=sample-faststart.mp4 off=11796480 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=288705us
+06:21:49.667 tid=5827 READ fd=8 name=sample-faststart.mp4 off=11927552 size=131072 ret=131072 datalen=131072 cb_ms=0.06 thr=spike-proxy-fd t=289709us
+06:21:49.668 tid=5827 READ fd=8 name=sample-faststart.mp4 off=12058624 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=290933us
+06:21:49.669 tid=5827 READ fd=8 name=sample-faststart.mp4 off=12189696 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=291838us
+06:21:49.670 tid=5827 READ fd=8 name=sample-faststart.mp4 off=12320768 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=292700us
+06:21:49.671 tid=5827 READ fd=8 name=sample-faststart.mp4 off=12451840 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=293662us
+06:21:49.680 tid=5827 FETCH fd=8 off=12582912 len=1048576 got=1048576 http_ms=6.65
+06:21:49.680 tid=5827 READ fd=8 name=sample-faststart.mp4 off=12582912 size=131072 ret=131072 datalen=131072 cb_ms=7.14 thr=spike-proxy-fd t=296333us
+06:21:49.723 tid=5827 READ fd=8 name=sample-faststart.mp4 off=12713984 size=131072 ret=131072 datalen=131072 cb_ms=0.06 thr=spike-proxy-fd t=346398us
+06:21:49.724 tid=5827 READ fd=8 name=sample-faststart.mp4 off=12845056 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=347506us
+06:21:49.725 tid=5827 READ fd=8 name=sample-faststart.mp4 off=12976128 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=348131us
+06:21:49.726 tid=5827 READ fd=8 name=sample-faststart.mp4 off=13107200 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=349214us
+06:21:49.738 tid=5827 READ fd=8 name=sample-faststart.mp4 off=13238272 size=131072 ret=131072 datalen=131072 cb_ms=0.06 thr=spike-proxy-fd t=361464us
+06:21:49.747 tid=5827 READ fd=8 name=sample-faststart.mp4 off=13369344 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=368218us
+06:21:49.752 tid=5827 READ fd=8 name=sample-faststart.mp4 off=13500416 size=131072 ret=131072 datalen=131072 cb_ms=0.06 thr=spike-proxy-fd t=374592us
+06:21:49.761 tid=5827 FETCH fd=8 off=13631488 len=1048576 got=1048576 http_ms=5.27
+06:21:49.761 tid=5827 READ fd=8 name=sample-faststart.mp4 off=13631488 size=131072 ret=131072 datalen=131072 cb_ms=6.03 thr=spike-proxy-fd t=378597us
+06:21:49.770 tid=5827 READ fd=8 name=sample-faststart.mp4 off=13762560 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=392983us
+06:21:49.772 tid=5827 READ fd=8 name=sample-faststart.mp4 off=13893632 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=394885us
+06:21:49.772 tid=5827 READ fd=8 name=sample-faststart.mp4 off=14024704 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=395521us
+06:21:49.773 tid=5827 READ fd=8 name=sample-faststart.mp4 off=14155776 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=396133us
+06:21:49.773 tid=5827 READ fd=8 name=sample-faststart.mp4 off=14286848 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=396609us
+06:21:49.774 tid=5827 READ fd=8 name=sample-faststart.mp4 off=14417920 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=397065us
+06:21:49.774 tid=5827 READ fd=8 name=sample-faststart.mp4 off=14548992 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=397563us
+06:21:49.779 tid=5827 FETCH fd=8 off=14680064 len=1048576 got=1048576 http_ms=4.03
+06:21:49.779 tid=5827 READ fd=8 name=sample-faststart.mp4 off=14680064 size=131072 ret=131072 datalen=131072 cb_ms=4.13 thr=spike-proxy-fd t=398053us
+06:21:49.782 tid=5827 READ fd=8 name=sample-faststart.mp4 off=14811136 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=404697us
+06:21:49.786 tid=5827 READ fd=8 name=sample-faststart.mp4 off=14942208 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=408554us
+06:21:49.787 tid=5827 READ fd=8 name=sample-faststart.mp4 off=15073280 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=409604us
+06:21:49.787 tid=5827 READ fd=8 name=sample-faststart.mp4 off=15204352 size=131072 ret=131072 datalen=131072 cb_ms=0.13 thr=spike-proxy-fd t=410075us
+06:21:49.788 tid=5827 READ fd=8 name=sample-faststart.mp4 off=15335424 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=411057us
+06:21:49.788 tid=5827 READ fd=8 name=sample-faststart.mp4 off=15466496 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=411463us
+06:21:49.789 tid=5827 READ fd=8 name=sample-faststart.mp4 off=15597568 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=411838us
+06:21:49.791 tid=5827 FETCH fd=8 off=15728640 len=1048576 got=1048576 http_ms=2.21
+06:21:49.791 tid=5827 READ fd=8 name=sample-faststart.mp4 off=15728640 size=131072 ret=131072 datalen=131072 cb_ms=2.30 thr=spike-proxy-fd t=412325us
+06:21:49.792 tid=5827 READ fd=8 name=sample-faststart.mp4 off=15859712 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=415022us
+06:21:49.793 tid=5827 READ fd=8 name=sample-faststart.mp4 off=15990784 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=415771us
+06:21:49.793 tid=5827 READ fd=8 name=sample-faststart.mp4 off=16121856 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=416253us
+06:21:49.794 tid=5827 READ fd=8 name=sample-faststart.mp4 off=16252928 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=416736us
+06:21:49.794 tid=5827 READ fd=8 name=sample-faststart.mp4 off=16384000 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=417254us
+06:21:49.795 tid=5827 READ fd=8 name=sample-faststart.mp4 off=16515072 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=417731us
+06:21:49.797 tid=5827 READ fd=8 name=sample-faststart.mp4 off=16646144 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=419620us
+06:21:49.805 tid=5827 FETCH fd=8 off=16777216 len=1048576 got=1048576 http_ms=8.02
+06:21:49.805 tid=5827 READ fd=8 name=sample-faststart.mp4 off=16777216 size=131072 ret=131072 datalen=131072 cb_ms=8.19 thr=spike-proxy-fd t=420448us
+06:21:49.806 tid=5827 READ fd=8 name=sample-faststart.mp4 off=16908288 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=429339us
+06:21:49.807 tid=5827 READ fd=8 name=sample-faststart.mp4 off=17039360 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=430028us
+06:21:49.808 tid=5827 READ fd=8 name=sample-faststart.mp4 off=17170432 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=431133us
+06:21:49.809 tid=5827 READ fd=8 name=sample-faststart.mp4 off=17301504 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=431796us
+06:21:49.809 tid=5827 READ fd=8 name=sample-faststart.mp4 off=17432576 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=432431us
+06:21:49.810 tid=5827 READ fd=8 name=sample-faststart.mp4 off=17563648 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=433084us
+06:21:49.811 tid=5827 READ fd=8 name=sample-faststart.mp4 off=17694720 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=433752us
+06:21:49.817 tid=5827 FETCH fd=8 off=17825792 len=1048576 got=1048576 http_ms=3.87
+06:21:49.817 tid=5827 READ fd=8 name=sample-faststart.mp4 off=17825792 size=131072 ret=131072 datalen=131072 cb_ms=4.16 thr=spike-proxy-fd t=436287us
+06:21:49.819 tid=5827 READ fd=8 name=sample-faststart.mp4 off=17956864 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=442313us
+06:21:49.820 tid=5827 READ fd=8 name=sample-faststart.mp4 off=18087936 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=443267us
+06:21:49.821 tid=5827 READ fd=8 name=sample-faststart.mp4 off=18219008 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=444286us
+06:21:49.822 tid=5827 READ fd=8 name=sample-faststart.mp4 off=18350080 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=444984us
+06:21:49.823 tid=5827 READ fd=8 name=sample-faststart.mp4 off=18481152 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=445726us
+06:21:49.823 tid=5827 READ fd=8 name=sample-faststart.mp4 off=18612224 size=131072 ret=131072 datalen=131072 cb_ms=0.14 thr=spike-proxy-fd t=446471us
+06:21:49.824 tid=5827 READ fd=8 name=sample-faststart.mp4 off=18743296 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=447290us
+06:21:49.829 tid=5827 FETCH fd=8 off=18874368 len=1048576 got=1048576 http_ms=4.12
+06:21:49.829 tid=5827 READ fd=8 name=sample-faststart.mp4 off=18874368 size=131072 ret=131072 datalen=131072 cb_ms=4.29 thr=spike-proxy-fd t=447957us
+06:21:49.830 tid=5827 READ fd=8 name=sample-faststart.mp4 off=19005440 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=453034us
+06:21:49.831 tid=5827 READ fd=8 name=sample-faststart.mp4 off=19136512 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=454054us
+06:21:49.832 tid=5827 READ fd=8 name=sample-faststart.mp4 off=19267584 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=455091us
+06:21:49.836 tid=5827 READ fd=8 name=sample-faststart.mp4 off=19398656 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=459045us
+06:21:49.837 tid=5827 READ fd=8 name=sample-faststart.mp4 off=19529728 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=460058us
+06:21:49.838 tid=5827 READ fd=8 name=sample-faststart.mp4 off=19660800 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=461344us
+06:21:49.839 tid=5827 READ fd=8 name=sample-faststart.mp4 off=19791872 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=462048us
+06:21:49.844 tid=5827 FETCH fd=8 off=19922944 len=1048576 got=1048576 http_ms=4.13
+06:21:49.844 tid=5827 READ fd=8 name=sample-faststart.mp4 off=19922944 size=131072 ret=131072 datalen=131072 cb_ms=4.24 thr=spike-proxy-fd t=462709us
+06:21:49.844 tid=5827 READ fd=8 name=sample-faststart.mp4 off=20054016 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=467536us
+06:21:49.846 tid=5827 READ fd=8 name=sample-faststart.mp4 off=20185088 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=469089us
+06:21:49.847 tid=5827 READ fd=8 name=sample-faststart.mp4 off=20316160 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=470318us
+06:21:49.849 tid=5827 READ fd=8 name=sample-faststart.mp4 off=20447232 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=471659us
+06:21:49.853 tid=5827 READ fd=8 name=sample-faststart.mp4 off=20578304 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=475718us
+06:21:49.854 tid=5827 READ fd=8 name=sample-faststart.mp4 off=20709376 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=476775us
+06:21:49.855 tid=5827 READ fd=8 name=sample-faststart.mp4 off=20840448 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=477669us
+06:21:49.859 tid=5827 FETCH fd=8 off=20971520 len=1048576 got=1048576 http_ms=3.56
+06:21:49.859 tid=5827 READ fd=8 name=sample-faststart.mp4 off=20971520 size=131072 ret=131072 datalen=131072 cb_ms=3.73 thr=spike-proxy-fd t=478439us
+06:21:49.860 tid=5827 READ fd=8 name=sample-faststart.mp4 off=21102592 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=483026us
+06:21:49.861 tid=5827 READ fd=8 name=sample-faststart.mp4 off=21233664 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=483683us
+06:21:49.862 tid=5827 READ fd=8 name=sample-faststart.mp4 off=21364736 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=485190us
+06:21:49.864 tid=5827 READ fd=8 name=sample-faststart.mp4 off=21495808 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=487032us
+06:21:49.865 tid=5827 READ fd=8 name=sample-faststart.mp4 off=21626880 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=487752us
+06:21:49.865 tid=5827 READ fd=8 name=sample-faststart.mp4 off=21757952 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=488499us
+06:21:49.866 tid=5827 READ fd=8 name=sample-faststart.mp4 off=21889024 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=489230us
+06:21:49.871 tid=5827 FETCH fd=8 off=22020096 len=1048576 got=1048576 http_ms=2.48
+06:21:49.871 tid=5827 READ fd=8 name=sample-faststart.mp4 off=22020096 size=131072 ret=131072 datalen=131072 cb_ms=2.62 thr=spike-proxy-fd t=491233us
+06:21:49.872 tid=5827 READ fd=8 name=sample-faststart.mp4 off=22151168 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=495548us
+06:21:49.873 tid=5827 READ fd=8 name=sample-faststart.mp4 off=22282240 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=496229us
+06:21:49.874 tid=5827 READ fd=8 name=sample-faststart.mp4 off=22413312 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=496864us
+06:21:49.874 tid=5827 READ fd=8 name=sample-faststart.mp4 off=22544384 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=497496us
+06:21:49.875 tid=5827 READ fd=8 name=sample-faststart.mp4 off=22675456 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=498220us
+06:21:49.876 tid=5827 READ fd=8 name=sample-faststart.mp4 off=22806528 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=498835us
+06:21:49.877 tid=5827 READ fd=8 name=sample-faststart.mp4 off=22937600 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=499718us
+06:21:49.884 tid=5827 FETCH fd=8 off=23068672 len=1048576 got=1048576 http_ms=6.08
+06:21:49.884 tid=5827 READ fd=8 name=sample-faststart.mp4 off=23068672 size=131072 ret=131072 datalen=131072 cb_ms=6.25 thr=spike-proxy-fd t=500684us
+06:21:49.885 tid=5827 READ fd=8 name=sample-faststart.mp4 off=23199744 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=508071us
+06:21:49.886 tid=5827 READ fd=8 name=sample-faststart.mp4 off=23330816 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=508850us
+06:21:49.886 tid=5827 READ fd=8 name=sample-faststart.mp4 off=23461888 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=509584us
+06:21:49.887 tid=5827 READ fd=8 name=sample-faststart.mp4 off=23592960 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=510599us
+06:21:49.888 tid=5827 READ fd=8 name=sample-faststart.mp4 off=23724032 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=511383us
+06:21:49.889 tid=5827 READ fd=8 name=sample-faststart.mp4 off=23855104 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=512413us
+06:21:49.890 tid=5827 READ fd=8 name=sample-faststart.mp4 off=23986176 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=513192us
+06:21:49.895 tid=5827 FETCH fd=8 off=24117248 len=1048576 got=1048576 http_ms=4.36
+06:21:49.895 tid=5827 READ fd=8 name=sample-faststart.mp4 off=24117248 size=131072 ret=131072 datalen=131072 cb_ms=4.49 thr=spike-proxy-fd t=514085us
+06:21:49.897 tid=5827 READ fd=8 name=sample-faststart.mp4 off=24248320 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=520495us
+06:21:49.898 tid=5827 READ fd=8 name=sample-faststart.mp4 off=24379392 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=521419us
+06:21:49.899 tid=5827 READ fd=8 name=sample-faststart.mp4 off=24510464 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=522296us
+06:21:49.902 tid=5827 READ fd=8 name=sample-faststart.mp4 off=24641536 size=131072 ret=131072 datalen=131072 cb_ms=0.49 thr=spike-proxy-fd t=524651us
+06:21:49.903 tid=5827 READ fd=8 name=sample-faststart.mp4 off=24772608 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=525960us
+06:21:49.904 tid=5827 READ fd=8 name=sample-faststart.mp4 off=24903680 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=526625us
+06:21:49.905 tid=5827 READ fd=8 name=sample-faststart.mp4 off=25034752 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=527781us
+06:21:49.908 tid=5827 FETCH fd=8 off=25165824 len=1048576 got=1048576 http_ms=2.89
+06:21:49.908 tid=5827 READ fd=8 name=sample-faststart.mp4 off=25165824 size=131072 ret=131072 datalen=131072 cb_ms=3.06 thr=spike-proxy-fd t=528554us
+06:21:49.909 tid=5827 READ fd=8 name=sample-faststart.mp4 off=25296896 size=131072 ret=131072 datalen=131072 cb_ms=0.08 thr=spike-proxy-fd t=532351us
+06:21:49.910 tid=5827 READ fd=8 name=sample-faststart.mp4 off=25427968 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=533057us
+06:21:49.910 tid=5827 READ fd=8 name=sample-faststart.mp4 off=25559040 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=533578us
+06:21:49.911 tid=5827 READ fd=8 name=sample-faststart.mp4 off=25690112 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=534137us
+06:21:49.915 tid=5827 READ fd=8 name=sample-faststart.mp4 off=25821184 size=131072 ret=131072 datalen=131072 cb_ms=0.09 thr=spike-proxy-fd t=537946us
+06:21:49.916 tid=5827 READ fd=8 name=sample-faststart.mp4 off=25952256 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=538841us
+06:21:49.917 tid=5827 READ fd=8 name=sample-faststart.mp4 off=26083328 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=539652us
+06:21:49.923 tid=5827 FETCH fd=8 off=26214400 len=1048576 got=1048576 http_ms=4.34
+06:21:49.924 tid=5827 READ fd=8 name=sample-faststart.mp4 off=26214400 size=131072 ret=131072 datalen=131072 cb_ms=4.56 thr=spike-proxy-fd t=542140us
+06:21:49.924 tid=5827 READ fd=8 name=sample-faststart.mp4 off=26345472 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=547438us
+06:21:49.925 tid=5827 READ fd=8 name=sample-faststart.mp4 off=26476544 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=548450us
+06:21:49.926 tid=5827 READ fd=8 name=sample-faststart.mp4 off=26607616 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=549255us
+06:21:49.927 tid=5827 READ fd=8 name=sample-faststart.mp4 off=26738688 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=550025us
+06:21:49.928 tid=5827 READ fd=8 name=sample-faststart.mp4 off=26869760 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=550758us
+06:21:49.931 tid=5827 READ fd=8 name=sample-faststart.mp4 off=27000832 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=554386us
+06:21:49.933 tid=5827 READ fd=8 name=sample-faststart.mp4 off=27131904 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=555704us
+06:21:49.937 tid=5827 FETCH fd=8 off=27262976 len=1048576 got=1048576 http_ms=3.11
+06:21:49.937 tid=5827 READ fd=8 name=sample-faststart.mp4 off=27262976 size=131072 ret=131072 datalen=131072 cb_ms=3.22 thr=spike-proxy-fd t=556536us
+06:21:49.938 tid=5827 READ fd=8 name=sample-faststart.mp4 off=27394048 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=560771us
+06:21:49.939 tid=5827 READ fd=8 name=sample-faststart.mp4 off=27525120 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=561996us
+06:21:49.940 tid=5827 READ fd=8 name=sample-faststart.mp4 off=27656192 size=131072 ret=131072 datalen=131072 cb_ms=0.07 thr=spike-proxy-fd t=562829us
+06:21:49.941 tid=5827 READ fd=8 name=sample-faststart.mp4 off=27787264 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=563626us
+06:21:49.941 tid=5827 READ fd=8 name=sample-faststart.mp4 off=27918336 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=564318us
+06:21:49.942 tid=5827 READ fd=8 name=sample-faststart.mp4 off=28049408 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=565237us
+06:21:49.943 tid=5827 READ fd=8 name=sample-faststart.mp4 off=28180480 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=565915us
+06:21:49.949 tid=5827 FETCH fd=8 off=28311552 len=1048576 got=1048576 http_ms=5.62
+06:21:49.949 tid=5827 READ fd=8 name=sample-faststart.mp4 off=28311552 size=131072 ret=131072 datalen=131072 cb_ms=5.72 thr=spike-proxy-fd t=566681us
+06:21:49.952 tid=5827 READ fd=8 name=sample-faststart.mp4 off=28442624 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=575168us
+06:21:49.953 tid=5827 READ fd=8 name=sample-faststart.mp4 off=28573696 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=575905us
+06:21:49.954 tid=5827 READ fd=8 name=sample-faststart.mp4 off=28704768 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=576883us
+06:21:49.955 tid=5827 READ fd=8 name=sample-faststart.mp4 off=28835840 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=577709us
+06:21:49.955 tid=5827 READ fd=8 name=sample-faststart.mp4 off=28966912 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=578514us
+06:21:49.956 tid=5827 READ fd=8 name=sample-faststart.mp4 off=29097984 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=579089us
+06:21:49.957 tid=5827 READ fd=8 name=sample-faststart.mp4 off=29229056 size=131072 ret=131072 datalen=131072 cb_ms=0.04 thr=spike-proxy-fd t=579877us
+06:21:49.960 tid=5827 FETCH fd=8 off=29360128 len=1048576 got=1048576 http_ms=2.97
+06:21:49.960 tid=5827 READ fd=8 name=sample-faststart.mp4 off=29360128 size=131072 ret=131072 datalen=131072 cb_ms=3.06 thr=spike-proxy-fd t=580510us
+06:21:49.961 tid=5827 READ fd=8 name=sample-faststart.mp4 off=29491200 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=583931us
+06:21:49.961 tid=5827 READ fd=8 name=sample-faststart.mp4 off=29622272 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=584327us
+06:21:49.964 tid=5827 READ fd=8 name=sample-faststart.mp4 off=29753344 size=131072 ret=131072 datalen=131072 cb_ms=0.07 thr=spike-proxy-fd t=587456us
+06:21:49.965 tid=5827 READ fd=8 name=sample-faststart.mp4 off=29884416 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=588434us
+06:21:49.967 tid=5827 READ fd=8 name=sample-faststart.mp4 off=30015488 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=590224us
+06:21:49.970 tid=5827 READ fd=8 name=sample-faststart.mp4 off=30146560 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=592645us
+06:21:49.970 tid=5827 READ fd=8 name=sample-faststart.mp4 off=30277632 size=131072 ret=131072 datalen=131072 cb_ms=0.03 thr=spike-proxy-fd t=593454us
+06:21:49.974 tid=5827 FETCH fd=8 off=30408704 len=402634 got=402634 http_ms=3.04
+06:21:49.974 tid=5827 READ fd=8 name=sample-faststart.mp4 off=30408704 size=131072 ret=131072 datalen=131072 cb_ms=3.20 thr=spike-proxy-fd t=594270us
+06:21:49.975 tid=5827 READ fd=8 name=sample-faststart.mp4 off=30539776 size=131072 ret=131072 datalen=131072 cb_ms=0.05 thr=spike-proxy-fd t=598048us
+06:21:49.976 tid=5827 READ fd=8 name=sample-faststart.mp4 off=30670848 size=131072 ret=131072 datalen=131072 cb_ms=0.02 thr=spike-proxy-fd t=598926us
+06:21:49.976 tid=5827 READ fd=8 name=sample-faststart.mp4 off=30801920 size=12288 ret=9418 datalen=131072 cb_ms=0.01 thr=spike-proxy-fd t=599579us
+06:21:49.977 tid=5902 PROBE_END label=t0 step=seq:1048576 client_calls=30 bytes=30811338 ms=603
+06:21:49.977 tid=5827 RELEASE fd=8 name=sample-faststart.mp4 opener=fyi.arlo.gander.spike.files reads=236 bytes=30811338 http_requests=30 http_bytes=30811338 sequential=236 fwd_jumps=0 back_jumps=0 sizes={12288=1, 131072=235} threads=[spike-proxy-fd] max_in_flight=1 life_ms=600
+06:21:49.978 tid=5903 PROBE_ALL_DONE 

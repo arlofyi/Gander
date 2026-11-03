@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Reaches hosts over the user's private network (Tailscale, Headscale, ZeroTier, WireGuard).
+         Notification permission arrives with the package that uses it. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Camera: only to scan the pairing QR code. Requested when the scan screen opens; a device
+         without a camera (or a user who declines) pairs with the manual address flow instead. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <!-- Fetch engine (WP-27): downloads run under a foreground service of type dataSync with a
+         progress notification. POST_NOTIFICATIONS is asked for (Android 13+) the first time the
+         user fetches; without it the download still runs, only the notification is hidden. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Package visibility (Android 11+) for the file sheet's default-action rule: which installed apps can
+         open a file type (ACTION_VIEW with a MIME type). Only the question is declared; no app is named. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:mimeType="*/*" />
+        </intent>
+    </queries>
+
+    <!-- allowBackup stays true on purpose (android-client-v1 spec, "Security on the device"):
+         the extraction rules below keep every byte of app data, including the token store and
+         host pins, out of cloud backup and device transfer. Hosts are re-paired after a restore.
+         Traffic is TLS to a pinned host certificate; cleartext is never allowed. -->
+    <application
+        android:name=".GanderApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Gander"
+        android:usesCleartextTraffic="false">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Gander">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Keeps the process in the foreground while files are fetched. Not exported. -->
+        <service
+            android:name=".ui.fetch.FetchService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!-- Fetched files reach other apps only as content:// URIs with a one-off read grant
+             (Open with, Share). Paths: res/xml/fetched_paths.xml (filesDir/fetched/ only). -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fetched"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fetched_paths" />
+        </provider>
+
+        <!-- The redacted diagnostics report (Settings, "Export diagnostics") reaches the share sheet
+             the same way, from its own provider (a FileProvider subclass: one class name per provider) so the
+             one above keeps exposing fetched/ only.
+             Paths: res/xml/diagnostics_paths.xml (cacheDir/diagnostics/ only). -->
+        <provider
+            android:name=".ui.settings.DiagnosticsFileProvider"
+            android:authorities="${applicationId}.diagnostics"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/diagnostics_paths" />
+        </provider>
+
+        <!-- The Files-app integration (WP-60): paired computers as Storage Access Framework roots,
+             read only. Exported because the system Files app and pickers bind to it; only holders
+             of MANAGE_DOCUMENTS (the system) may query it, other apps reach a document only through
+             a URI grant the user gave them. -->
+        <provider
+            android:name=".documents.GanderDocumentsProvider"
+            android:authorities="${applicationId}.documents"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
+    </application>
+
+</manifest>

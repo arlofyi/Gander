@@ -1,0 +1,23 @@
+[package]
+name = "spike-identity"
+description = "WP-46 spike: Tailscale LocalAPI whois/status from an unelevated process, with a CLI fallback."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+serde_json.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { workspace = true, features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_Security_Authorization",
+    "Win32_System_Threading",
+] }
+
+[lints]
+workspace = true
