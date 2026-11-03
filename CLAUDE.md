@@ -22,9 +22,13 @@ folder is still named `OTG View`.
 
 ## Status
 
-**Phase 0 and Phase 1 are built and gated; Phase 2 is mostly built.** Night 1 (2026-11-01 to 02)
-ran on the integration branch `night-1`; nothing is pushed, there is no remote, `main` has not been
-merged into. Details, evidence and the owner's open items are in `docs/context.md`.
+**Version 0.1.1 (host) / 0.1.0 (Android).** Phases 0 and 1 are built and gated; Phase 2 is built
+(WP-50..57); parts of Phase 3 are built (WP-60, 66, 67, 68, 82). The MSI installs on Windows 11 and
+a phone and a tablet pair with it (owner-verified 2026-11-03). The remote is
+`github.com/arlofyi/Gander` (public); its history was squashed on 2026-11-03 and the old history
+must never be pushed. Commits use the owner's identity from the repo-local git config and carry no
+AI co-author or session lines. Details, evidence and the owner's open items are in
+`docs/context.md`.
 
 - **Phase 0 spikes: done** (WP-40..47): test window, WGC capture, Media Foundation encode, WebRTC,
   Android viewer and input, Tailscale identity, Files-app provider, and the consolidated
@@ -37,13 +41,12 @@ merged into. Details, evidence and the owner's open items are in `docs/context.m
 - **Phase 2: stream engine, launch, input, lifecycle and viewer built** (WP-50..54): WGC capture,
   Media Foundation encode, webrtc-rs track, window discovery and fit-to-phone, `SendInput` mapping
   and gating, the session lifecycle with host visibility and the kill switch, and the Android
-  viewer. **WP-55 (audio), WP-56 (clipboard text) and WP-57 (`e2e-stream` plus the real-app
-  checklist) are not started.**
-- **Deferred or human-gated:** installing and live-testing the MSI (it builds, validates and
-  extracts; it has never been installed), code signing, the live input tests (they need an
-  unlocked, attended session), the instrumented stream viewer run (waits for WP-57), anything
-  needing a physical phone, the real-application run (PowerPoint, Edge PDF), the
-  `docs/security.md` lock-wording correction and ADR-0003 (licence, still Proposed).
+  viewer, plus WP-55 (sound, libopus), WP-56 (clipboard text, opt-in) and WP-57 (`e2e-stream` and
+  the real-app checklist).
+- **Deferred or human-gated:** code signing, the live input and clipboard tests and
+  `cargo xtask e2e-stream --android` (they need an unlocked, attended session), Stream from a
+  physical device, the real-application run (PowerPoint, Edge PDF) and ADR-0003 (licence, still
+  Proposed).
 
 Read in this order before doing anything:
 

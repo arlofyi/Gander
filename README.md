@@ -54,7 +54,7 @@ equivalents. What that means for you:
 
 ## Status
 
-Version 0.1.0, in development and not yet released as a signed build. Built and tested: the
+Version 0.1.1 (Windows host; Android app 0.1.0), in development and not yet released as a signed build. Built and tested: the
 Windows host (tray app, shares, pairing, Preview, Fetch, folder zips, deep-zoom previews, Windows
 Search), the Android client for it (including the Files-app integration), and the Stream stack
 (window capture, hardware H.264, WebRTC, sound from the streamed app, input, session lifecycle, the

@@ -1,12 +1,33 @@
 # Context -- current state
 
-_Last updated: 2026-11-03 (version 0.1.0 stamped, owner decisions after Night 2 applied)_
+_Last updated: 2026-11-03 (0.1.1 installed and pairing verified on real devices; public history rewritten)_
+
+## Session wrap-up (2026-11-03, afternoon)
+
+- **Public GitHub history rewritten** with owner approval: `main` on GitHub is one commit
+  (`6ced65c`, "feat: Gander 0.1.0", authored by the owner). The old history is only in the
+  gitignored `docs/local/history-backup-2026-11-03.bundle` and must never be pushed. Dependabot's
+  stale branches were deleted; GitHub keeps closed PR refs (`refs/pull/1-7`) until Support purges
+  them. Commits use the owner's identity (repo-local git config) and carry no AI attribution lines.
+- **0.1.1** (host only; the Android app stays 0.1.0), `dist/Gander-0.1.1-x64.msi`, upgrades 0.1.0:
+  - MSI launch condition read `WindowsBuild`, which Windows Installer caps at 9600, so 0.1.0
+    refused to install on Windows 11; it now reads `CurrentBuildNumber` from the registry.
+  - The pairing QR addresses were read once at start; a host started before Tailscale showed a QR
+    with no address ("pairing code is damaged" on the phone, only the port in the manual card).
+    They now follow the listener plan, and the window explains when there is no address.
+  - Release builds trim local paths from C code too (`/d1trimfile:`), 0 local paths in the exes.
+- **Verified by the owner on real hardware:** the MSI installs on this laptop (Windows 11 build
+  26200); a phone and the tablet run the 0.1.0 debug app and pair with the installed host.
+- **Local commits not yet pushed:** `5cc0576` (installer launch condition) and `5bdbc4a` (QR
+  addresses, 0.1.1) on top of the public `6ced65c`. Push only when the owner asks.
+- **Next for the owner:** Preview, Fetch and Stream through the installed host from the phone and
+  tablet; the unlocked attended runs (`cargo xtask e2e-stream --android`, the ignored input and
+  clipboard tests, `docs/specs/2026-11-02-stream-real-app-checklist.md`); code signing; ADR-0003.
 
 ## After Night 2 (2026-11-03) -- owner decisions applied
 
-- **Version 0.1.0** (Cargo workspace, Android `versionName`); `CHANGELOG.md` stamped `## 0.1.0`;
-  `dist/Gander-0.1.0-x64.msi` built by `cargo xtask installer-build` (8.2 MiB, unsigned, not
-  installed on this machine).
+- **Version 0.1.0** (Cargo workspace, Android `versionName`); `CHANGELOG.md` stamped `## 0.1.0`
+  (superseded for the host by 0.1.1 the same day, see above).
 - **`docs/security.md` approved:** rule 13 (clipboard), rule 14 (stream sound), the two residual
   risks, and the locked-session wording (the host enforces it, Windows does not).
 - **"with sound"** wording in the indicators.
@@ -23,12 +44,12 @@ _Last updated: 2026-11-03 (version 0.1.0 stamped, owner decisions after Night 2 
 - **Repo assets:** the Lens logo PNGs in `brand/png/` and the 96 finalized mockup images in
   `docs/design/mockups/png/` (`cargo xtask mockups`).
 - **Still owner-gated:** the unlocked attended runs (`cargo xtask e2e-stream --android`, the ignored
-  input and clipboard tests, the real-app checklist), installing the MSI, code signing, ADR-0003.
+  input and clipboard tests, the real-app checklist), code signing, ADR-0003.
 
 ## Night 2 (2026-11-02 to 03) -- read `reports/2026-11-03-night2-report.md` first
 
-Local `main` (not pushed; last push 006d645) now has the device bug fixes, Lens logo, slim host,
-WiX 5 MSI (then 0.0.0; now `dist/Gander-0.1.0-x64.msi`), the full UI redesign of both apps, WP-55 audio, WP-56
+Local `main` (at the time not pushed) had the device bug fixes, Lens logo, slim host,
+WiX 5 MSI (then 0.0.0), the full UI redesign of both apps, WP-55 audio, WP-56
 clipboard, WP-57 e2e-stream, bring-to-front, WP-60 Files-app provider, WP-66 Windows Search, WP-67
 deep zoom, WP-68 folder zip and WP-82 supply chain. Gates on 8104e68: 1055 Rust tests, e2e-host
 166/0, e2e-android 160/0/0. Owner decisions pending: security.md text (clipboard, sound, lock
@@ -169,6 +190,9 @@ yet prove; the CHANGELOG has the detail.
   links and anchors; in `test-all` and CI as `docs.yml`).
 
 ## Next actions (in order)
+
+_The current next steps are in "Session wrap-up" at the top; the list below is the Night 1 plan, kept
+for the record (items 1 and 2 are done)._
 
 1. **Owner, morning after:** read `reports/2026-11-02-overnight-report.md`, then decide the
    human-gated items under "Open questions", starting with the `security.md` correction (it changes

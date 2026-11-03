@@ -246,9 +246,10 @@ from the real profile, not from `USERPROFILE`). The Util extension is installed 
 6. An administrative extract: `msiexec /a <msi> /qn TARGETDIR=<temporary folder>` copies the files
    out and writes nothing else (no registry, shortcuts, custom actions, tasks or rules), then the
    xtask lists them and checks every file the .wxs names is there and not empty. It needs no
-   elevation. To look yourself: `msiexec /a Gander-0.0.0-x64.msi /qn TARGETDIR=C:\temp\gander-extract`.
+   elevation. To look yourself: `msiexec /a Gander-<version>-x64.msi /qn TARGETDIR=C:\temp\gander-extract`.
 
-`main.wxs` is per-user (`Scope="perUser"`), x64 only, checks for Windows 10 1809 or later, upgrades
+`main.wxs` is per-user (`Scope="perUser"`), x64 only, checks for Windows 10 1809 or later (build 17763, read from `CurrentBuildNumber` in the
+registry, because Windows Installer reports Windows 8.1 to every package), upgrades
 in place (`UpgradeCode` `D86137D4-...`, pinned by `installer-check`; the component GUIDs that
 hold files are fixed on purpose and must never change, WiX refuses automatic GUIDs for a component
 with a file and a registry key path), and shows the licence page (`WixUI_Minimal`).
