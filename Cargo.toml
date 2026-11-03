@@ -74,7 +74,7 @@ tracing = "0.1"
 # Content hashes for `GET /hash` and the listing ETag (WP-14). CC0-1.0 / Apache-2.0.
 blake3 = "1"
 # Test-only WebSocket client (WP-13 revocation test, WP-17 events tests). Same version axum uses.
-tokio-tungstenite = { version = "0.29", default-features = false, features = ["handshake"] }
+tokio-tungstenite = { version = "0.30", default-features = false, features = ["handshake"] }
 futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
 # HTTP client plumbing for the WP-1B e2e conformance suite (`gander-e2e`); already in the tree
 # through axum/hyper.
