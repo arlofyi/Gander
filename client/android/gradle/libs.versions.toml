@@ -39,7 +39,7 @@ kotlinx-serialization = "1.12.0"
 
 # Test
 junit = "4.13.2"
-snakeyaml = "2.4"                       # test only: reads protocol/openapi.yaml examples
+snakeyaml = "2.7"                       # test only: reads protocol/openapi.yaml examples
 androidx-test-ext-junit = "1.3.0"
 androidx-test-runner = "1.7.0"
 androidx-test-espresso = "3.7.0"
