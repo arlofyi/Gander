@@ -925,9 +925,41 @@ async fn run(args: Args) -> anyhow::Result<()> {
         api.set_network(server.network());
     }
     pairing.set_host_details(
-        host_details(identity.host_id().clone(), addresses, None),
+        host_details(identity.host_id().clone(), addresses.clone(), None),
         port,
     );
+    // The listener re-plans when the network changes (Tailscale coming up after logon, a pause
+    // ending), so the addresses in the QR code and in `/me` follow the plan in force; read once at
+    // start they stayed empty when the host started before Tailscale, and every QR code was
+    // refused by the phone as damaged.
+    {
+        let handle = server.handle();
+        let pairing = Arc::clone(&pairing);
+        #[cfg(windows)]
+        let api = Arc::clone(&api);
+        let host_id = identity.host_id().clone();
+        let mut last = addresses;
+        tokio::spawn(async move {
+            let mut tick = tokio::time::interval(std::time::Duration::from_secs(2));
+            tick.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Delay);
+            loop {
+                tick.tick().await;
+                let now = handle
+                    .plan()
+                    .map(|p| p.network().to_vec())
+                    .unwrap_or_default();
+                if now == last {
+                    continue;
+                }
+                let port = handle.bound_addrs().first().map_or(port, |a| a.port());
+                #[cfg(windows)]
+                api.set_host_details(host_details(host_id.clone(), now.clone(), None));
+                pairing.set_host_details(host_details(host_id.clone(), now.clone(), None), port);
+                tracing::info!(count = now.len(), "private-network addresses changed");
+                last = now;
+            }
+        });
+    }
     // The owner's clipboard setting and the notices for the tray, shared by the stream sessions
     // and the settings window.
     let clipboard = gander_host::clipboard::HostClipboard::new(config.stream.clipboard);

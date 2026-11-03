@@ -1570,7 +1570,7 @@ dependencies = [
 
 [[package]]
 name = "gander-core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "base64 0.22.1",
  "crc32fast",
@@ -1587,7 +1587,7 @@ dependencies = [
 
 [[package]]
 name = "gander-e2e"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "bytes",
@@ -1612,7 +1612,7 @@ dependencies = [
 
 [[package]]
 name = "gander-host"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "axum",
@@ -1653,7 +1653,7 @@ dependencies = [
 
 [[package]]
 name = "gander-render"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "flate2",
  "gander-core",
@@ -1669,7 +1669,7 @@ dependencies = [
 
 [[package]]
 name = "gander-stream"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1693,7 +1693,7 @@ dependencies = [
 
 [[package]]
 name = "gander-testwin"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "gander-core",
@@ -1705,7 +1705,7 @@ dependencies = [
 
 [[package]]
 name = "gander-win"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "gander-core",
  "proptest",
@@ -4171,7 +4171,7 @@ dependencies = [
 
 [[package]]
 name = "spike-capture"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "gander-testwin",
@@ -4182,7 +4182,7 @@ dependencies = [
 
 [[package]]
 name = "spike-encode"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "spike-capture",
@@ -4191,7 +4191,7 @@ dependencies = [
 
 [[package]]
 name = "spike-identity"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "serde_json",
@@ -4200,7 +4200,7 @@ dependencies = [
 
 [[package]]
 name = "spike-input"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "serde_json",
@@ -4212,7 +4212,7 @@ dependencies = [
 
 [[package]]
 name = "spike-webrtc"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -5639,7 +5639,7 @@ checksum = "e450f9b2ed1dff33c94c12589a87338689467b9c4f5d8a5710bd09a847d2c8a7"
 
 [[package]]
 name = "xtask"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "blake3",

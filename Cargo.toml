@@ -17,7 +17,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 rust-version = "1.90"
 license = "Apache-2.0"
@@ -29,11 +29,11 @@ publish = false
 [workspace.dependencies]
 # Internal crates. The version is stated so cargo-deny does not treat the path dependency as a
 # wildcard.
-gander-core = { path = "host/gander-core", version = "0.1.0" }
-gander-win = { path = "host/gander-win", version = "0.1.0" }
-gander-stream = { path = "host/gander-stream", version = "0.1.0" }
-gander-testwin = { path = "host/gander-testwin", version = "0.1.0" }
-gander-host = { path = "host/gander-host", version = "0.1.0" }
+gander-core = { path = "host/gander-core", version = "0.1.1" }
+gander-win = { path = "host/gander-win", version = "0.1.1" }
+gander-stream = { path = "host/gander-stream", version = "0.1.1" }
+gander-testwin = { path = "host/gander-testwin", version = "0.1.1" }
+gander-host = { path = "host/gander-host", version = "0.1.1" }
 spike-capture = { path = "spikes/stream/capture", version = "0.1.0" }
 spike-encode = { path = "spikes/stream/encode", version = "0.1.0" }
 spike-webrtc = { path = "spikes/stream/webrtc", version = "0.1.0" }

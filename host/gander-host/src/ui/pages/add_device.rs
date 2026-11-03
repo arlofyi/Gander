@@ -38,8 +38,8 @@ pub const ALLOW_DELAY: Duration = Duration::from_secs(2);
 #[derive(Default)]
 pub struct State {
     texture: Option<egui::TextureHandle>,
-    /// The pairing window generation the texture was made for.
-    generation: Option<u64>,
+    /// The pairing window generation and the addresses the texture was made for.
+    generation: Option<(u64, Vec<std::net::IpAddr>)>,
     /// The last error from Allow / Deny.
     pub error: Option<String>,
     /// The request on screen and when it first appeared.
@@ -146,8 +146,24 @@ fn footer(ui: &mut egui::Ui, cx: &mut Cx<'_>) {
 fn qr_view(ui: &mut egui::Ui, st: &mut State, cx: &mut Cx<'_>) {
     let p = pal(ui);
     let snap = &cx.data.pairing;
+    // A code without an address is refused by the phone ("damaged"): show why instead.
     if let Some(payload) = &cx.data.qr
-        && st.generation != Some(snap.generation)
+        && payload.addresses.is_empty()
+    {
+        st.texture = None;
+        st.generation = None;
+        widgets::infobar(
+            ui,
+            Bar::Warn,
+            Icon::Warn,
+            "Not on your private network yet.",
+            "Gander has no Tailscale (or other private network) address to put in the code. Check              that Tailscale is connected on this computer; the code appears here as soon as it is.",
+        );
+        return;
+    }
+    if let Some(payload) = &cx.data.qr
+        && st.generation.as_ref().map(|(g, a)| (*g, a))
+            != Some((snap.generation, &payload.addresses))
     {
         if let Some(matrix) = QrMatrix::for_payload(payload) {
             st.texture = Some(ui.ctx().load_texture(
@@ -155,7 +171,7 @@ fn qr_view(ui: &mut egui::Ui, st: &mut State, cx: &mut Cx<'_>) {
                 matrix.to_image(QR_SCALE),
                 egui::TextureOptions::NEAREST,
             ));
-            st.generation = Some(snap.generation);
+            st.generation = Some((snap.generation, payload.addresses.clone()));
         } else {
             st.error = Some("The pairing code could not be drawn.".to_owned());
         }

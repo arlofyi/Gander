@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+Nothing yet.
+
+## 0.1.1 - 2026-11-03
+
+Host only (the Android app stays 0.1.0). `Gander-0.1.1-x64.msi` upgrades 0.1.0 in place.
+
+### Host (Windows, Rust)
+
+- Pairing: the addresses in the QR code (and in `/me`) were read once at start. A host started
+  before Tailscale was up (autostart at logon, or right after the MSI) showed a QR code with no
+  address, and the phone refused every scan as "damaged"; the manual-entry card showed only the
+  port. They now follow the listener's plan (checked every 2 s), the QR is redrawn when they
+  change, and with no address the window says the computer is not on the private network yet
+  instead of showing a code.
+
 ### Build, CI and tooling
 
 - MSI: the Windows-version launch condition read `WindowsBuild`, which Windows Installer caps at
