@@ -2,7 +2,12 @@
 
 ## Unreleased
 
-Nothing yet.
+### Build, CI and tooling
+
+- MSI: the Windows-version launch condition read `WindowsBuild`, which Windows Installer caps at
+  9600 (it reports Windows 8.1 to every package), so the 0.1.0 MSI refused to install on Windows 11.
+  It now reads `CurrentBuildNumber` from the registry (`RegistrySearch`, read-only) and still
+  requires build 17763 (Windows 10 1809) or later.
 
 ## 0.1.0 - 2026-11-03
 

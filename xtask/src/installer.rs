@@ -350,7 +350,8 @@ pub fn check_wxs_text(text: &str) -> Vec<Check> {
     }
     for n in doc.descendants().filter(|n| n.is_element()) {
         let tag = n.tag_name().name();
-        if n.attribute("Root") == Some("HKLM") {
+        // A RegistrySearch only reads (the OS build number for the launch condition).
+        if n.attribute("Root") == Some("HKLM") && tag != "RegistrySearch" {
             problems.push(format!("<{tag}> writes under HKLM"));
         }
         if (tag == "Directory" || tag == "StandardDirectory")

@@ -55,7 +55,16 @@
                   DowngradeErrorMessage="A newer version of Gander is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
-    <Launch Condition="Installed OR (VersionNT >= 603 AND WindowsBuild >= 17763)"
+    <!-- Windows Installer reports Windows 8.1 to every package (VersionNT 603, WindowsBuild 9600)
+         even on Windows 11, so the real build number is read from the registry instead. AppSearch
+         runs before LaunchConditions in both sequences. The REG_SZ value is all digits, so the
+         condition compares it as an integer. -->
+    <Property Id="GANDER_OS_BUILD">
+      <RegistrySearch Id="Reg_OsBuild" Root="HKLM" Bitness="always64"
+                      Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+                      Name="CurrentBuildNumber" Type="raw" />
+    </Property>
+    <Launch Condition="Installed OR (GANDER_OS_BUILD AND GANDER_OS_BUILD >= 17763)"
             Message="Gander needs Windows 10 version 1809 or later (Windows 11 recommended)." />
 
     <!-- The icon shown in Settings, Apps (and for the shortcuts). The exe carries the same icon. -->
