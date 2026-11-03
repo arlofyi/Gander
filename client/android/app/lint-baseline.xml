@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Lint baseline (WP-20): accepted findings only. To accept the findings of a later change,
+     delete this file and run `./gradlew lintDebug` once (it recreates the file and fails that one
+     run), then review the diff. Never baseline an error that a spec or docs/security.md rules out.
+
+     ObsoleteSdkInt for mipmap-anydpi-v26: lint suggests merging into mipmap-anydpi because
+     minSdk is 26, but with AGP 9.5.0 that move was tried and resource linking failed with
+     "resource mipmap/ic_launcher not found" (no compiled entry for the icon in merged resources).
+     Keep the -v26 folder. -->
+<issues format="6" by="lint 9.5.0" type="baseline" client="gradle" dependencies="false" name="AGP (9.5.0)" variant="all" version="9.5.0">
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="This folder configuration (`v26`) is unnecessary; `minSdkVersion` is 26. Merge all the resources in this folder into `mipmap-anydpi`.">
+        <location
+            file="src/main/res/mipmap-anydpi-v26"/>
+    </issue>
+
+</issues>

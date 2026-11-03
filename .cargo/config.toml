@@ -1,0 +1,5 @@
+[alias]
+# `cargo xtask <task>`: repository automation in Rust, no shell-script dependency.
+xtask = "run --quiet --package xtask --"
+# Same flags CI uses for the lint gate.
+lint = "clippy --workspace --all-targets -- -D warnings"

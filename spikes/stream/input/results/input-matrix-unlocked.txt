@@ -1,0 +1,21 @@
+desktop state at start: session_locked=Some(false) input_desktop=Ok(()) foreground=Some((1379874, "Tauri Window", 43356)) cursor=Some((3009, 1072))
+monitors (work areas): [(0, 0, 2560, 1528, true), (2560, 397, 4480, 1549, false)]
+A: frame (25, 16, 716, 1503) client origin (27, 61) client 687x1440 dpi 144
+A is foreground: true
+after SendInput: session_locked=Some(false) input_desktop=Ok(()) foreground=Some((22941160, "GanderTestWindow", 45276)) cursor=Some((3009, 1072))
+occluder: root window under A's box centre is 0xdd07ec (A 0x15e0de8, B 0xdd07ec)
+A on the secondary monitor: frame (2583, 413, 2923, 1153) dpi 96
+
+| Id | What | Outcome |
+| --- | --- | --- |
+| C20 testwin | PostMessage (move, down, up) to the HWND at the box centre, 5 rounds | hits +5 / clicks +5; PostMessage accepted 3/3; foreground: GanderTestWindow pid 45276 |
+| C19 probe | SendInput with no-op mouse moves (relative (0,0); absolute onto the cursor's pixel), no click | relative move accepted 1/1; absolute move accepted Some(1)/1; cursor Some((3009, 1072)) -> Some((3009, 1072)) |
+| C19 uncovered | SendInput (absolute move, left down, left up) at the box centre, 5 rounds, nothing covering the window | A hits +5 / clicks +5; guard ok; SendInput accepted 3/3; real cursor moved by the call: true (put back afterwards); foreground: GanderTestWindow pid 45276 |
+| C19 covered, guard | SendInput at A's box centre while test window B covers it, production policy (target only) | A hits +0 / clicks +0, B clicks +0; guard: covered by GanderTestWindow pid 4440, NOT sent; foreground: GanderTestWindow pid 4440 |
+| C19 covered, forced | SendInput at A's box centre while B covers it, guard relaxed to any test window (where do clicks land) | A hits +0 / clicks +0, B clicks +5 (B hits +0); guard ok; SendInput accepted 3/3; real cursor moved by the call: true (put back afterwards); foreground: GanderTestWindow pid 4440 |
+| C20 covered | PostMessage to A at its box centre while B covers it | A hits +5 / clicks +5, B clicks +0; PostMessage accepted 3/3; foreground: GanderTestWindow pid 4440 |
+| C3 primary | normalised tap -> window mapping, 25 points, primary monitor | dpi 144, client 687x1440: 25 points; normalise->map round trip worst 0 px; map vs OS ScreenToClient worst 0 px; posted vs testwin last_click worst 0 px; points whose screen position is not over the window 0 |
+| C3 secondary | same, after moving A to the secondary monitor | dpi 96, client 338x708: 25 points; normalise->map round trip worst 0 px; map vs OS ScreenToClient worst 0 px; posted vs testwin last_click worst 0 px; points whose screen position is not over the window 0 |
+| C20 secondary | PostMessage at the box centre on the secondary monitor, 5 rounds | hits +5 / clicks +5; PostMessage accepted 3/3; foreground: GanderTestWindow pid 45276 |
+
+desktop state at end: session_locked=Some(false) input_desktop=Ok(()) foreground=Some((1379874, "Tauri Window", 43356)) cursor=Some((3009, 1072))

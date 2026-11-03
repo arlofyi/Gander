@@ -1,0 +1,79 @@
+[package]
+name = "gander-host"
+description = "The Gander tray application."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "gander-host"
+path = "src/main.rs"
+
+[features]
+default = ["ui"]
+# Enables the binary's `--test-approve` flag (integration harnesses only; never in a release
+# build). The library hook itself refuses unless every listener socket is on loopback.
+test-hooks = []
+# The tray icon and settings windows (WP-18, `src/ui/`). Without it the host runs headless
+# (integration harnesses, CI): `cargo build -p gander-host --no-default-features`.
+ui = ["dep:eframe", "dep:egui", "dep:qrcode", "dep:png", "dep:tray-icon", "dep:rfd"]
+
+[dependencies]
+gander-core.workspace = true
+gander-stream.workspace = true
+anyhow.workspace = true
+axum.workspace = true
+base64.workspace = true
+blake3.workspace = true
+futures-util.workspace = true
+hyper.workspace = true
+hyper-util.workspace = true
+rcgen.workspace = true
+ring.workspace = true
+rustls.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+socket2.workspace = true
+thiserror.workspace = true
+time = { workspace = true, features = ["local-offset"] }
+tokio.workspace = true
+tokio-rustls.workspace = true
+tower.workspace = true
+tracing.workspace = true
+ulid.workspace = true
+# UI (feature `ui`)
+eframe = { workspace = true, optional = true }
+egui = { workspace = true, optional = true }
+qrcode = { workspace = true, optional = true }
+png = { workspace = true, optional = true }
+
+[dev-dependencies]
+tokio-tungstenite.workspace = true
+egui_kittest.workspace = true
+time = { workspace = true, features = ["macros"] }
+# Reads back the folder zip in the WP-68 tests.
+zip.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+gander-win.workspace = true
+tray-icon = { workspace = true, optional = true }
+rfd = { workspace = true, optional = true }
+windows-sys = { workspace = true, features = ["Win32_Foundation", "Win32_Security", "Win32_System_Console", "Win32_System_Threading", "Win32_UI_Shell", "Win32_UI_WindowsAndMessaging"] }
+
+[lints]
+workspace = true
+
+# The exe icon and version info and the `.dep-v0` dependency list (build.rs; the latter through
+# host/build-support/auditable.rs, WP-82). The MSI is built by `cargo xtask installer-build` with
+# WiX 5 (installer/main.wxs); there is no cargo-wix metadata any more.
+[build-dependencies]
+flate2.workspace = true
+serde_json.workspace = true
+
+[target.'cfg(windows)'.build-dependencies]
+embed-resource.workspace = true

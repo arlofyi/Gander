@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gander</string>
+
+    <!-- Common -->
+    <string name="action_retry">Retry</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_save">Save</string>
+    <string name="action_back">Back</string>
+    <string name="action_more">More options</string>
+    <string name="cached_chip">Cached %1$s</string>
+    <string name="cached_hint">The computer can\'t be reached. Showing what was seen earlier.</string>
+
+    <!-- Errors, one sentence per UiErrorKind (client spec: say why, never a generic failure) -->
+    <string name="error_offline">Can\'t reach this computer. Check that it is on and awake, and that your private network (for example Tailscale) is connected.</string>
+    <string name="error_wrong_computer">This is not the computer you paired with. Gander will not connect to it.</string>
+    <string name="error_secure_connection">The secure connection to this computer failed.</string>
+    <string name="error_revoked">This computer no longer lets this phone in. Forget it on the Your computers screen and pair it again.</string>
+    <string name="error_no_permission">This share does not allow that.</string>
+    <string name="error_identity_mismatch">This computer does not accept this phone\'s private network identity.</string>
+    <string name="error_not_paired">This computer is no longer paired with this phone.</string>
+    <string name="error_share_gone">This share was removed or renamed on the computer.</string>
+    <string name="error_not_found">This folder is not available any more.</string>
+    <string name="error_busy">The computer is busy. Try again in a moment.</string>
+    <string name="error_incompatible">The computer answered in a way this version of the app does not understand. Update the app.</string>
+    <string name="error_other">Something went wrong talking to the computer.</string>
+    <string name="error_with_detail">%1$s (%2$s)</string>
+
+    <!-- Hosts screen -->
+    <string name="hosts_title">Your computers</string>
+    <string name="hosts_empty_title">No computers yet</string>
+    <string name="hosts_empty_body">Add a computer to reach its files from this phone over your private network.</string>
+    <string name="hosts_add">Add a computer</string>
+    <string name="hosts_private_network_up">Private network: connected</string>
+    <string name="hosts_private_network_down">Private network: not detected</string>
+    <string name="host_status_checking">Checking&#8230;</string>
+    <string name="host_status_online">Online</string>
+    <string name="host_status_offline">Offline</string>
+    <string name="host_status_problem">Needs attention</string>
+    <string name="host_status_removed">Removed on the computer</string>
+    <string name="host_removed_body">This phone was removed in Gander on this computer, so its key no longer works there. Pair again to reconnect, or forget it.</string>
+    <string name="host_removed_pair_again">Pair again</string>
+    <string name="host_last_seen">Last seen %1$s</string>
+    <string name="host_never_seen">Not reached yet</string>
+    <string name="host_paired_as">Paired as %1$s</string>
+    <string name="host_relay_chip">Relayed</string>
+    <string name="host_relay_derp">Relayed through Tailscale. Browsing works, streaming may be slow.</string>
+    <string name="host_relay_peer">Relayed through another device on your network.</string>
+    <string name="host_os_windows">Windows</string>
+    <string name="host_os_macos">macOS</string>
+    <string name="host_os_linux">Linux</string>
+    <string name="host_os_unknown">Computer</string>
+    <string name="host_menu_rename">Rename</string>
+    <string name="host_menu_forget">Forget</string>
+    <string name="host_rename_title">Rename computer</string>
+    <string name="host_rename_label">Name</string>
+    <string name="host_forget_title">Forget %1$s?</string>
+    <string name="host_forget_body">This phone will no longer be able to reach its files, and everything saved from it (files, thumbnails, previews) is deleted. To use it again you have to pair it again.</string>
+    <string name="host_forget_confirm">Forget</string>
+
+    <!-- Shares screen -->
+    <string name="shares_subtitle">Shared folders</string>
+    <string name="shares_empty_title">Nothing is shared with this phone</string>
+    <string name="shares_empty_body">On the computer, share a folder with this phone in Gander.</string>
+    <string name="permission_preview">Preview</string>
+    <string name="permission_fetch">Fetch</string>
+    <string name="permission_stream">Stream</string>
+    <string name="share_no_list">This share does not let this phone list its files.</string>
+
+    <!-- Browser -->
+    <string name="browser_search">Search</string>
+    <string name="browser_search_hint">Search in %1$s</string>
+    <string name="browser_search_clear">Clear search</string>
+    <string name="browser_search_close">Close search</string>
+    <string name="browser_search_prompt">Type a name to search this folder and the folders inside it.</string>
+    <string name="browser_searching">Searching&#8230;</string>
+    <string name="browser_search_empty">No matches for \"%1$s\".</string>
+    <string name="browser_search_inside">Search inside files</string>
+    <string name="browser_search_prompt_inside">Type a word to find files with it in their name or text.</string>
+    <string name="browser_search_names_only">This computer could only search file names right now.</string>
+    <string name="browser_search_partial">Partial results: the computer stopped looking early. Try a more specific name or search inside a folder.</string>
+    <string name="browser_view_list">List view</string>
+    <string name="browser_view_grid">Grid view</string>
+    <string name="browser_sort">Sort</string>
+    <string name="browser_filter">Filter</string>
+    <string name="sort_name">Name</string>
+    <string name="sort_modified">Modified</string>
+    <string name="sort_size">Size</string>
+    <string name="sort_kind">Type</string>
+    <string name="filter_all">Files and folders</string>
+    <string name="filter_files">Files only</string>
+    <string name="filter_folders">Folders only</string>
+    <string name="tab_files">Files</string>
+    <string name="tab_recent">Recent</string>
+    <string name="browser_empty_folder">This folder is empty.</string>
+    <string name="browser_empty_filtered">Nothing here matches the filter.</string>
+    <string name="browser_recent_empty">Nothing in this share was modified recently.</string>
+    <string name="browser_recent_partial">Partial list: the computer only looked at part of the share.</string>
+    <plurals name="browser_truncated">
+        <item quantity="one">This folder is too large to list completely. Showing the first %1$d item.</item>
+        <item quantity="other">This folder is too large to list completely. Showing the first %1$d items.</item>
+    </plurals>
+    <plurals name="browser_unlistable">
+        <item quantity="one">%1$d item can\'t be read on the computer and is not shown.</item>
+        <item quantity="other">%1$d items can\'t be read on the computer and are not shown.</item>
+    </plurals>
+    <string name="browser_cache_incomplete">Only the part of this folder that was loaded earlier is stored for offline use.</string>
+    <string name="browser_refresh_failed">Couldn\'t refresh this folder.</string>
+    <string name="browser_page_failed">Couldn\'t load more.</string>
+    <string name="entry_flag_cloud">Online only: fetching it makes the computer download it first.</string>
+    <string name="entry_flag_link">Link: can\'t be opened from here.</string>
+    <string name="entry_flag_hidden">Hidden</string>
+    <string name="entry_selected">Selected</string>
+    <plurals name="selection_count">
+        <item quantity="one">%1$d selected</item>
+        <item quantity="other">%1$d selected</item>
+    </plurals>
+    <string name="selection_clear">Cancel selection</string>
+    <string name="selection_all">Select all</string>
+    <string name="selection_fetch_denied">This share does not allow fetching.</string>
+
+    <!-- File sheet: the three actions, always with the reason when one is off (client spec honesty rules) -->
+    <string name="sheet_where">%1$s › %2$s</string>
+    <string name="sheet_loading_details">Reading details from %1$s&#8230;</string>
+    <string name="sheet_details_failed">Showing what the folder listing said.</string>
+    <string name="sheet_label_size">Size</string>
+    <string name="sheet_label_modified">Modified</string>
+    <string name="sheet_label_created">Created</string>
+    <string name="sheet_label_type">Type</string>
+    <string name="sheet_type_ext">%1$s file</string>
+    <string name="sheet_chip_cloud_only">Online only</string>
+    <string name="sheet_chip_readonly">Read-only</string>
+    <string name="sheet_chip_system">System</string>
+    <string name="sheet_chip_encrypted">Encrypted</string>
+    <string name="sheet_chip_link">Link</string>
+    <string name="sheet_chip_saved">Saved on this phone</string>
+    <string name="sheet_chip_metered">Metered connection</string>
+    <string name="sheet_meta_dimensions">Dimensions</string>
+    <string name="sheet_meta_dimensions_value">%1$d × %2$d</string>
+    <string name="sheet_meta_taken">Taken</string>
+    <string name="sheet_meta_camera">Camera</string>
+    <string name="sheet_meta_duration">Duration</string>
+    <string name="sheet_meta_codec">Codec</string>
+    <string name="sheet_meta_pages">Pages</string>
+    <string name="sheet_meta_song_title">Title</string>
+    <string name="sheet_meta_artist">Artist</string>
+    <string name="sheet_actions_title">Open it how?</string>
+    <string name="sheet_action_preview">Preview</string>
+    <string name="sheet_action_fetch">Fetch</string>
+    <string name="sheet_action_stream">Stream</string>
+    <string name="sheet_default_tag">Default</string>
+    <string name="sheet_try_instead">Try %1$s instead.</string>
+    <string name="sheet_remember">Remember my choice for %1$s files</string>
+    <string name="sheet_remembered">Your usual choice for %1$s files: %2$s</string>
+    <string name="sheet_remembered_reset">Choose automatically</string>
+    <string name="sheet_remembered_unavailable">Your usual choice for %1$s files (%2$s) is not available now, so %3$s is suggested instead.</string>
+    <string name="sheet_placeholder_title">Not available yet</string>
+    <string name="sheet_placeholder_body">%1$s is not available in this build yet.</string>
+    <string name="sheet_ok">OK</string>
+
+    <string name="hint_preview_pages">%1$s renders the pages for you.</string>
+    <string name="hint_preview_image">%1$s sends a screen-sized copy.</string>
+    <string name="hint_preview_text">%1$s sends the text.</string>
+    <string name="hint_preview_video">Plays from %1$s, starting with a poster frame.</string>
+    <string name="hint_fetch_unmetered">Copies %1$s to this phone.</string>
+    <string name="hint_fetch_metered">%1$s over mobile data.</string>
+    <string name="hint_saved_copy">Opens the copy saved on this phone.</string>
+    <string name="hint_stream">Opens it in a desktop app on %1$s and shows that window here.</string>
+
+    <string name="warn_cellular_large">That is a large download for a metered connection.</string>
+    <string name="warn_no_resume">%1$s cannot resume an interrupted download.</string>
+    <string name="warn_low_fidelity">Page 1 only, in low quality: %1$s has no Office renderer.</string>
+    <string name="warn_relayed">Your connection is relayed through Tailscale, expect low quality.</string>
+    <string name="warn_owner_approval">The owner of %1$s will be asked to approve.</string>
+
+    <string name="reason_not_a_file">Only files can be opened from here.</string>
+    <string name="reason_no_permission_preview">This share does not allow previews.</string>
+    <string name="reason_no_permission_fetch">This share does not allow fetching.</string>
+    <string name="reason_no_permission_stream">This share does not allow streaming.</string>
+    <string name="reason_no_renderer_ext">No preview renderer for %1$s files on %2$s.</string>
+    <string name="reason_no_renderer">No preview renderer for this file on %1$s.</string>
+    <string name="reason_cannot_render">%1$s cannot render %2$s previews.</string>
+    <string name="reason_previews_off_worker">Previews are unavailable on %1$s: its preview renderer (gander-render.exe) is not installed next to Gander. Fetch and Stream still work.</string>
+    <string name="reason_previews_off">Previews are unavailable on %1$s right now. Fetch and Stream still work.</string>
+    <string name="reason_kind_image">image</string>
+    <string name="reason_kind_pdf">PDF</string>
+    <string name="reason_kind_text">text</string>
+    <string name="reason_kind_office">Office</string>
+    <string name="reason_kind_video">video</string>
+    <string name="reason_kind_other">this kind of</string>
+    <string name="reason_preview_too_large">The preview is too large for %1$s to make.</string>
+    <string name="reason_stream_not_enabled">Streaming is turned off on %1$s.</string>
+    <string name="reason_stream_policy">%1$s does not allow streaming this file.</string>
+    <string name="reason_stream_refused">%1$s refused to stream it: %2$s</string>
+    <string name="reason_stream_unavailable_now">%1$s cannot stream right now.</string>
+    <string name="reason_host_locked">%1$s is locked.</string>
+    <string name="reason_host_unattended">No one is at %1$s to see the session.</string>
+    <string name="reason_app_unavailable">%1$s has no allowed app for this type.</string>
+    <string name="reason_stream_busy">%1$s is already streaming to a phone.</string>
+    <string name="reason_phone_offline">This phone has no network connection.</string>
+    <string name="reason_host_unreachable">Can\'t reach %1$s.</string>
+    <string name="reason_file_gone">This file is no longer on %1$s.</string>
+    <!-- Fetch engine (WP-27) -->
+    <string name="fetch_channel_progress">Fetching files</string>
+    <string name="fetch_channel_result">Fetched files</string>
+    <string name="fetch_notification_starting">Getting ready to fetch</string>
+    <string name="fetch_notification_one">Fetching %1$s</string>
+    <plurals name="fetch_notification_many">
+        <item quantity="one">Fetching %1$d file</item>
+        <item quantity="other">Fetching %1$d files</item>
+    </plurals>
+    <string name="fetch_notification_done">Fetched %1$s</string>
+    <string name="fetch_notification_done_text">Tap to open it with an app on this phone.</string>
+    <string name="fetch_notification_failed">Couldn\'t fetch %1$s</string>
+    <string name="fetch_notification_failed_text">Tap to see why and try again.</string>
+    <string name="fetch_notification_paused">Fetching paused</string>
+    <string name="fetch_notification_paused_text">Android limits background downloads. Open Gander to continue where it stopped.</string>
+    <string name="fetch_progress_of">%1$s of %2$s</string>
+    <string name="fetch_panel_empty">Nothing fetched yet. Choose Fetch on a file to bring it to this phone.</string>
+    <string name="fetch_clear_finished">Clear finished</string>
+    <string name="fetch_open_with">Open with</string>
+    <string name="fetch_share">Share</string>
+    <string name="fetch_save_to_device">Save to device</string>
+    <string name="fetch_saved_to_downloads">Saved to Downloads/Gander.</string>
+    <string name="fetch_saved">Saved.</string>
+    <string name="fetch_save_failed">Could not save a copy on this phone.</string>
+    <string name="fetch_keep_offline">Keep offline</string>
+    <string name="fetch_retry">Retry</string>
+    <string name="fetch_cancel">Cancel</string>
+    <string name="fetch_remove">Remove</string>
+    <string name="fetch_share_title">Share %1$s</string>
+    <string name="fetch_no_app">No app on this phone opens this kind of file. Try Share.</string>
+    <string name="fetch_copy_gone">The copy on this phone is gone. Fetch it again.</string>
+    <string name="fetch_changed_on_host">The file changed on the computer, so the download started over.</string>
+    <string name="fetch_status_queued">Waiting to start</string>
+    <string name="fetch_status_verifying">Checking the copy against the computer</string>
+    <string name="fetch_status_waiting">Waiting for the connection (%1$s of %2$s)</string>
+    <string name="fetch_status_paused">Paused at %1$s of %2$s</string>
+    <string name="fetch_status_cancelled">Cancelled</string>
+    <string name="fetch_status_done">Fetched, %1$s</string>
+    <string name="fetch_status_done_verified">Fetched, %1$s, checked with %2$s</string>
+    <string name="fetch_failed_network">Couldn\'t reach the computer. Retry when it is online.</string>
+    <string name="fetch_failed_refused">The computer refused to send this file.</string>
+    <string name="fetch_failed_not_found">This file is no longer on the computer.</string>
+    <string name="fetch_failed_not_authorised">This phone is no longer allowed on that computer.</string>
+    <string name="fetch_failed_wrong_computer">This is not the computer you paired with.</string>
+    <string name="fetch_failed_incompatible">The computer answered in a way this app does not understand.</string>
+    <string name="fetch_failed_file_changed">The file kept changing on the computer. Try again when it is saved.</string>
+    <string name="fetch_failed_verify">The copy did not match the file on the computer and was deleted. Retry to fetch it again.</string>
+    <string name="fetch_failed_no_space">Not enough free space on this phone.</string>
+    <string name="fetch_failed_storage">Couldn\'t save the file on this phone.</string>
+    <string name="fetch_failed_host_forgotten">That computer is no longer paired.</string>
+    <string name="fetch_cellular_title">Fetch over mobile data?</string>
+    <string name="fetch_cellular_body_one">%1$s is %2$s and this phone is on a metered connection.</string>
+    <plurals name="fetch_cellular_body_many">
+        <item quantity="one">%1$d file, %2$s in total, and this phone is on a metered connection.</item>
+        <item quantity="other">%1$d files, %2$s in total, and this phone is on a metered connection.</item>
+    </plurals>
+    <string name="fetch_cellular_confirm">Fetch %1$s</string>
+    <string name="fetch_cellular_preview">Preview instead</string>
+    <string name="fetch_cellular_stream">Stream instead</string>
+
+    <!-- Preview viewers (WP-26) -->
+    <string name="preview_fetch">Fetch this file</string>
+    <string name="preview_fetch_original">View original (Fetch)</string>
+    <string name="preview_page_counter">%1$d / %2$d</string>
+    <string name="preview_page_description">Page %1$d of %2$d</string>
+    <string name="preview_page_description_unknown">Page %1$d</string>
+    <string name="preview_image_description">Preview of %1$s</string>
+    <string name="preview_loading_info">Asking %1$s&#8230;</string>
+    <string name="preview_loading_info_busy">%1$s is still preparing the preview&#8230;</string>
+    <string name="preview_rendering">%1$s is rendering this page&#8230;</string>
+    <plurals name="preview_rendering_estimate">
+        <item quantity="one">%1$s is rendering this page, about %2$d second&#8230;</item>
+        <item quantity="other">%1$s is rendering this page, about %2$d seconds&#8230;</item>
+    </plurals>
+    <string name="preview_failure_unsupported">This computer can\'t make a preview of this file. Try Fetch or Stream.</string>
+    <string name="preview_failure_too_large">This file is too large for the computer to preview. Try Fetch or Stream.</string>
+    <string name="preview_failure_still_generating">The computer is still busy making this preview. Try again in a moment.</string>
+    <string name="preview_failure_codec">This phone can\'t play this video format. Fetch it to open it in another app, or use Stream.</string>
+    <string name="preview_text_encoding">Encoding: %1$s</string>
+    <string name="preview_text_encoding_converted">Encoding: %1$s, shown as UTF-8</string>
+    <string name="preview_text_progress">%1$s of %2$s</string>
+    <string name="preview_text_progress_unknown">%1$s read</string>
+    <string name="preview_text_load_more">Load more</string>
+    <string name="preview_text_loading_more">Loading more&#8230;</string>
+    <string name="preview_text_capped">Showing the first %1$s. Fetch the file to read the rest.</string>
+    <string name="preview_text_empty">This file is empty.</string>
+    <string name="preview_video_play">Play video</string>
+    <string name="preview_video_poster_description">Video poster of %1$s</string>
+    <string name="preview_video_player_description">Video player</string>
+</resources>
+

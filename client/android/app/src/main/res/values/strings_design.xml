@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- UI redesign (docs/design/2026-11-02-ui-redesign.md): app shell, shared components, and the
+         wording the mockups add. Screen strings that existed before stay in their own files. -->
+
+    <!-- Navigation (owner decision: bottom navigation Computers / Downloads / Settings) -->
+    <string name="nav_computers">Computers</string>
+    <string name="nav_downloads">Downloads</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Work rail captions (design document 9.4) -->
+    <string name="rail_preview">Work on %1$s</string>
+    <string name="rail_fetch_phone">Work on this phone</string>
+    <string name="rail_fetch_tablet">Work on this tablet</string>
+    <string name="rail_stream">Runs on %1$s</string>
+
+    <!-- Shares -->
+    <string name="shares_section">Shared with this phone</string>
+    <string name="shares_footer">Read-only. The owner of %1$s decides what is shared and what this phone may do with it. A crossed-out chip means that mode is not allowed for that folder.</string>
+    <string name="permission_not_allowed">%1$s, not allowed</string>
+
+    <!-- Browser -->
+    <string name="browser_where">%1$s · %2$s</string>
+    <string name="browser_sort_chip">%1$s, %2$s</string>
+    <string name="sort_order_az">A to Z</string>
+    <string name="sort_order_za">Z to A</string>
+    <string name="sort_order_newest">Newest first</string>
+    <string name="sort_order_oldest">Oldest first</string>
+    <string name="sort_order_largest">Largest first</string>
+    <string name="sort_order_smallest">Smallest first</string>
+    <string name="browser_sort_title">Sort and filter</string>
+    <string name="browser_sort_by">Sort by</string>
+    <string name="browser_show">Show</string>
+    <string name="browser_sort_note">Folders always come first. Sort is remembered for this share.</string>
+    <string name="browser_offline_title">Can\'t reach %1$s</string>
+    <string name="browser_offline_body">Showing what was seen earlier. Files saved on this phone still open.</string>
+    <string name="browser_offline_fix">Check it is on and awake, and that Tailscale is connected.</string>
+    <string name="selection_folders_note">Folders cannot be fetched as a whole yet.</string>
+    <plurals name="selection_fetch_count">
+        <item quantity="one">Fetch %1$d file</item>
+        <item quantity="other">Fetch %1$d files</item>
+    </plurals>
+    <string name="browser_pane_hint">Choose a file to see how to open it: preview it here, fetch it to this tablet or stream it from %1$s.</string>
+    <plurals name="browser_pane_items">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
+
+    <!-- Preview viewers: the work rail captions -->
+    <string name="rail_pages">Pages rendered on %1$s</string>
+    <string name="rail_image">Screen-sized copy from %1$s</string>
+    <string name="rail_text">Text sent by %1$s</string>
+    <string name="rail_video">Plays from %1$s, no copy kept</string>
+    <string name="preview_pinch_hint">Pinch to zoom</string>
+    <string name="preview_text_mono">Monospace · wrap on</string>
+    <string name="preview_video_cloud_only">Online only on %1$s: it downloads the video from its cloud drive first, so the start can be slow.</string>
+
+    <!-- Storage -->
+    <string name="storage_legend_other">%1$s other saved files</string>
+    <string name="storage_legend_derived">%1$s thumbnails and previews</string>
+    <string name="storage_derived_note">The computer sends them again when they are needed.</string>
+    <string name="storage_cap_note">When saved files add up to more than %1$s, the ones used least recently are deleted. Files you keep offline are never deleted.</string>
+
+    <!-- App lock -->
+    <string name="lock_downloads_note">Downloads keep running while Gander is locked. Nothing on your computers is shown until you unlock.</string>
+    <string name="lock_removed_title">If the phone lock was removed</string>
+
+    <!-- Stream -->
+    <string name="stream_live">LIVE</string>
+    <string name="stream_key_sticky_on">sticky, on</string>
+    <string name="stream_key_sticky_off">sticky, off</string>
+
+    <!-- Computers -->
+    <string name="hosts_empty_note">You need Gander running on the computer, and both devices on the same private network, for example Tailscale.</string>
+
+    <!-- Add a computer -->
+    <string name="pairing_scan_bar">Scan the code</string>
+    <string name="pairing_manual_bar">Enter the address</string>
+    <string name="pairing_compare_bar">Compare the code</string>
+    <string name="pairing_waiting_bar">Waiting for approval</string>
+    <string name="pairing_scan_choice_hint">Fastest. The code also proves which computer you are talking to.</string>
+    <string name="pairing_manual_choice_hint">For a tablet without a usable camera. You then compare a six-digit code.</string>
+    <string name="pairing_screenshots_blocked">Screenshots are blocked on this screen</string>
+    <string name="pairing_manual_help">An IP address or a name, for example 100.101.102.103 or studio-pc.tail1234.ts.net, optionally with :port.</string>
+    <string name="pairing_identity_checked">Identity checked: this is the computer the QR code came from</string>
+    <string name="pairing_computer">Computer</string>
+    <string name="pairing_this_phone">This phone</string>
+    <string name="pairing_this_tablet">This tablet</string>
+    <string name="pairing_nothing_shared_title">Nothing was shared</string>
+    <string name="pairing_nothing_shared_body">Pairing was stopped on this phone. If the computer still shows the request, choose Deny there.</string>
+
+    <!-- Downloads -->
+    <string name="fetch_empty_title">No downloads yet</string>
+    <string name="fetch_in_progress">In progress</string>
+    <string name="fetch_finished">Finished</string>
+</resources>

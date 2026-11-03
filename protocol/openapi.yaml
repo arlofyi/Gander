@@ -1,0 +1,1431 @@
+# SPDX-License-Identifier: Apache-2.0
+# Gander protocol v1, written by hand from docs/specs/2026-11-01-protocol-v1.md.
+#
+# The Rust DTOs in host/gander-core/src/protocol are the implementation of this document. The test
+# host/gander-core/tests/openapi.rs (`protocol_examples_roundtrip`) validates every entry under
+# components.examples against the schema named by its `x-gander-schema`, deserialises it into the
+# matching Rust type and serialises it back unchanged. Edit both together.
+#
+# WebSocket messages (/v1/events) and WebRTC data-channel input messages are not HTTP bodies;
+# their schemas live under components.schemas (ServerEvent, ClientEvent, InputMessage) so clients
+# can generate them from the same document.
+#
+# Examples never contain real secrets: token values are placeholders that the test replaces with
+# per-run random values before round-tripping.
+openapi: 3.1.0
+info:
+  title: Gander host protocol
+  version: "1"
+  description: >-
+    Host to client protocol over TLS 1.3 (pinned SPKI), HTTP/1.1 and one WebSocket. Every
+    response carries X-Gander-Protocol: 1 and X-Gander-Request: <ulid>. Requests carrying Origin,
+    Sec-Fetch-Mode or Cookie are refused with 403 browser_request. Clients ignore unknown fields
+    and unknown event types; hosts ignore unknown query parameters.
+  license:
+    name: Apache-2.0
+    identifier: Apache-2.0
+servers:
+  - url: https://{address}:{port}/v1
+    variables:
+      address:
+        default: 100.101.102.103
+        description: A private-network address of the host (never a wildcard).
+      port:
+        default: "42637"
+security:
+  - bearer: []
+
+paths:
+  /host:
+    get:
+      operationId: getHost
+      summary: Minimal unauthenticated host hello.
+      security: []
+      responses:
+        "200":
+          description: Host hello.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/HostHello" }
+              examples:
+                closed: { $ref: "#/components/examples/HostHello" }
+  /me:
+    get:
+      operationId: getMe
+      summary: Caller, host, network, capabilities and limits.
+      responses:
+        "200":
+          description: Identity and capabilities.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/MeResponse" }
+              examples:
+                me: { $ref: "#/components/examples/MeResponse" }
+        default: { $ref: "#/components/responses/Error" }
+  /token/rotate:
+    post:
+      operationId: rotateToken
+      summary: Issue a new token; the old one stops working immediately.
+      responses:
+        "200":
+          description: New token.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TokenRotateResponse" }
+              examples:
+                rotated: { $ref: "#/components/examples/TokenRotateResponse" }
+        default: { $ref: "#/components/responses/Error" }
+  /pair:
+    post:
+      operationId: startPairing
+      summary: Start pairing while the owner has "Add a device" open.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PairRequest" }
+            examples:
+              qr: { $ref: "#/components/examples/PairRequestQr" }
+              manual: { $ref: "#/components/examples/PairRequestManual" }
+      responses:
+        "200":
+          description: Pending pairing; SAS shown on both screens.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PairStarted" }
+              examples:
+                started: { $ref: "#/components/examples/PairStarted" }
+        "404": { $ref: "#/components/responses/Error" }
+        "429": { $ref: "#/components/responses/Error" }
+        default: { $ref: "#/components/responses/Error" }
+  /pair/{pairing_id}:
+    get:
+      operationId: pollPairing
+      summary: Poll every 1-2 s until approved, denied or expired.
+      security: []
+      parameters:
+        - { name: pairing_id, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: Approved. The token is returned exactly once.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PairApproved" }
+              examples:
+                approved: { $ref: "#/components/examples/PairApproved" }
+        "202":
+          description: Still pending.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PairPollStatus" }
+              examples:
+                pending: { $ref: "#/components/examples/PairPending" }
+        "403":
+          description: Denied by the owner.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PairPollStatus" }
+              examples:
+                denied: { $ref: "#/components/examples/PairDenied" }
+        "410": { $ref: "#/components/responses/Error" }
+        default: { $ref: "#/components/responses/Error" }
+  /shares:
+    get:
+      operationId: listShares
+      responses:
+        "200":
+          description: Shares visible to this device.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SharesResponse" }
+              examples:
+                shares: { $ref: "#/components/examples/SharesResponse" }
+        default: { $ref: "#/components/responses/Error" }
+  /shares/{share}/list:
+    get:
+      operationId: listDirectory
+      parameters:
+        - { $ref: "#/components/parameters/Share" }
+        - { $ref: "#/components/parameters/Path" }
+        - { name: cursor, in: query, schema: { type: string } }
+        - { name: limit, in: query, schema: { type: integer, minimum: 1, default: 200 } }
+        - { name: sort, in: query, schema: { type: string, enum: [name, mtime, size, kind], default: name } }
+        - { name: order, in: query, schema: { type: string, enum: [asc, desc], default: asc } }
+        - { name: kinds, in: query, description: "Comma-separated: file,dir", schema: { type: string } }
+        - { name: ext, in: query, description: "Comma-separated extensions", schema: { type: string } }
+        - { name: If-None-Match, in: header, schema: { type: string } }
+      responses:
+        "200":
+          description: One page of entries. Directories sort first unless kinds=file.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ListResponse" }
+              examples:
+                page: { $ref: "#/components/examples/ListResponse" }
+        "304": { description: Not modified (ETag matched). }
+        default: { $ref: "#/components/responses/Error" }
+  /shares/{share}/stat:
+    get:
+      operationId: statEntry
+      parameters:
+        - { $ref: "#/components/parameters/Share" }
+        - { $ref: "#/components/parameters/Path" }
+        - { name: meta, in: query, schema: { type: integer, enum: [0, 1], default: 0 } }
+      responses:
+        "200":
+          description: The entry, with meta when meta=1.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Entry" }
+              examples:
+                image: { $ref: "#/components/examples/StatImage" }
+        default: { $ref: "#/components/responses/Error" }
+  /shares/{share}/search:
+    get:
+      operationId: searchShare
+      parameters:
+        - { $ref: "#/components/parameters/Share" }
+        - { $ref: "#/components/parameters/Path" }
+        - { name: q, in: query, required: true, schema: { type: string } }
+        - { name: limit, in: query, schema: { type: integer, minimum: 1, default: 100 } }
+        - { name: cursor, in: query, schema: { type: string } }
+        - name: scope
+          in: query
+          description: >-
+            What q is matched against: name (default) matches file and folder names, content also
+            matches the text inside files. Only the Windows Search index can read file text, so
+            content needs the share's search to be "indexed" (GET /shares); on a share searched by
+            the bounded walk it is answered as name and the response says via walk. Anything else
+            is 400 bad_request.
+          schema: { type: string, enum: [name, content], default: name }
+      responses:
+        "200":
+          description: >-
+            Matches under path. From the Windows Search index when the folder is crawled by it
+            (via index, ordered by path, or by relevance for scope content), otherwise bounded
+            breadth-first name matches (via walk). Every path is resolved by the host like any
+            other path, so hidden, linked and out-of-share items are never in the answer.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/SearchResponse" }
+              examples:
+                hits: { $ref: "#/components/examples/SearchResponse" }
+                indexed: { $ref: "#/components/examples/SearchResponseIndexed" }
+        default: { $ref: "#/components/responses/Error" }
+  /recent:
+    get:
+      operationId: recentFiles
+      parameters:
+        - { name: limit, in: query, schema: { type: integer, minimum: 1, default: 50 } }
+        - { name: since, in: query, schema: { type: string, format: date-time } }
+      responses:
+        "200":
+          description: Recently modified files across visible shares, newest first.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/RecentResponse" }
+              examples:
+                recent: { $ref: "#/components/examples/RecentResponse" }
+        default: { $ref: "#/components/responses/Error" }
+  /shares/{share}/thumb:
+    get:
+      operationId: getThumbnail
+      parameters:
+        - { $ref: "#/components/parameters/Share" }
+        - { $ref: "#/components/parameters/Path" }
+        - { name: size, in: query, schema: { type: integer, default: 256 } }
+        - { name: priority, in: query, description: "visible rows first; additive (WP-14)", schema: { type: string, enum: [visible, prefetch], default: prefetch } }
+      responses:
+        "200":
+          description: Thumbnail, longest side = size, EXIF orientation applied, no metadata.
+          content:
+            image/webp: { schema: { type: string, contentMediaType: image/webp } }
+            image/jpeg: { schema: { type: string, contentMediaType: image/jpeg } }
+        "503": { $ref: "#/components/responses/Error" }
+        default: { $ref: "#/components/responses/Error" }
+  /shares/{share}/preview/info:
+    get:
+      operationId: getPreviewInfo
+      parameters:
+        - { $ref: "#/components/parameters/Share" }
+        - { $ref: "#/components/parameters/Path" }
+      responses:
+        "200":
+          description: What a preview of this file would be.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/PreviewInfo" }
+              examples:
+                pdf: { $ref: "#/components/examples/PreviewInfo" }
+        default: { $ref: "#/components/responses/Error" }
+  /shares/{share}/preview:
+    get:
+      operationId: getPreviewPage
+      parameters:
+        - { $ref: "#/components/parameters/Share" }
+        - { $ref: "#/components/parameters/Path" }
+        - { name: page, in: query, schema: { type: integer, minimum: 1, default: 1 } }
+        - { name: width, in: query, schema: { type: integer, minimum: 1 } }
+        - { name: format, in: query, schema: { type: string, enum: [webp, jpeg], default: webp } }
+      responses:
+        "200":
+          description: Rendered page, resized image or poster frame.
+          content:
+            image/webp: { schema: { type: string, contentMediaType: image/webp } }
+            image/jpeg: { schema: { type: string, contentMediaType: image/jpeg } }
+        "503": { $ref: "#/components/responses/Error" }
+        default: { $ref: "#/components/responses/Error" }
+  /shares/{share}/preview/tile:
+    get:
+      operationId: getPreviewTile
+      description: >-
+        One 512 x 512 WebP tile of a page, for deep zoom past the width `preview` renders (WP-67).
+        The pyramid is described by `preview/info` (`tile_size`, `tile_levels`, `tile_pages`):
+        level 0 is the whole page fitted in 512 px, every level above it is twice the size, and the
+        top level is the natural resolution (an image's own pixels, a PDF page at 300 dpi). Tiles
+        are cut from the top left; tiles on the right and bottom edge are smaller, never padded.
+        Images, RAW previews, PDF and the Office documents the host renders through PDF (Word,
+        Excel, LibreOffice) have tiles; anything else is 415 unsupported_type. A level, column,
+        row or page that does not exist is 400 bad_request. Tiles share the preview queue (1 per
+        device, 2 overall) at lower priority than pages, so expect 503 generating with
+        retry_after_ms and ask again; a tile not asked for again within seconds is dropped.
+      parameters:
+        - { $ref: "#/components/parameters/Share" }
+        - { $ref: "#/components/parameters/Path" }
+        - { name: page, in: query, schema: { type: integer, minimum: 1, default: 1 } }
+        - { name: level, in: query, required: true, schema: { type: integer, minimum: 0, maximum: 6 } }
+        - { name: x, in: query, required: true, description: "tile column, from the left", schema: { type: integer, minimum: 0 } }
+        - { name: y, in: query, required: true, description: "tile row, from the top", schema: { type: integer, minimum: 0 } }
+      responses:
+        "200":
+          description: >-
+            The tile, `image/webp`, immutable by ETag (file version, page, level, x, y).
+          content:
+            image/webp: { schema: { type: string, contentMediaType: image/webp } }
+        "400": { $ref: "#/components/responses/Error" }
+        "415": { $ref: "#/components/responses/Error" }
+        "503": { $ref: "#/components/responses/Error" }
+        default: { $ref: "#/components/responses/Error" }
+  /shares/{share}/preview/text:
+    get:
+      operationId: getPreviewText
+      parameters:
+        - { $ref: "#/components/parameters/Share" }
+        - { $ref: "#/components/parameters/Path" }
+        - { name: offset, in: query, schema: { type: integer, minimum: 0, default: 0 } }
+        - { name: limit, in: query, schema: { type: integer, minimum: 1, maximum: 1048576, default: 65536 } }
+      responses:
+        "200":
+          description: Decoded text. Binary files (NUL in the first 8 KiB) get 415.
+          headers:
+            X-Gander-Text-Encoding: { schema: { type: string } }
+            X-Gander-Text-Total: { schema: { type: integer } }
+          content:
+            text/plain; charset=utf-8: { schema: { type: string } }
+        default: { $ref: "#/components/responses/Error" }
+  /shares/{share}/file:
+    get:
+      operationId: fetchFile
+      description: >-
+        Single Range only (multipart -> 416), If-Range honoured; a file changed during a resumed
+        download -> 412 file_changed. HEAD is supported with the same headers.
+      parameters:
+        - { $ref: "#/components/parameters/Share" }
+        - { $ref: "#/components/parameters/Path" }
+        - { name: Range, in: header, schema: { type: string } }
+        - { name: If-Range, in: header, schema: { type: string } }
+      responses:
+        "200":
+          description: The file bytes.
+          content:
+            application/octet-stream: { schema: { type: string, contentMediaType: application/octet-stream } }
+        "206":
+          description: The requested range.
+          content:
+            application/octet-stream: { schema: { type: string, contentMediaType: application/octet-stream } }
+        "412": { $ref: "#/components/responses/Error" }
+        "416": { $ref: "#/components/responses/Error" }
+        default: { $ref: "#/components/responses/Error" }
+  /shares/{share}/hash:
+    get:
+      operationId: hashFile
+      parameters:
+        - { $ref: "#/components/parameters/Share" }
+        - { $ref: "#/components/parameters/Path" }
+        - { name: algo, in: query, required: true, schema: { $ref: "#/components/schemas/HashAlgo" } }
+      responses:
+        "200":
+          description: Content hash, cached by ETag per algorithm.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/HashResponse" }
+              examples:
+                blake3: { $ref: "#/components/examples/HashResponse" }
+        "503": { $ref: "#/components/responses/Error" }
+        default: { $ref: "#/components/responses/Error" }
+  /zip:
+    get:
+      operationId: downloadZip
+      description: >-
+        Folder download (WP-68): the folder at `path` (the share root when empty) as one ZIP
+        archive streamed straight from disk. Needs the `fetch` permission and is only ever sent on
+        an explicit request. Files are STORED (not compressed), under a top-level folder named
+        after the folder; hidden files and `hidden_patterns` are left out exactly as in listings;
+        links and junctions are not followed and are named in `_gander-skipped.txt` at the end of
+        the archive (which also lists anything that vanished or could not be read meanwhile). ZIP64
+        is used when needed. The length is not known in advance (chunked); the totals arrive as
+        `X-Gander-Zip-Entries` and `X-Gander-Zip-Bytes`. NO Range and no resume: `Range` and
+        `If-Range` are ignored (the answer is always the whole archive from the start) and a
+        broken download starts over. The host stops when the client disconnects. A file that is
+        shorter than measured when its turn comes ends the download with a broken connection; one
+        that grew is included only up to the measured size. A folder over the host's limits
+        (`capabilities.fetch.zip`, default 4 GiB and 20,000 entries) is refused with
+        `413 too_large` before anything is streamed. With `dry_run=1` nothing is streamed and the
+        answer is the JSON totals (the client's size and count confirmation); HEAD answers the
+        headers only. At most two zips run at once on a host (`429 too_many_requests`).
+      parameters:
+        - { name: share, in: query, required: true, schema: { type: string } }
+        - { $ref: "#/components/parameters/Path" }
+        - { name: dry_run, in: query, description: "1 or true: return the totals as JSON instead of the archive.", schema: { type: boolean, default: false } }
+      responses:
+        "200":
+          description: The archive (or, with dry_run, the totals).
+          headers:
+            Content-Disposition: { schema: { type: string }, description: "An attachment named after the folder, with .zip." }
+            X-Gander-Zip-Entries: { schema: { type: integer, minimum: 0 }, description: Files and folders in the archive (as measured before streaming). }
+            X-Gander-Zip-Bytes: { schema: { type: integer, minimum: 0 }, description: Total size of the files in bytes (as measured before streaming). }
+            Accept-Ranges: { schema: { type: string, enum: [none] } }
+          content:
+            application/zip: { schema: { type: string, contentMediaType: application/zip } }
+            application/json:
+              schema: { $ref: "#/components/schemas/ZipPlan" }
+              examples:
+                totals: { $ref: "#/components/examples/ZipPlan" }
+        "413":
+          description: >-
+            too_large: the folder is over the host's size or entry limit (or took too long to
+            measure). Nothing was streamed.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorBody" }
+              examples:
+                too_large: { $ref: "#/components/examples/ErrorZipTooLarge" }
+        "429": { $ref: "#/components/responses/Error" }
+        default: { $ref: "#/components/responses/Error" }
+  /events:
+    get:
+      operationId: openEvents
+      description: >-
+        WebSocket upgrade with the bearer token in the Authorization header. Text frames carry
+        ServerEvent (host to client) and ClientEvent (client to host). Ping every 20 s; dropped
+        after two missed pongs.
+      responses:
+        "101": { description: Switching protocols. }
+        default: { $ref: "#/components/responses/Error" }
+  /stream:
+    post:
+      operationId: startStream
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/StreamRequest" }
+            examples:
+              deck: { $ref: "#/components/examples/StreamRequest" }
+      responses:
+        "201":
+          description: Session created; progress continues on /events.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/StreamCreated" }
+              examples:
+                created: { $ref: "#/components/examples/StreamCreated" }
+        "403": { $ref: "#/components/responses/Error" }
+        "409": { $ref: "#/components/responses/Error" }
+        "412": { $ref: "#/components/responses/Error" }
+        "422": { $ref: "#/components/responses/Error" }
+        "503":
+          description: >-
+            stream_unavailable: Stream mode is not available on this host yet
+            (capabilities.stream.enabled is false). Sent only after the request passed the
+            launch policy; a policy refusal is sent as 403, 412 or 422 instead.
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ErrorBody" }
+              examples:
+                stream_unavailable: { $ref: "#/components/examples/ErrorStreamUnavailable" }
+        default: { $ref: "#/components/responses/Error" }
+  /stream/{session}:
+    delete:
+      operationId: endStream
+      parameters:
+        - { name: session, in: path, required: true, schema: { type: string } }
+        - { name: close_app, in: query, schema: { type: boolean, default: false } }
+      responses:
+        "204": { description: Session ended. }
+        default: { $ref: "#/components/responses/Error" }
+
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      description: Per-device token, 32 random bytes base64url without padding.
+
+  parameters:
+    Share:
+      name: share
+      in: path
+      required: true
+      schema: { type: string }
+    Path:
+      name: path
+      in: query
+      description: Share-relative, percent-encoded UTF-8, "/" separators; empty for the root.
+      schema: { type: string, default: "" }
+
+  responses:
+    Error:
+      description: Any refusal. The HTTP status follows ErrorCode.
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/ErrorBody" }
+          examples:
+            share_not_found: { $ref: "#/components/examples/ErrorShareNotFound" }
+            generating: { $ref: "#/components/examples/ErrorGenerating" }
+
+  schemas:
+    Timestamp: { type: string, format: date-time }
+
+    ErrorCode:
+      type: string
+      description: >-
+        400 bad_request, bad_host, bad_path; 401 token_missing, token_invalid, token_revoked;
+        403 forbidden, browser_request, network_identity_mismatch, permission_denied;
+        404 share_not_found, not_found, pairing_closed; 409 stream_busy, pairing_in_progress;
+        410 pairing_expired; 412 host_locked, host_unattended, app_unavailable, file_changed;
+        413 too_large; 415 unsupported_type; 416 range_not_satisfiable; 422 stream_refused;
+        429 too_many_requests, pairing_rate_limited; 500 internal; 503 generating,
+        stream_unavailable.
+      enum:
+        - bad_request
+        - bad_host
+        - bad_path
+        - token_missing
+        - token_invalid
+        - token_revoked
+        - forbidden
+        - browser_request
+        - network_identity_mismatch
+        - permission_denied
+        - share_not_found
+        - not_found
+        - pairing_closed
+        - stream_busy
+        - pairing_in_progress
+        - pairing_expired
+        - host_locked
+        - host_unattended
+        - app_unavailable
+        - file_changed
+        - too_large
+        - unsupported_type
+        - range_not_satisfiable
+        - stream_refused
+        - too_many_requests
+        - pairing_rate_limited
+        - internal
+        - generating
+        - stream_unavailable
+    ErrorBody:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code: { $ref: "#/components/schemas/ErrorCode" }
+            message: { type: string, description: "English, never paths, tokens or file contents" }
+            retry_after_ms: { type: integer, minimum: 0, default: 0 }
+
+    HostHello:
+      type: object
+      required: [protocol, pairing_open, host_id]
+      properties:
+        protocol: { type: array, items: { type: integer, minimum: 1 } }
+        pairing_open: { type: boolean }
+        host_id: { type: string, description: "base64url SHA-256 of the certificate SPKI" }
+
+    DeviceSummary:
+      type: object
+      required: [id, name, created_at, last_seen_at]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        created_at: { $ref: "#/components/schemas/Timestamp" }
+        last_seen_at: { type: [string, "null"], format: date-time }
+    HostDetails:
+      type: object
+      required: [id, name, os, os_version, app_version, addresses, magic_dns]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        os: { type: string, enum: [windows, macos, linux] }
+        os_version: { type: string }
+        app_version: { type: string }
+        addresses: { type: array, items: { type: string, description: "IPv4 or IPv6 literal" } }
+        magic_dns: { type: [string, "null"] }
+    NetworkIdentity:
+      type: object
+      required: [login, node]
+      properties:
+        login: { type: string }
+        node: { type: string }
+    NetworkInfo:
+      type: object
+      required: [adapter, identity, relayed]
+      properties:
+        adapter: { type: string, enum: [tailscale, generic] }
+        identity:
+          oneOf:
+            - { $ref: "#/components/schemas/NetworkIdentity" }
+            - { type: "null" }
+        relayed:
+          description: Path to the caller; null when unknown or not applicable.
+          type: [string, "null"]
+          enum: [direct, peer_relay, derp, null]
+    HashAlgo: { type: string, enum: [blake3, sha256] }
+    VideoCodec: { type: string, enum: [h264, hevc] }
+    PreviewKinds:
+      type: object
+      required: [image, pdf, text, office, video_poster, raw]
+      properties:
+        image: { type: boolean }
+        pdf: { type: boolean }
+        text: { type: boolean }
+        office: { type: string, enum: [thumbnail, render, none] }
+        video_poster: { type: boolean }
+        raw: { type: boolean }
+    Capabilities:
+      type: object
+      required: [list, search, recent, events, thumb_sizes, preview_max_width, preview_kinds, fetch, stream, write]
+      properties:
+        list: { type: boolean }
+        search:
+          description: >-
+            false, true (bounded substring walk) or "indexed". The host-level summary: "indexed"
+            when at least one share this device can list is searched through the Windows Search
+            index. Each share's own value is ShareInfo.search.
+          $ref: "#/components/schemas/SearchCapability"
+        recent: { type: boolean }
+        events: { type: boolean }
+        thumb_sizes: { type: array, items: { type: integer, minimum: 1 } }
+        preview_max_width: { type: integer, minimum: 1 }
+        preview_kinds: { $ref: "#/components/schemas/PreviewKinds" }
+        fetch:
+          type: object
+          required: [range, hash]
+          properties:
+            range: { type: boolean }
+            hash: { type: array, items: { $ref: "#/components/schemas/HashAlgo" } }
+            zip:
+              description: Folder download (GET /zip) and its limits; absent on a host without it.
+              type: object
+              required: [max_bytes, max_entries]
+              properties:
+                max_bytes: { type: integer, minimum: 1 }
+                max_entries: { type: integer, minimum: 1 }
+        stream:
+          type: object
+          required: [enabled, codecs, max_sessions, audio, input, fit_to_phone]
+          properties:
+            enabled: { type: boolean }
+            codecs: { type: array, items: { $ref: "#/components/schemas/VideoCodec" } }
+            max_sessions: { type: integer, minimum: 0 }
+            audio:
+              type: boolean
+              description: >-
+                WP-55. Sessions carry the streamed window's own sound: an Opus audio track next
+                to the video (process-loopback capture of the window's process tree only), with
+                mute on the control channel. False when the owner set [stream] audio = false.
+            input: { type: boolean }
+            fit_to_phone: { type: boolean }
+            clipboard:
+              type: string
+              enum: [off, to_phone, from_phone, both]
+              description: >-
+                Optional (WP-56). Which way clipboard text may cross during a stream, from the
+                owner's [stream] clipboard setting: to_phone lets the phone read the computer's
+                clipboard (clipboard.get), from_phone lets it write it (clipboard), both allows
+                both. Omitted when off. A client shows its "Copy from computer" and "Paste to
+                computer" actions only for the directions that are on.
+        write: { type: boolean, description: "Always false in v1" }
+        previews_unavailable:
+          type: string
+          enum: [render_worker_missing, cache_unavailable]
+          description: >-
+            Present only when previews and thumbnails are off on this host (every preview_kinds
+            entry is then false): render_worker_missing when gander-render.exe is not installed
+            next to the host, cache_unavailable when the preview cache could not be opened.
+            Clients say "previews are unavailable on this computer" instead of a generic failure.
+    Limits:
+      type: object
+      required: [list_max, search_max, concurrency]
+      properties:
+        list_max: { type: integer, minimum: 1 }
+        search_max: { type: integer, minimum: 1 }
+        concurrency: { type: integer, minimum: 1 }
+    MeResponse:
+      type: object
+      required: [device, host, network, capabilities, limits]
+      properties:
+        device: { $ref: "#/components/schemas/DeviceSummary" }
+        host: { $ref: "#/components/schemas/HostDetails" }
+        network: { $ref: "#/components/schemas/NetworkInfo" }
+        capabilities: { $ref: "#/components/schemas/Capabilities" }
+        limits: { $ref: "#/components/schemas/Limits" }
+    TokenRotateResponse:
+      type: object
+      required: [token]
+      properties:
+        token: { type: string }
+
+    PairingDevice:
+      type: object
+      required: [name, platform, model, app_version]
+      properties:
+        name: { type: string }
+        platform: { type: string }
+        model: { type: string }
+        app_version: { type: string }
+    PairRequest:
+      type: object
+      required: [device, nonce]
+      properties:
+        secret: { type: string, description: "From the QR code (flow A); absent in flow B" }
+        device: { $ref: "#/components/schemas/PairingDevice" }
+        nonce: { type: string, description: "16 random bytes, base64url" }
+    PairStarted:
+      type: object
+      required: [pairing_id, sas, host_nonce, expires_at]
+      properties:
+        pairing_id: { type: string }
+        sas: { type: string, description: "6 digits grouped 3+3, for example 482 913" }
+        host_nonce: { type: string }
+        expires_at: { $ref: "#/components/schemas/Timestamp" }
+    PairPollStatus:
+      type: object
+      required: [state]
+      properties:
+        state: { type: string, enum: [pending, denied] }
+    PairApproved:
+      type: object
+      required: [token, device_id, host]
+      properties:
+        token: { type: string }
+        device_id: { type: string }
+        host: { $ref: "#/components/schemas/HostDetails" }
+
+    Permission: { type: string, enum: [list, preview, fetch, stream] }
+    StreamDecision: { type: string, enum: [allowed, refused, ask] }
+    SearchCapability:
+      oneOf:
+        - { type: boolean }
+        - { type: string, enum: [indexed] }
+    ShareInfo:
+      type: object
+      required: [id, name, permissions, show_hidden, stream_default]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        path_display: { type: string, description: "Only if the owner enabled show folder path" }
+        permissions: { type: array, items: { $ref: "#/components/schemas/Permission" } }
+        show_hidden: { type: boolean }
+        stream_default: { $ref: "#/components/schemas/StreamDecision" }
+        search:
+          description: >-
+            Optional. How /search works in this share: true (the bounded walk over names) or
+            "indexed" (the share's folder is in the Windows Search index: faster, and scope=content
+            finds text inside files). Absent on a host that predates it; read it as
+            capabilities.search then. A client shows "Search inside files" only for "indexed".
+          $ref: "#/components/schemas/SearchCapability"
+    SharesResponse:
+      type: object
+      required: [shares]
+      properties:
+        shares: { type: array, items: { $ref: "#/components/schemas/ShareInfo" } }
+
+    PreviewKind: { type: string, enum: [image, pdf, text, office, video_poster, none] }
+    EntryMeta:
+      description: Type-specific metadata keyed by type (stat with meta=1).
+      oneOf:
+        - type: object
+          required: [image]
+          additionalProperties: false
+          properties:
+            image:
+              type: object
+              required: [width, height, orientation, taken_at, camera]
+              properties:
+                width: { type: integer }
+                height: { type: integer }
+                orientation: { type: [integer, "null"], minimum: 1, maximum: 8 }
+                taken_at: { type: [string, "null"], description: "EXIF local time as stored" }
+                camera: { type: [string, "null"] }
+        - type: object
+          required: [video]
+          additionalProperties: false
+          properties:
+            video:
+              type: object
+              required: [width, height, duration_ms, codec]
+              properties:
+                width: { type: integer }
+                height: { type: integer }
+                duration_ms: { type: integer }
+                codec: { type: [string, "null"] }
+        - type: object
+          required: [pdf]
+          additionalProperties: false
+          properties:
+            pdf:
+              type: object
+              required: [pages]
+              properties:
+                pages: { type: integer }
+        - type: object
+          required: [audio]
+          additionalProperties: false
+          properties:
+            audio:
+              type: object
+              required: [duration_ms, title, artist]
+              properties:
+                duration_ms: { type: integer }
+                title: { type: [string, "null"] }
+                artist: { type: [string, "null"] }
+        - type: object
+          required: [office]
+          additionalProperties: false
+          properties:
+            office:
+              type: object
+              required: [pages]
+              properties:
+                pages: { type: [integer, "null"] }
+    Entry:
+      type: object
+      required: [name, kind, size, mtime, ctime, flags, thumb, preview, stream]
+      properties:
+        name: { type: string, description: "Exactly as stored, no normalisation" }
+        kind: { type: string, enum: [file, dir] }
+        size: { type: integer, minimum: 0 }
+        mtime: { $ref: "#/components/schemas/Timestamp" }
+        ctime: { type: [string, "null"], format: date-time }
+        ext: { type: string }
+        mime: { type: string }
+        flags:
+          type: array
+          items: { type: string, enum: [hidden, readonly, system, cloud_only, link, encrypted] }
+        thumb: { type: boolean, description: "Prediction, not a promise" }
+        preview: { $ref: "#/components/schemas/PreviewKind" }
+        stream: { $ref: "#/components/schemas/StreamDecision" }
+        share: { type: string, description: "In recent results" }
+        path: { type: string, description: "In search and recent results" }
+        meta: { $ref: "#/components/schemas/EntryMeta" }
+    ListResponse:
+      type: object
+      required: [path, entries, next_cursor, truncated, unlistable, etag]
+      properties:
+        path: { type: string }
+        entries: { type: array, items: { $ref: "#/components/schemas/Entry" } }
+        next_cursor: { type: [string, "null"] }
+        truncated: { type: boolean }
+        unlistable: { type: integer, minimum: 0 }
+        etag: { type: string }
+    SearchVia: { type: string, enum: [index, walk] }
+    SearchResponse:
+      type: object
+      required: [entries, partial, next_cursor]
+      properties:
+        entries: { type: array, items: { $ref: "#/components/schemas/Entry" } }
+        partial:
+          type: boolean
+          description: >-
+            The answer may be incomplete: the walk hit its time or queue bound; or, from the
+            index, it is still crawling, the page stopped at the host's time budget, or the result
+            list reached its depth limit (a next_cursor may still be present).
+        next_cursor: { type: [string, "null"] }
+        via:
+          description: >-
+            Optional. What produced the answer: index (Windows Search) or walk (bounded name walk).
+            Absent on a host that predates it (a walk). A client that asked for scope content and
+            got walk knows only names were searched.
+          $ref: "#/components/schemas/SearchVia"
+    RecentResponse:
+      type: object
+      required: [entries, partial]
+      properties:
+        entries: { type: array, items: { $ref: "#/components/schemas/Entry" } }
+        partial: { type: boolean }
+    PreviewInfo:
+      type: object
+      required: [kind, pages, width, height, text_bytes, renderer, estimated_ms]
+      properties:
+        kind: { $ref: "#/components/schemas/PreviewKind" }
+        pages: { type: [integer, "null"] }
+        width: { type: [integer, "null"] }
+        height: { type: [integer, "null"] }
+        text_bytes: { type: [integer, "null"] }
+        renderer: { type: string }
+        estimated_ms: { type: integer, minimum: 0 }
+        tile_size: { type: integer, minimum: 1, description: "Edge length of a deep-zoom tile in pixels (512). Present only together with tile_pages (WP-67)." }
+        tile_levels: { type: integer, minimum: 1, description: "Most levels any page has; level runs from 0 to tile_levels - 1." }
+        tile_pages:
+          type: array
+          description: >-
+            Top-level pixel size and level count of each page, index 0 being page 1 (at most 512
+            pages; later pages have no deep zoom). Absent when the file has no deep zoom (not an
+            image, PDF or rendered Office document, or too small to need it).
+          items: { $ref: "#/components/schemas/TilePage" }
+    TilePage:
+      type: object
+      required: [width, height, levels]
+      properties:
+        width: { type: integer, minimum: 1, description: "Width of the top level (natural resolution) in pixels." }
+        height: { type: integer, minimum: 1 }
+        levels: { type: integer, minimum: 1, maximum: 7 }
+    HashResponse:
+      type: object
+      required: [algo, hex, size, etag]
+      properties:
+        algo: { $ref: "#/components/schemas/HashAlgo" }
+        hex: { type: string }
+        size: { type: integer, minimum: 0 }
+        etag: { type: string }
+
+    ZipPlan:
+      type: object
+      required: [entries, bytes, skipped, cloud_only]
+      properties:
+        entries: { type: integer, minimum: 0, description: Files and folders that would be in the archive. }
+        bytes: { type: integer, minimum: 0, description: Total size of the files in bytes. }
+        skipped: { type: integer, minimum: 0, description: Links and unsendable names left out (listed in _gander-skipped.txt). }
+        cloud_only: { type: integer, minimum: 0, description: Cloud placeholder files the computer would have to download first. }
+
+    Viewport:
+      type: object
+      required: [width, height, dpr]
+      properties:
+        width: { type: integer, minimum: 1 }
+        height: { type: integer, minimum: 1 }
+        dpr: { type: number }
+    StreamRequest:
+      type: object
+      required: [share, path, app, viewport]
+      properties:
+        share: { type: string }
+        path: { type: string }
+        app: { type: [string, "null"] }
+        viewport: { $ref: "#/components/schemas/Viewport" }
+        prefer:
+          type: object
+          required: [codec, max_kbps]
+          properties:
+            codec: { $ref: "#/components/schemas/VideoCodec" }
+            max_kbps: { type: integer, minimum: 1 }
+        resume: { type: string, description: "Session to resume within the grace period" }
+    StreamState:
+      type: string
+      enum: [requested, approving, launching, pick, window_found, streaming, paused, ended]
+    StreamReason:
+      type: string
+      enum: [focus_lost, local_user_active, phone_background, network, client_closed,
+             host_kill_switch, window_closed, revoked, timeout, error]
+    StreamCreated:
+      type: object
+      required: [session, state, app, needs_approval]
+      properties:
+        session: { type: string }
+        state: { $ref: "#/components/schemas/StreamState" }
+        app:
+          type: object
+          required: [id, name]
+          properties:
+            id: { type: string }
+            name: { type: string }
+        needs_approval: { type: boolean }
+
+    ServerEvent:
+      description: Host to client WebSocket message. Unknown types are ignored by clients.
+      oneOf:
+        - type: object
+          required: [type, protocol, host_time]
+          properties:
+            type: { const: hello }
+            protocol: { type: integer }
+            host_time: { $ref: "#/components/schemas/Timestamp" }
+        - type: object
+          required: [type, share, path]
+          properties:
+            type: { const: share.changed }
+            share: { type: string }
+            path: { type: string }
+        - type: object
+          required: [type]
+          properties:
+            type: { const: shares.updated }
+        - type: object
+          required: [type]
+          properties:
+            type: { const: device.revoked }
+        - type: object
+          required: [type, locked, attended, on_battery, stream_available]
+          properties:
+            type: { const: host.state }
+            locked: { type: boolean }
+            attended: { type: boolean }
+            on_battery: { type: boolean }
+            stream_available: { type: boolean }
+        - type: object
+          required: [type, session, state, reason, window]
+          properties:
+            type: { const: stream.state }
+            session: { type: string }
+            state: { $ref: "#/components/schemas/StreamState" }
+            reason:
+              oneOf:
+                - { $ref: "#/components/schemas/StreamReason" }
+                - { type: "null" }
+            window:
+              oneOf:
+                - type: object
+                  required: [title, width, height, dpi]
+                  properties:
+                    title: { type: string }
+                    width: { type: integer }
+                    height: { type: integer }
+                    dpi: { type: integer }
+                - { type: "null" }
+            candidates: { type: array, items: { type: string }, description: "Window titles when state is pick" }
+        - type: object
+          required: [type, session, sdp]
+          properties:
+            type: { const: stream.offer }
+            session: { type: string }
+            sdp: { type: string }
+        - type: object
+          required: [type, session, candidate]
+          properties:
+            type: { const: stream.ice }
+            session: { type: string }
+            candidate: { type: string }
+        - type: object
+          required: [type]
+          properties:
+            type: { const: pong }
+        - type: object
+          description: >-
+            A client message was refused; the socket stays open. Phase 1 answers every stream.*
+            client message with code stream_unavailable.
+          required: [type, code, message]
+          properties:
+            type: { const: error }
+            code: { $ref: "#/components/schemas/ErrorCode" }
+            message: { type: string }
+            session: { type: string, description: "The stream session the refused message named." }
+    ClientEvent:
+      description: Client to host WebSocket message.
+      oneOf:
+        - type: object
+          required: [type, session, sdp]
+          properties:
+            type: { const: stream.answer }
+            session: { type: string }
+            sdp: { type: string }
+        - type: object
+          required: [type, session, candidate]
+          properties:
+            type: { const: stream.ice }
+            session: { type: string }
+            candidate: { type: string }
+        - type: object
+          required: [type, session, width, height]
+          properties:
+            type: { const: stream.resize }
+            session: { type: string }
+            width: { type: integer }
+            height: { type: integer }
+        - type: object
+          required: [type, session]
+          properties:
+            type: { const: stream.pause }
+            session: { type: string }
+        - type: object
+          required: [type, session]
+          properties:
+            type: { const: stream.resume }
+            session: { type: string }
+        - type: object
+          required: [type, session, index]
+          description: The phone's choice after stream.state pick; index into its candidates.
+          properties:
+            type: { const: stream.pick }
+            session: { type: string }
+            index: { type: integer, minimum: 0 }
+        - type: object
+          required: [type]
+          properties:
+            type: { const: ping }
+    InputMessage:
+      description: WebRTC data-channel message; x and y are normalised to the captured window.
+      oneOf:
+        - type: object
+          required: [t, x, y]
+          properties:
+            t: { const: move }
+            x: { type: number }
+            y: { type: number }
+        - type: object
+          required: [t, b, x, y]
+          properties:
+            t: { type: string, enum: [down, up] }
+            b: { type: string, enum: [left, right, middle] }
+            x: { type: number }
+            y: { type: number }
+        - type: object
+          required: [t, dx, dy, x, y]
+          properties:
+            t: { const: scroll }
+            dx: { type: integer, description: "Wheel-delta units (120 per notch); positive is a tilt to the right." }
+            dy: { type: integer, description: "Wheel-delta units (120 per notch), Windows convention; positive is the wheel turned away from the user (content scrolls up)." }
+            x: { type: number }
+            y: { type: number }
+        - type: object
+          required: [t, code, down, mods]
+          properties:
+            t: { const: key }
+            code: { type: string, description: "W3C UI Events code value" }
+            down: { type: boolean }
+            mods: { type: array, items: { type: string, enum: [ctrl, shift, alt, meta] } }
+        - type: object
+          required: [t, s]
+          properties:
+            t: { type: string, enum: [text, clipboard] }
+            s: { type: string }
+        - type: object
+          required: [t]
+          properties:
+            t: { const: clipboard.get }
+
+  # Every example names the schema it must satisfy (x-gander-schema). The schema test maps each
+  # schema name to its Rust type.
+  examples:
+    ErrorShareNotFound:
+      x-gander-schema: ErrorBody
+      value: { error: { code: share_not_found, message: "No such share.", retry_after_ms: 0 } }
+    ErrorGenerating:
+      x-gander-schema: ErrorBody
+      value: { error: { code: generating, message: "The preview is being generated.", retry_after_ms: 1500 } }
+    ErrorStreamUnavailable:
+      x-gander-schema: ErrorBody
+      value: { error: { code: stream_unavailable, message: "Stream mode is not available on this computer yet.", retry_after_ms: 0 } }
+    ErrorZipTooLarge:
+      x-gander-schema: ErrorBody
+      value: { error: { code: too_large, message: "This folder is over the 4 GiB or 20,000 item limit for a zip.", retry_after_ms: 0 } }
+    ZipPlan:
+      x-gander-schema: ZipPlan
+      value: { entries: 1204, bytes: 83886080, skipped: 2, cloud_only: 0 }
+    HostHello:
+      x-gander-schema: HostHello
+      value: { protocol: [1], pairing_open: false, host_id: "uSb4Dq0KZ3fV8nXgT1oY2wL5rM9cE6pA7hJ0iN3sQ4k" }
+    MeResponse:
+      x-gander-schema: MeResponse
+      value:
+        device: { id: "dev_01JC9X3Q7Z8M4N5P6R7S8T9V0W", name: "Pixel 9", created_at: "2026-11-02T20:11:03Z", last_seen_at: "2026-11-03T08:15:00Z" }
+        host:
+          id: "uSb4Dq0KZ3fV8nXgT1oY2wL5rM9cE6pA7hJ0iN3sQ4k"
+          name: studio-pc
+          os: windows
+          os_version: "10.0.26200"
+          app_version: "0.1.0"
+          addresses: ["100.101.102.103", "fd7a:115c:a1e0::1"]
+          magic_dns: studio-pc.tail1234.ts.net
+        network: { adapter: tailscale, identity: { login: alice@example.com, node: pixel-9 }, relayed: null }
+        capabilities:
+          list: true
+          search: true
+          recent: true
+          events: true
+          thumb_sizes: [128, 256, 512]
+          preview_max_width: 2048
+          preview_kinds: { image: true, pdf: true, text: true, office: render, video_poster: true, raw: true }
+          fetch: { range: true, hash: [blake3, sha256], zip: { max_bytes: 4294967296, max_entries: 20000 } }
+          stream: { enabled: true, codecs: [h264, hevc], max_sessions: 1, audio: false, input: true, fit_to_phone: true, clipboard: both }
+          write: false
+        limits: { list_max: 1000, search_max: 500, concurrency: 8 }
+    MeGenericAdapter:
+      x-gander-schema: MeResponse
+      value:
+        device: { id: "dev_01JC9X3Q7Z8M4N5P6R7S8T9V0X", name: "Tab S9", created_at: "2026-11-02T20:11:03Z", last_seen_at: null }
+        host:
+          id: "uSb4Dq0KZ3fV8nXgT1oY2wL5rM9cE6pA7hJ0iN3sQ4k"
+          name: studio-pc
+          os: windows
+          os_version: "10.0.26200"
+          app_version: "0.1.0"
+          addresses: ["10.147.17.5"]
+          magic_dns: null
+        network: { adapter: generic, identity: null, relayed: null }
+        capabilities:
+          list: true
+          search: indexed
+          recent: true
+          events: true
+          thumb_sizes: [256]
+          preview_max_width: 2048
+          preview_kinds: { image: true, pdf: true, text: true, office: none, video_poster: false, raw: false }
+          fetch: { range: true, hash: [sha256] }
+          stream: { enabled: false, codecs: [], max_sessions: 0, audio: false, input: false, fit_to_phone: false }
+          write: false
+        limits: { list_max: 1000, search_max: 500, concurrency: 8 }
+    TokenRotateResponse:
+      x-gander-schema: TokenRotateResponse
+      value: { token: "PLACEHOLDER_TOKEN_REPLACED_PER_TEST_RUN" }
+    PairRequestQr:
+      x-gander-schema: PairRequest
+      value:
+        secret: "PLACEHOLDER_SECRET_REPLACED_PER_TEST_RUN"
+        device: { name: "Pixel 9", platform: android, model: "Pixel 9", app_version: "0.1.0" }
+        nonce: "q3Jx0bS1n9Vw2kLp8Zt4Yg"
+    PairRequestManual:
+      x-gander-schema: PairRequest
+      value:
+        device: { name: "Tab S9", platform: android, model: "SM-X710", app_version: "0.1.0" }
+        nonce: "Hc7Lr2Tq9Wm4Xp1Zb8Kd5A"
+    PairStarted:
+      x-gander-schema: PairStarted
+      value: { pairing_id: "pr_01JC9X4A1B2C3D4E5F6G7H8J9K", sas: "482 913", host_nonce: "Zp4Qk8Rn2Vt6Wx0Ym3Ls7B", expires_at: "2026-11-02T20:13:03Z" }
+    PairPending:
+      x-gander-schema: PairPollStatus
+      value: { state: pending }
+    PairDenied:
+      x-gander-schema: PairPollStatus
+      value: { state: denied }
+    PairApproved:
+      x-gander-schema: PairApproved
+      value:
+        token: "PLACEHOLDER_TOKEN_REPLACED_PER_TEST_RUN"
+        device_id: "dev_01JC9X3Q7Z8M4N5P6R7S8T9V0W"
+        host:
+          id: "uSb4Dq0KZ3fV8nXgT1oY2wL5rM9cE6pA7hJ0iN3sQ4k"
+          name: studio-pc
+          os: windows
+          os_version: "10.0.26200"
+          app_version: "0.1.0"
+          addresses: ["100.101.102.103", "fd7a:115c:a1e0::1"]
+          magic_dns: studio-pc.tail1234.ts.net
+    SharesResponse:
+      x-gander-schema: SharesResponse
+      value:
+        shares:
+          - { id: "shr_01JC9X5B1C2D3E4F5G6H7J8K9M", name: Projects, path_display: "D:\\Projects", permissions: [list, preview, fetch, stream], show_hidden: false, stream_default: ask, search: indexed }
+          - { id: "shr_01JC9X5B1C2D3E4F5G6H7J8K9N", name: Photos, permissions: [list, preview], show_hidden: false, stream_default: refused, search: true }
+    ListResponse:
+      x-gander-schema: ListResponse
+      value:
+        path: Clients/Acme
+        entries:
+          - { name: Archive, kind: dir, size: 0, mtime: "2026-10-12T17:02:10Z", ctime: "2026-03-01T10:00:00Z", flags: [], thumb: false, preview: none, stream: refused }
+          - name: Deck.pptx
+            kind: file
+            size: 48213001
+            mtime: "2026-10-30T09:12:44Z"
+            ctime: "2026-10-01T08:00:00Z"
+            ext: pptx
+            mime: application/vnd.openxmlformats-officedocument.presentationml.presentation
+            flags: [cloud_only]
+            thumb: true
+            preview: office
+            stream: allowed
+        next_cursor: null
+        truncated: false
+        unlistable: 0
+        etag: "W/\"5f2a9c\""
+    StatImage:
+      x-gander-schema: Entry
+      value:
+        name: IMG_2041.jpg
+        kind: file
+        size: 3481220
+        mtime: "2026-10-28T18:40:02Z"
+        ctime: null
+        ext: jpg
+        mime: image/jpeg
+        flags: [readonly]
+        thumb: true
+        preview: image
+        stream: ask
+        meta: { image: { width: 4032, height: 3024, orientation: 6, taken_at: "2026:10:28 18:40:01", camera: "Google Pixel 9" } }
+    StatPdf:
+      x-gander-schema: Entry
+      value:
+        name: Contract.pdf
+        kind: file
+        size: 220133
+        mtime: "2026-10-20T12:00:00Z"
+        ctime: "2026-10-20T12:00:00Z"
+        ext: pdf
+        mime: application/pdf
+        flags: []
+        thumb: true
+        preview: pdf
+        stream: allowed
+        meta: { pdf: { pages: 42 } }
+    SearchResponse:
+      x-gander-schema: SearchResponse
+      value:
+        entries:
+          - { name: Deck.pptx, kind: file, size: 48213001, mtime: "2026-10-30T09:12:44Z", ctime: null, ext: pptx, flags: [], thumb: true, preview: office, stream: allowed, path: Clients/Acme/Deck.pptx }
+        partial: true
+        next_cursor: "b2Zmc2V0OjE"
+        via: walk
+    SearchResponseIndexed:
+      x-gander-schema: SearchResponse
+      value:
+        entries:
+          - { name: Budget 2026.xlsx, kind: file, size: 183204, mtime: "2026-10-29T16:40:02Z", ctime: null, ext: xlsx, flags: [], thumb: true, preview: office, stream: ask, path: Clients/Acme/Finance/Budget 2026.xlsx }
+          - { name: Minutes.docx, kind: file, size: 40960, mtime: "2026-10-12T09:00:00Z", ctime: null, ext: docx, flags: [], thumb: true, preview: office, stream: ask, path: Clients/Acme/Minutes.docx }
+        partial: false
+        next_cursor: "i1.9f2c4be1a07d3355.2"
+        via: index
+    RecentResponse:
+      x-gander-schema: RecentResponse
+      value:
+        entries:
+          - { name: notes.md, kind: file, size: 2048, mtime: "2026-11-01T22:05:00Z", ctime: null, ext: md, mime: text/markdown, flags: [], thumb: false, preview: text, stream: ask, share: "shr_01JC9X5B1C2D3E4F5G6H7J8K9M", path: Personal/notes.md }
+        partial: false
+    PreviewInfo:
+      x-gander-schema: PreviewInfo
+      value: { kind: pdf, pages: 42, width: 1240, height: 1754, text_bytes: null, renderer: windows_pdf, estimated_ms: 400 }
+    PreviewInfoTiles:
+      x-gander-schema: PreviewInfo
+      value:
+        kind: pdf
+        pages: 3
+        width: 2245
+        height: 3179
+        text_bytes: null
+        renderer: windows_pdf
+        estimated_ms: 400
+        tile_size: 512
+        tile_levels: 6
+        tile_pages:
+          - { width: 7016, height: 9933, levels: 6 }
+          - { width: 7016, height: 9933, levels: 6 }
+          - { width: 2480, height: 3508, levels: 4 }
+    PreviewInfoImageTiles:
+      x-gander-schema: PreviewInfo
+      value:
+        kind: image
+        pages: null
+        width: 6000
+        height: 4500
+        text_bytes: null
+        renderer: wic
+        estimated_ms: 120
+        tile_size: 512
+        tile_levels: 5
+        tile_pages:
+          - { width: 6000, height: 4500, levels: 5 }
+    HashResponse:
+      x-gander-schema: HashResponse
+      value: { algo: blake3, hex: "af1349b9f5f9a1a6a0404dea36dcc9499bcb25c9adc112b7cc9a93cae41f3262", size: 0, etag: "\"1a2b3c-0-1730000000\"" }
+    StreamRequest:
+      x-gander-schema: StreamRequest
+      value:
+        share: "shr_01JC9X5B1C2D3E4F5G6H7J8K9M"
+        path: Clients/Acme/Deck.pptx
+        app: null
+        viewport: { width: 1080, height: 2280, dpr: 2.625 }
+        prefer: { codec: h264, max_kbps: 8000 }
+    StreamCreated:
+      x-gander-schema: StreamCreated
+      value: { session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N", state: requested, app: { id: powerpoint, name: "Microsoft PowerPoint" }, needs_approval: false }
+    EventHello:
+      x-gander-schema: ServerEvent
+      value: { type: hello, protocol: 1, host_time: "2026-11-02T20:15:00Z" }
+    EventShareChanged:
+      x-gander-schema: ServerEvent
+      value: { type: share.changed, share: "shr_01JC9X5B1C2D3E4F5G6H7J8K9M", path: Clients/Acme }
+    EventSharesUpdated:
+      x-gander-schema: ServerEvent
+      value: { type: shares.updated }
+    EventDeviceRevoked:
+      x-gander-schema: ServerEvent
+      value: { type: device.revoked }
+    EventHostState:
+      x-gander-schema: ServerEvent
+      value: { type: host.state, locked: false, attended: true, on_battery: false, stream_available: true }
+    EventStreamState:
+      x-gander-schema: ServerEvent
+      value: { type: stream.state, session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N", state: paused, reason: focus_lost, window: { title: "Deck.pptx - PowerPoint", width: 1028, height: 2172, dpi: 144 } }
+    EventStreamPick:
+      x-gander-schema: ServerEvent
+      value: { type: stream.state, session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N", state: pick, reason: null, window: null, candidates: ["Deck.pptx - PowerPoint", "PowerPoint"] }
+    EventStreamOffer:
+      x-gander-schema: ServerEvent
+      value: { type: stream.offer, session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N", sdp: "v=0\r\no=- 0 0 IN IP4 100.101.102.103\r\n" }
+    EventStreamIce:
+      x-gander-schema: ServerEvent
+      value: { type: stream.ice, session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N", candidate: "candidate:1 1 udp 2130706431 100.101.102.103 50000 typ host" }
+    EventPong:
+      x-gander-schema: ServerEvent
+      value: { type: pong }
+    ClientStreamAnswer:
+      x-gander-schema: ClientEvent
+      value: { type: stream.answer, session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N", sdp: "v=0\r\n" }
+    ClientStreamIce:
+      x-gander-schema: ClientEvent
+      value: { type: stream.ice, session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N", candidate: "candidate:1 1 udp 2130706431 100.101.102.104 40000 typ host" }
+    ClientStreamResize:
+      x-gander-schema: ClientEvent
+      value: { type: stream.resize, session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N", width: 2280, height: 1080 }
+    ClientStreamPause:
+      x-gander-schema: ClientEvent
+      value: { type: stream.pause, session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N" }
+    ClientStreamResume:
+      x-gander-schema: ClientEvent
+      value: { type: stream.resume, session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N" }
+    ClientStreamPick:
+      x-gander-schema: ClientEvent
+      value: { type: stream.pick, session: "ses_01JC9X6C1D2E3F4G5H6J7K8M9N", index: 0 }
+    ClientPing:
+      x-gander-schema: ClientEvent
+      value: { type: ping }
+    InputMove:
+      x-gander-schema: InputMessage
+      value: { t: move, x: 0.4321, y: 0.7788 }
+    InputDown:
+      x-gander-schema: InputMessage
+      value: { t: down, b: left, x: 0.4321, y: 0.7788 }
+    InputUp:
+      x-gander-schema: InputMessage
+      value: { t: up, b: right, x: 0.5, y: 0.25 }
+    InputScroll:
+      x-gander-schema: InputMessage
+      value: { t: scroll, dx: 0, dy: -120, x: 0.5, y: 0.5 }
+    InputKey:
+      x-gander-schema: InputMessage
+      value: { t: key, code: KeyA, down: true, mods: [ctrl] }
+    InputText:
+      x-gander-schema: InputMessage
+      value: { t: text, s: "typed locally" }
+    InputClipboardGet:
+      x-gander-schema: InputMessage
+      value: { t: clipboard.get }
+    InputClipboard:
+      x-gander-schema: InputMessage
+      value: { t: clipboard, s: "copied on the host" }

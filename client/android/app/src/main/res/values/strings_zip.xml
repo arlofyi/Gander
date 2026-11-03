@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Folder download as a zip (WP-68): the menu item and the confirmation before it starts. -->
+    <string name="zip_menu">Download folder as zip</string>
+    <string name="zip_title">Download folder as zip?</string>
+    <string name="zip_this_folder">this folder</string>
+    <string name="zip_measuring">Measuring \u201c%1$s\u201d on the computer\u2026</string>
+    <plurals name="zip_summary">
+        <item quantity="one">\u201c%1$s\u201d has %2$d item, %3$s in total.</item>
+        <item quantity="other">\u201c%1$s\u201d has %2$d items, %3$s in total.</item>
+    </plurals>
+    <string name="zip_how">The computer sends everything as one zip file, not compressed. It is kept in this app first; save it to Downloads from the Downloads screen. If the connection breaks, the zip starts over from the beginning.</string>
+    <plurals name="zip_cloud_only">
+        <item quantity="one">%1$d file is online-only on the computer. The computer downloads it first, which can take a while.</item>
+        <item quantity="other">%1$d files are online-only on the computer. The computer downloads them first, which can take a while.</item>
+    </plurals>
+    <plurals name="zip_skipped">
+        <item quantity="one">%1$d item is left out: a link, or a name that cannot be sent. The zip has a note, _gander-skipped.txt, that names it.</item>
+        <item quantity="other">%1$d items are left out: links, or names that cannot be sent. The zip has a note, _gander-skipped.txt, that names them.</item>
+    </plurals>
+    <string name="zip_too_large_title">Too big for one zip</string>
+    <string name="zip_too_large_body">This folder is over the limit the computer allows for a zip. Open a smaller folder, or fetch files one by one.</string>
+    <string name="zip_confirm">Download %1$s</string>
+    <string name="zip_close">Close</string>
+</resources>

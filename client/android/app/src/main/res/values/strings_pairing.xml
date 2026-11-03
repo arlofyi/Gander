@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Add host screens (WP-22). Copy follows docs/specs/2026-11-01-pairing-and-trust.md and the
+     client spec: say what is happening, never show the QR secret as text, and always carry the
+     "if someone told you to do this, stop" warning next to the code. -->
+<resources>
+    <string name="pairing_title">Add a computer</string>
+
+    <!-- First screen -->
+    <string name="pairing_choose_intro">On the computer, open Gander and choose \"Add a device\". It shows a QR code and its address. Then pair this phone here.</string>
+    <string name="pairing_scan_action">Scan the QR code</string>
+    <string name="pairing_manual_action">Enter the address instead</string>
+    <string name="pairing_warning_title">Only add a computer you set up yourself</string>
+    <string name="pairing_warning_body">If someone told you to do this, asked you to scan a code they sent, or asked you to read out a code, stop and close this screen. Gander never needs a code to be shared with anyone.</string>
+
+    <!-- Scan -->
+    <string name="pairing_scan_hint">Point the camera at the code in \"Add a device\" on your computer.</string>
+    <string name="pairing_scan_not_gander">That is not a Gander pairing code.</string>
+    <string name="pairing_scan_version">This code comes from a different version of Gander. Update the app and the computer, then try again.</string>
+    <string name="pairing_scan_malformed">This pairing code is damaged. Open \"Add a device\" on the computer again.</string>
+    <string name="pairing_camera_permission_title">Camera access is needed to scan the code</string>
+    <string name="pairing_camera_permission_body">Gander uses the camera only here, to read the pairing code. Nothing is recorded or saved.</string>
+    <string name="pairing_camera_allow">Allow camera</string>
+    <string name="pairing_camera_settings">Open app settings</string>
+    <string name="pairing_camera_unavailable">Gander could not open a camera on this device. You can enter the address instead.</string>
+
+    <!-- Manual entry (flow B) -->
+    <string name="pairing_manual_intro">Enter the address shown in the \"Add a device\" window on your computer, for example 100.101.102.103 or studio-pc.tail1234.ts.net.</string>
+    <string name="pairing_manual_label">Computer address</string>
+    <string name="pairing_manual_invalid">That does not look like an address. Use an IP address or a name, optionally followed by :port.</string>
+    <string name="pairing_manual_continue">Continue</string>
+    <string name="pairing_manual_note">Next you compare a six-digit code on this phone with the one on the computer. Only approve if they are the same.</string>
+
+    <!-- Progress -->
+    <string name="pairing_connecting">Connecting to %1$s&#8230;</string>
+    <string name="pairing_waiting_title">Waiting for approval on %1$s</string>
+    <string name="pairing_code_label">Pairing code</string>
+    <string name="pairing_waiting_qr">%1$s should show this same code and the name of this phone. Choose Allow on the computer to finish.</string>
+    <string name="pairing_waiting_manual">Compare this code with the one on %1$s. Only approve if they are the same. If they differ, choose Deny on the computer: someone may be intercepting the connection.</string>
+    <string name="pairing_waiting_warning">Did someone tell you to do this, or ask you to read this code to them? Stop and cancel.</string>
+    <string name="pairing_cancel">Cancel</string>
+
+    <!-- Done -->
+    <string name="pairing_done_title">%1$s is paired</string>
+    <string name="pairing_done_body">This phone can now reach the folders you share with it from that computer.</string>
+    <string name="pairing_done_open">Browse files</string>
+    <string name="pairing_done_close">Back to your computers</string>
+
+    <!-- Failures -->
+    <string name="pairing_failed_title">Pairing did not finish</string>
+    <string name="pairing_try_again">Try again</string>
+    <string name="pairing_start_over">Start over</string>
+    <string name="pairing_error_closed">Pairing is not open on this computer. Open \"Add a device\" on it and try again.</string>
+    <string name="pairing_error_rate_limited">Too many failed attempts. Open \"Add a device\" on the computer again to reset the limit.</string>
+    <string name="pairing_error_in_progress">Another device is waiting for approval on this computer. Finish or deny that request first.</string>
+    <string name="pairing_error_code_rejected">The computer did not accept this code. It may have expired: open \"Add a device\" on it again and scan the new code.</string>
+    <string name="pairing_error_wrong_computer_qr">This is not the computer the code came from. Pairing was stopped and nothing was shared.</string>
+    <string name="pairing_error_wrong_computer_manual">This computer\'s identity could not be verified, so pairing was stopped.</string>
+    <string name="pairing_error_sas_mismatch">The code on this phone does not match the one the computer reported. Someone on your network may be intercepting the connection. Pairing was stopped; do not approve it on the computer.</string>
+    <string name="pairing_error_denied">The request was denied on the computer.</string>
+    <string name="pairing_error_expired">The request timed out. Open \"Add a device\" on the computer and start again.</string>
+    <string name="pairing_error_storage">The computer approved this phone, but the pairing could not be saved securely here. Remove this phone in Gander on the computer, then pair again.</string>
+    <string name="pairing_error_app">Something went wrong in Gander on this phone. Check the computer list: if the computer is there, pairing worked; otherwise try again.</string>
+    <string name="pairing_error_other">Pairing failed.</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What the FileProvider may hand out: finished downloads under filesDir/fetched/ only.
+     Partial downloads live in the same folders but are never given a URI by the app. -->
+<paths>
+    <files-path name="fetched" path="fetched/" />
+</paths>

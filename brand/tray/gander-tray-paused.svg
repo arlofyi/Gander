@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <title>Gander tray: paused</title>
+  <desc>Paused: the listener is paused. Grey lens with two bars.</desc>
+  <g fill="none" stroke="#8a94a6" stroke-linecap="round">
+    <circle cx="44" cy="44" r="30" stroke-width="9"/>
+    <path d="M65 65L84 84" stroke-width="13" stroke-linecap="butt"/>
+    <path d="M36 32V56M52 32V56" stroke-width="8"/>
+  </g>
+  <circle cx="84" cy="84" r="6.5" fill="#8a94a6"/>
+</svg>

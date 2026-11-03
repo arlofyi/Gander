@@ -1,0 +1,170 @@
+[workspace]
+resolver = "3"
+members = [
+    "host/gander-core",
+    "host/gander-win",
+    "host/gander-stream",
+    "host/gander-render",
+    "host/gander-host",
+    "host/gander-testwin",
+    "host/gander-e2e",
+    "spikes/identity",
+    "spikes/stream/capture",
+    "spikes/stream/encode",
+    "spikes/stream/webrtc",
+    "spikes/stream/input",
+    "xtask",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.90"
+license = "Apache-2.0"
+publish = false
+
+# Shared dependency versions. Member crates opt in with `name.workspace = true`; an entry here
+# that no member uses costs nothing. Add new shared dependencies here, not in member manifests,
+# so every package resolves one version. Permissive licences only (see deny.toml).
+[workspace.dependencies]
+# Internal crates. The version is stated so cargo-deny does not treat the path dependency as a
+# wildcard.
+gander-core = { path = "host/gander-core", version = "0.1.0" }
+gander-win = { path = "host/gander-win", version = "0.1.0" }
+gander-stream = { path = "host/gander-stream", version = "0.1.0" }
+gander-testwin = { path = "host/gander-testwin", version = "0.1.0" }
+gander-host = { path = "host/gander-host", version = "0.1.0" }
+spike-capture = { path = "spikes/stream/capture", version = "0.1.0" }
+spike-encode = { path = "spikes/stream/encode", version = "0.1.0" }
+spike-webrtc = { path = "spikes/stream/webrtc", version = "0.1.0" }
+
+# Errors and serialisation
+anyhow = "1"
+thiserror = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "1"
+time = { version = "0.3", features = ["serde", "formatting", "parsing"] }
+# CRC-32 of each entry of the streamed folder zip (WP-68). MIT or Apache-2.0, already in the tree
+# through zip and flate2.
+crc32fast = "1"
+
+# Test-only helpers
+# YAML reader for the protocol/openapi.yaml schema test. serde_yaml is unmaintained; this is its
+# maintained MIT/Apache-2.0 fork.
+serde_norway = "0.9"
+# Property tests (path resolver fuzz invariants). No fork/timeout features: fewer deps.
+proptest = { version = "1", default-features = false, features = ["std"] }
+
+# Networking, TLS and the HTTP stack (WP-12). rustls uses the `ring` provider: the default
+# `aws-lc-rs` backend needs NASM (and CMake); `ring` builds with the MSVC compiler alone.
+tokio = { version = "1", features = ["rt-multi-thread", "net", "time", "sync", "macros", "io-util", "signal"] }
+axum = { version = "0.8", default-features = false, features = ["http1", "json", "tokio", "query", "ws"] }
+hyper = { version = "1", features = ["http1", "server"] }
+hyper-util = { version = "0.1", features = ["tokio", "service"] }
+tower = { version = "0.5", default-features = false, features = ["util"] }
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "logging"] }
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring"] }
+rcgen = { version = "0.14", default-features = false, features = ["crypto", "ring"] }
+ring = "0.17"
+socket2 = "0.6"
+base64 = "0.22"
+ulid = "1"
+tracing = "0.1"
+# Content hashes for `GET /hash` and the listing ETag (WP-14). CC0-1.0 / Apache-2.0.
+blake3 = "1"
+# Test-only WebSocket client (WP-13 revocation test, WP-17 events tests). Same version axum uses.
+tokio-tungstenite = { version = "0.29", default-features = false, features = ["handshake"] }
+futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
+# HTTP client plumbing for the WP-1B e2e conformance suite (`gander-e2e`); already in the tree
+# through axum/hyper.
+http-body-util = "0.1"
+bytes = "1"
+
+# Tray and settings UI (WP-18, ADR-0007). Pure Rust, no WebView. eframe uses the glow (OpenGL)
+# renderer, so there is no wgpu tree; the UI screenshots come from the software rasteriser in
+# `host/gander-host/src/ui/raster.rs`, not from a GPU or the real desktop. `default_fonts` brings
+# the bundled egui fonts (see the licence exceptions in deny.toml). tray-icon is used on Windows
+# only: its Linux backend needs GTK, and non-Windows hosts do not exist yet.
+eframe = { version = "0.33", default-features = false, features = ["accesskit", "default_fonts", "glow"] }
+egui = { version = "0.33", default-features = false }
+egui_kittest = { version = "0.33", default-features = false }
+tray-icon = { version = "0.26", default-features = false }
+qrcode = { version = "0.14", default-features = false }
+rfd = { version = "0.17", default-features = false }
+
+# Tooling (xtask)
+# zlib for the `.dep-v0` dependency list embedded in the host and render executables (WP-82):
+# written by the two `build.rs` files, read back and checked by `cargo xtask sbom`/`installer-build`.
+# Pure-Rust backend (miniz_oxide); already in the tree through png and zip, so no new package.
+flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+# XML reader for `cargo xtask installer-check` (the WiX source and the autostart task). MIT or Apache-2.0,
+# no dependencies.
+roxmltree = "0.21"
+zip ={ version = "9", default-features = false, features = ["deflate-flate2-zlib-rs"] }
+# SVG rasteriser for `cargo xtask icons` (resvg and usvg: Apache-2.0 OR MIT; tiny-skia: BSD-3-Clause).
+# Without default features there is no text, raster-image or system-font support: the brand SVGs
+# are plain outlined paths, so none is needed.
+resvg = { version = "0.49", default-features = false }
+# Resource compiler driver for the host's exe icon and version info (MIT). Needs rc.exe from the
+# Windows SDK at build time (VS Build Tools provides it); see host/gander-host/build.rs.
+embed-resource = "3"
+windows-sys = "0.61"
+
+# Win32 bindings for the host side (gander-testwin now; capture/input spikes next). Each member
+# opts in to the feature set it needs, so only the used API surface is compiled.
+windows = "0.62"
+# Rendering (WP-15). Decoders are linked only into the `gander-render` worker, never the host.
+# `windows` (COM/WinRT: WIC, shell thumbnails, Windows.Data.Pdf) is used by the worker only.
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "gif", "bmp", "tiff", "webp"] }
+# Lossy WebP encoder (libwebp, BSD-3-Clause, built from source by libwebp-sys).
+webp = { version = "0.3", default-features = false }
+# Embedded key-value store for the thumbnail cache index.
+redb = "3"
+# Test-only: streaming PNG writer for the decompression-bomb fixture.
+png = "0.18"
+# WGC capture helper library (MIT). WP-41 compares it with the own thin wrapper in
+# spikes/stream/capture; see docs/specs/2026-11-01-stream-spike-findings.md.
+windows-capture = "2.0.1"
+# AsyncStatus / IAsyncOperation for the windows 0.62 WinRT async calls.
+windows-future = "0.3"
+# WebRTC (WP-43 spike, ADR-0005 D12). webrtc-rs 0.21 is an async layer over the sans-IO `rtc`
+# core; both with the `ring` crypto backend (the default aws-lc-rs would need CMake/NASM).
+webrtc = { version = "0.21.1", default-features = false, features = ["runtime-tokio", "crypto-ring"] }
+rtc = { version = "0.21.1", default-features = false, features = ["crypto-ring"] }
+async-trait = "0.1"
+# Stream audio (WP-55). Opus: opusic-c (BSD-3-Clause), safe bindings to the reference libopus
+# 1.6.1 with encoder and decoder in one crate. Its default `bundled` feature builds the libopus
+# C source that ships in opusic-sys through CMake and MSVC (no NASM, no clang, no bindgen), so the
+# build machine needs CMake on PATH (docs/release/reproducible-builds.md). Capture: wasapi (MIT),
+# WASAPI process loopback on the same windows 0.62 as the rest of the tree.
+opusic-c = "1.6.1"
+wasapi = "0.26"
+# `log` facade (webrtc-rs logs through it); the spike prints warnings with `--log`.
+log = "0.4"
+
+[workspace.lints.rust]
+unsafe_op_in_unsafe_fn = "deny"
+unused_must_use = "deny"
+rust_2018_idioms = { level = "warn", priority = -1 }
+missing_debug_implementations = "warn"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+dbg_macro = "warn"
+todo = "warn"
+unimplemented = "warn"
+undocumented_unsafe_blocks = "warn"
+
+# Release: thin LTO, one codegen unit, symbols stripped (host footprint,
+# docs/specs/2026-11-02-host-footprint.md). `panic` stays `unwind`: a panic in a tokio task or a
+# helper thread ends that task, not the whole host, and winit relies on catch_unwind to carry a
+# callback panic across its window procedure.
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
+
+[profile.dev]
+debug = "line-tables-only"

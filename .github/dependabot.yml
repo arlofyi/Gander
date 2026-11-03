@@ -1,0 +1,125 @@
+# Dependabot version updates (WP-82). Weekly, grouped, so a week of releases is a handful of pull
+# requests instead of one per crate. Every update PR runs the same gates as any change (host-windows,
+# client-android, docs); nothing here merges by itself. Security advisories open their own PRs
+# immediately, outside this schedule. Commit messages follow Conventional Commits.
+#
+# What Dependabot cannot do and the owner still does by hand: the Rust toolchain (rustc, see
+# docs/release/reproducible-builds.md), cargo-deny (CARGO_DENY_VERSION in host-windows.yml) and the
+# NDK package in client-android.yml (kept in step with `ndk` in libs.versions.toml).
+#
+# The `ignore` entries below are lines that are blocked on purpose, not forgotten:
+#   - eframe/egui 0.34+ need Rust 1.92 (0.36+ need 1.95), above the workspace MSRV of 1.90 (deny.toml).
+#   - the AndroidX, Compose, Coil and OkHttp lines named in client/android/gradle/libs.versions.toml
+#     need compileSdk 37, which comes with the targetSdk 37 bump.
+# Remove an entry when the reason goes away.
+
+version: 2
+
+updates:
+  # ---- Rust: the one workspace (host, xtask and the Rust spikes share the root Cargo.lock) ----
+  - package-ecosystem: cargo
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build(deps)"
+    labels:
+      - dependencies
+    groups:
+      rust-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: "eframe"
+        versions: [">= 0.34"]
+      - dependency-name: "egui"
+        versions: [">= 0.34"]
+      - dependency-name: "egui_kittest"
+        versions: [">= 0.34"]
+
+  # ---- Android client: Gradle wrapper, version catalogue, plugins ----
+  - package-ecosystem: gradle
+    directory: "/client/android"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build(deps)"
+    labels:
+      - dependencies
+    groups:
+      android-androidx:
+        patterns:
+          - "androidx.*"
+        update-types:
+          - minor
+          - patch
+      android-kotlin-toolchain:
+        patterns:
+          - "org.jetbrains.kotlin*"
+          - "com.google.devtools.ksp*"
+      android-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+    ignore:
+      - dependency-name: "androidx.core:*"
+        versions: [">= 1.19"]
+      - dependency-name: "androidx.lifecycle:*"
+        versions: [">= 2.11"]
+      - dependency-name: "androidx.navigation:*"
+        versions: [">= 2.10"]
+      - dependency-name: "androidx.compose:compose-bom"
+        versions: [">= 2026.08"]
+      - dependency-name: "io.coil-kt.coil3:*"
+        versions: [">= 3.6"]
+      - dependency-name: "com.squareup.okhttp3:*"
+        versions: [">= 5.5"]
+
+  # ---- Spikes: the two Android spike projects (their Rust crates are in the root workspace) ----
+  - package-ecosystem: gradle
+    directories:
+      - "/spikes/files-app"
+      - "/spikes/stream/android"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 2
+    commit-message:
+      prefix: "build(deps)"
+    labels:
+      - dependencies
+    groups:
+      spikes-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
+  # ---- CI: the actions are pinned to commit SHAs with the tag in a comment; Dependabot bumps both ----
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "ci(deps)"
+    labels:
+      - dependencies
+    groups:
+      actions-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch

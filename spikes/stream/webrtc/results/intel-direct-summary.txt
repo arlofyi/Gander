@@ -1,0 +1,27 @@
+# spike-webrtc (WP-43) intel-direct
+webrtc-rs 0.21.1 (rtc 0.21.1, crypto ring); GCC initial 3000 min 300 max 8000 kbps; headroom 0.85; relay off (queue 200 ms); NACK off; steps []; 20 s
+source: Intel(R) Graphics / Intel® Quick Sync Video H.264 Encoder MFT (constrained-baseline), 1080x2280 @ 30 fps from a 691x1487 window, GOP 60
+offer candidates (host): ["a=candidate:2693830880 1 udp 2130706431 127.0.0.1 59788 typ host", "a=candidate:2693830880 2 udp 2130706431 127.0.0.1 59788 typ host"]
+answer candidates (viewer): ["a=candidate:2693830880 1 udp 2130706431 127.0.0.1 59789 typ host", "a=candidate:2693830880 2 udp 2130706431 127.0.0.1 59789 typ host"]
+answer fmtp/rtcp-fb/extmap: ["a=fmtp:102 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e032", "a=rtcp-fb:102 nack pli", "a=rtcp-fb:102 ccm fir", "a=rtcp-fb:102 transport-cc", "a=extmap:1 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01"]
+connect (ws accept -> Connected): 203 ms
+frames: captured+fed 579 encoded 578 (IDR 12) sent 578 received-clean 578 decoded 578 (ffmpeg lines 578) | lost pkts 0 late/dup pkts 0 lost AUs 0 skipped-until-IDR 0 PLI sent 0 recv 0 | sender queue full 0 | wall 20.0 s
+RTCP seen by the host track: {}
+encoder rate control: recreate (4 re-creations, 100 ms each p50, max 102 ms; 1 in-flight frames lost)
+latency [steady (3 s .. first cap)]:
+  capture->encoded  p50 5.1 / p95 7.5 / max 163.3 ms (n=494)
+  encoded->sent     p50 2.1 / p95 3.2 / max 4.6 ms (n=494)
+  sent->received    p50 0.3 / p95 0.5 / max 10.5 ms (n=494)
+  capture->received p50 7.2 / p95 10.4 / max 165.7 ms (n=494)
+  received->decoded p50 66.9 / p95 80.1 / max 6550.7 ms (n=494)
+  capture->decoded  p50 74.3 / p95 89.7 / max 6558.9 ms (n=494)
+latency [whole run]:
+  capture->encoded  p50 5.1 / p95 7.5 / max 170.4 ms (n=578)
+  encoded->sent     p50 2.1 / p95 3.2 / max 4.6 ms (n=578)
+  sent->received    p50 0.3 / p95 0.5 / max 102.2 ms (n=578)
+  capture->received p50 7.2 / p95 10.6 / max 171.7 ms (n=578)
+  received->decoded p50 66.9 / p95 81.2 / max 6550.7 ms (n=578)
+  capture->decoded  p50 74.3 / p95 98.4 / max 6558.9 ms (n=578)
+data channel echo RTT: p50 0.3 / p95 0.4 / max 0.5 ms (n=201) (echoed 201)
+encoder set point changes: 4
+RESULT: PASS

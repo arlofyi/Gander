@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Slate ink of the Gander lens (brand/); the adaptive icon's background layer. -->
+    <color name="ic_launcher_background">#1D2A30</color>
+</resources>

@@ -1,0 +1,104 @@
+{
+ "description": "Deep-zoom tile pyramid vectors (WP-67, docs/specs/2026-11-01-preview-renderers.md 'Deep-zoom tiles'). 'top' is the page size in pixels at the top level (an image's own pixels after EXIF orientation, a PDF page at 300 dpi). 'levels' is null when the page cannot be tiled (empty, or longest side over 32768). Level 0 is the smallest level whose longest side fits in 512; every level above it is twice the size (rounded up) up to the top level, which is the last level. 'level_sizes' and 'grids' (columns, rows of 512 px tiles) are indexed by level. Each tile entry gives the level, column x and row y; 'expect' is null when the tile does not exist, else 'size' (width, height of the tile image in pixels; tiles on the right and bottom edge are smaller, never padded) and 'src' (x, y, width, height of the area the tile shows, in top-level pixels, clipped to the page). The Rust runner is the unit test in host/gander-core/src/tiles.rs; the Android client reads the same file (TilePyramidTest).",
+ "version": 1,
+ "tile_size": 512,
+ "vectors": [
+  {
+   "id": "image-6000x4500",
+   "top": [6000, 4500],
+   "levels": 5,
+   "level_sizes": [[375, 282], [750, 563], [1500, 1125], [3000, 2250], [6000, 4500]],
+   "grids": [[1, 1], [2, 2], [3, 3], [6, 5], [12, 9]],
+   "tiles": [
+    {"level": 0, "x": 0, "y": 0, "expect": {"size": [375, 282], "src": [0, 0, 6000, 4500]}},
+    {"level": 2, "x": 1, "y": 1, "expect": {"size": [512, 512], "src": [2048, 2048, 2048, 2048]}},
+    {"level": 3, "x": 5, "y": 4, "expect": {"size": [440, 202], "src": [5120, 4096, 880, 404]}},
+    {"level": 4, "x": 0, "y": 0, "expect": {"size": [512, 512], "src": [0, 0, 512, 512]}},
+    {"level": 4, "x": 11, "y": 8, "expect": {"size": [368, 404], "src": [5632, 4096, 368, 404]}},
+    {"level": 4, "x": 12, "y": 0, "expect": null},
+    {"level": 4, "x": 0, "y": 9, "expect": null},
+    {"level": 5, "x": 0, "y": 0, "expect": null}
+   ]
+  },
+  {
+   "id": "image-4000x3000",
+   "top": [4000, 3000],
+   "levels": 4,
+   "level_sizes": [[500, 375], [1000, 750], [2000, 1500], [4000, 3000]],
+   "grids": [[1, 1], [2, 2], [4, 3], [8, 6]],
+   "tiles": [
+    {"level": 2, "x": 3, "y": 2, "expect": {"size": [464, 476], "src": [3072, 2048, 928, 952]}},
+    {"level": 3, "x": 7, "y": 5, "expect": {"size": [416, 440], "src": [3584, 2560, 416, 440]}}
+   ]
+  },
+  {
+   "id": "pdf-a1-300dpi",
+   "top": [7016, 9933],
+   "levels": 6,
+   "level_sizes": [[220, 311], [439, 621], [877, 1242], [1754, 2484], [3508, 4967], [7016, 9933]],
+   "grids": [[1, 1], [1, 2], [2, 3], [4, 5], [7, 10], [14, 20]],
+   "tiles": [
+    {"level": 0, "x": 0, "y": 0, "expect": {"size": [220, 311], "src": [0, 0, 7016, 9933]}},
+    {"level": 3, "x": 3, "y": 4, "expect": {"size": [218, 436], "src": [6144, 8192, 872, 1741]}},
+    {"level": 4, "x": 6, "y": 9, "expect": {"size": [436, 359], "src": [6144, 9216, 872, 717]}},
+    {"level": 5, "x": 13, "y": 19, "expect": {"size": [360, 205], "src": [6656, 9728, 360, 205]}},
+    {"level": 5, "x": 14, "y": 19, "expect": null}
+   ]
+  },
+  {
+   "id": "image-513x1",
+   "top": [513, 1],
+   "levels": 2,
+   "level_sizes": [[257, 1], [513, 1]],
+   "grids": [[1, 1], [2, 1]],
+   "tiles": [
+    {"level": 0, "x": 0, "y": 0, "expect": {"size": [257, 1], "src": [0, 0, 513, 1]}},
+    {"level": 1, "x": 0, "y": 0, "expect": {"size": [512, 1], "src": [0, 0, 512, 1]}},
+    {"level": 1, "x": 1, "y": 0, "expect": {"size": [1, 1], "src": [512, 0, 1, 1]}},
+    {"level": 1, "x": 0, "y": 1, "expect": null}
+   ]
+  },
+  {
+   "id": "image-512x512",
+   "top": [512, 512],
+   "levels": 1,
+   "level_sizes": [[512, 512]],
+   "grids": [[1, 1]],
+   "tiles": [
+    {"level": 0, "x": 0, "y": 0, "expect": {"size": [512, 512], "src": [0, 0, 512, 512]}},
+    {"level": 1, "x": 0, "y": 0, "expect": null}
+   ]
+  },
+  {
+   "id": "image-100x60",
+   "top": [100, 60],
+   "levels": 1,
+   "level_sizes": [[100, 60]],
+   "grids": [[1, 1]],
+   "tiles": [
+    {"level": 0, "x": 0, "y": 0, "expect": {"size": [100, 60], "src": [0, 0, 100, 60]}}
+   ]
+  },
+  {
+   "id": "image-32768x1",
+   "top": [32768, 1],
+   "levels": 7,
+   "level_sizes": [[512, 1], [1024, 1], [2048, 1], [4096, 1], [8192, 1], [16384, 1], [32768, 1]],
+   "grids": [[1, 1], [2, 1], [4, 1], [8, 1], [16, 1], [32, 1], [64, 1]],
+   "tiles": [
+    {"level": 0, "x": 0, "y": 0, "expect": {"size": [512, 1], "src": [0, 0, 32768, 1]}},
+    {"level": 6, "x": 63, "y": 0, "expect": {"size": [512, 1], "src": [32256, 0, 512, 1]}}
+   ]
+  },
+  {
+   "id": "image-over-the-limit",
+   "top": [32769, 10],
+   "levels": null
+  },
+  {
+   "id": "image-empty",
+   "top": [0, 10],
+   "levels": null
+  }
+ ]
+}

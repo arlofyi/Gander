@@ -1,0 +1,5 @@
+# spike-input serve (post20)
+source: Intel(R) Graphics / Intel® Quick Sync Video H.264 Encoder MFT, 1080x2280 @ 30 fps
+inject mode postmessage, advertise Some(10.0.2.2), taps handled 20
+postmessage: 20 taps, 20 reached the window (clicks +1), 20 hit the box; rx->inject p50 0.6 ms; inject call p50 0.03 ms; inject->colour change seen on the pipe p50 0.1 / p95 0.2 ms (n=20)
+  first outcome: PostMessage accepted 3/3 error None

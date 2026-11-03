@@ -1,0 +1,26 @@
+# adb-driven taps (post20): 20 issued, 20 received by the host
+| seq | aimed client | mode | clicked | hit | host inject->colour ms | phone tap->pixels ms | echo rtt ms |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | (279, 1182) | postmessage | true | true | 0.2 | 229 | 18.9 |
+| 2 | (493, 1267) | postmessage | true | true | 0.1 | 153 | 2.8 |
+| 3 | (566, 1122) | postmessage | true | true | 0.1 | 161 | 4.0 |
+| 4 | (329, 964) | postmessage | true | true | 0.1 | 127 | 1.8 |
+| 5 | (113, 820) | postmessage | true | true | 0.1 | 183 | 14.7 |
+| 6 | (222, 660) | postmessage | true | true | 0.4 | 180 | 8.0 |
+| 7 | (456, 504) | postmessage | true | true | 0.1 | 157 | 18.8 |
+| 8 | (588, 348) | postmessage | true | true | 0.1 | 151 | 10.2 |
+| 9 | (366, 280) | postmessage | true | true | 0.1 | 118 | 2.5 |
+| 10 | (150, 424) | postmessage | true | true | 0.1 | 142 | 3.9 |
+| 11 | (163, 568) | postmessage | true | true | 0.1 | 128 | 5.6 |
+| 12 | (382, 714) | postmessage | true | true | 0.1 | 115 | 5.4 |
+| 13 | (592, 854) | postmessage | true | true | 0.1 | 104 | 6.7 |
+| 14 | (476, 994) | postmessage | true | true | 0.1 | 86 | 2.1 |
+| 15 | (270, 1132) | postmessage | true | true | 0.1 | 92 | 1.5 |
+| 16 | (63, 1270) | postmessage | true | true | 0.2 | 82 | 4.8 |
+| 17 | (246, 1180) | postmessage | true | true | 0.1 | 94 | 3.7 |
+| 18 | (459, 1038) | postmessage | true | true | 0.1 | 103 | 3.5 |
+| 19 | (603, 894) | postmessage | true | true | 0.1 | 104 | 3.8 |
+| 20 | (390, 752) | postmessage | true | true | 0.1 | 111 | 9.6 |
+hits 20/20 taps; phone tap->changed pixels p50 118 / p95 183 / max 229 ms (n=20); host inject->colour change (pipe poll) p50 0.1 ms (n=20); command->host rx p50 85 ms
+phone decoded 753 frames in 27.1 s = 27.8 fps; last stats: {"bytes_received":12731056,"decode_ms_per_frame":13.361538461538458,"decoder":"c2.goldfish.h264.decoder","ev":"inbound_video","frame_height":2280,"frame_width":1080,"frames_decoded":780,"frames_dropped":1,"frames_per_second":30,"frames_received":783,"freeze_count":1,"jitter_buffer_ms":51.009062740076814,"key_frames_decoded":14,"nack_count":0,"packets_lost":0,"packets_received":12356,"pli_count":0,"t_ns":246633886000}
+phone events: 161 total, 20 echo, 20 tap_effect, 0 colour_change

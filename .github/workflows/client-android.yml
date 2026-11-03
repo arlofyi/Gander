@@ -1,0 +1,144 @@
+name: client-android
+
+# Client gates on Linux: Gradle build, unit tests, lint and the Android 16 KB page-size check
+# of every native library in the debug APK (WP-20 added client/android/). The Gradle steps are
+# still guarded by the detection step so the workflow stays green on a checkout without it.
+# Toolchain versions (AGP, Gradle, NDK) live in client/android/gradle/libs.versions.toml and the
+# wrapper properties; keep the NDK package below in step with `ndk` in the catalogue.
+# Actions are pinned to commit SHAs (tag in the trailing comment); bump deliberately (WP-82).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "client/android/**"
+      - "xtask/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - ".github/workflows/client-android.yml"
+  pull_request:
+    paths:
+      - "client/android/**"
+      - "xtask/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - ".github/workflows/client-android.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: client-android-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  client:
+    name: unit tests, lint, ELF 16 KB check (ubuntu-latest)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Detect Gradle project
+        id: project
+        run: |
+          if [ -f client/android/gradlew ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::client/android/ does not exist yet (WP-20); skipping Gradle steps"
+          fi
+
+      - name: Test the ELF alignment checker
+        run: cargo test -p xtask --locked -- "elf::"
+
+      # WP-82: the committed Gradle wrapper is the one Gradle published (the jar) and the
+      # distribution it downloads is the pinned one (distributionSha256Sum). No third-party action.
+      - name: Verify the Gradle wrapper
+        if: steps.project.outputs.present == 'true'
+        run: |
+          props=client/android/gradle/wrapper/gradle-wrapper.properties
+          version=$(sed -n 's#^distributionUrl=.*gradle-\([0-9][0-9.]*\)-bin\.zip$#\1#p' "$props")
+          published_jar=$(curl -fsSL "https://services.gradle.org/distributions/gradle-${version}-wrapper.jar.sha256")
+          actual_jar=$(sha256sum client/android/gradle/wrapper/gradle-wrapper.jar | cut -d' ' -f1)
+          pinned_dist=$(sed -n 's#^distributionSha256Sum=##p' "$props")
+          published_dist=$(curl -fsSL "https://services.gradle.org/distributions/gradle-${version}-bin.zip.sha256")
+          [ "$published_jar" = "$actual_jar" ] || { echo "::error::gradle-wrapper.jar is not the published ${version} wrapper"; exit 1; }
+          [ "$published_dist" = "$pinned_dist" ] || { echo "::error::distributionSha256Sum is not the published ${version} checksum"; exit 1; }
+          echo "Gradle ${version}: wrapper jar and distribution checksums match gradle.org"
+
+      - name: Set up JDK 17
+        if: steps.project.outputs.present == 'true'
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Cache Gradle
+        if: steps.project.outputs.present == 'true'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('client/android/**/*.gradle*', 'client/android/**/gradle-wrapper.properties', 'client/android/**/libs.versions.toml') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+
+      - name: Install Android SDK packages
+        if: steps.project.outputs.present == 'true'
+        run: |
+          # The ubuntu-latest image ships the SDK at $ANDROID_HOME. Accept licences for CI only.
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0" "ndk;28.2.13676358"
+
+      - name: Build, unit test and lint
+        if: steps.project.outputs.present == 'true'
+        working-directory: client/android
+        run: ./gradlew --no-daemon assembleDebug testDebugUnitTest lintDebug
+
+      - name: Check native libraries are 16 KB aligned
+        if: steps.project.outputs.present == 'true'
+        run: |
+          mapfile -t apks < <(find client/android -path '*/build/outputs/apk/*' -name '*.apk')
+          if [ "${#apks[@]}" -eq 0 ]; then
+            echo "::error::no APK found under client/android/**/build/outputs/apk/"
+            exit 1
+          fi
+          cargo xtask check-elf-alignment "${apks[@]}"
+
+      - name: Upload debug APK
+        if: steps.project.outputs.present == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: gander-debug-apk
+          path: client/android/**/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+
+      # WP-82: the CycloneDX 1.5 SBOM of what the release APK carries (releaseRuntimeClasspath),
+      # from the CycloneDX Gradle plugin (version in gradle/libs.versions.toml), then validated
+      # against the CycloneDX schema by xtask.
+      - name: SBOM of the app (CycloneDX 1.5)
+        if: steps.project.outputs.present == 'true'
+        working-directory: client/android
+        run: ./gradlew --no-daemon cyclonedxSbom
+
+      - name: Validate the SBOM against the CycloneDX schema
+        if: steps.project.outputs.present == 'true'
+        run: cargo xtask sbom --check target/sbom/gander-android.cdx.json
+
+      - name: Upload SBOM
+        if: steps.project.outputs.present == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: gander-android-sbom
+          path: target/sbom/gander-android.cdx.json
+          if-no-files-found: error

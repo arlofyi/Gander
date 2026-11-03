@@ -1,0 +1,47 @@
+[package]
+name = "gander-render"
+description = "Out-of-process render worker for thumbnails and previews."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+gander-core.workspace = true
+gander-win.workspace = true
+serde_json.workspace = true
+image.workspace = true
+webp.workspace = true
+zip.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+windows = { workspace = true, features = [
+    "Foundation",
+    "Data_Pdf",
+    "Storage_Streams",
+    "Win32_Foundation",
+    "Win32_Graphics_Gdi",
+    "Win32_Graphics_Imaging",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Com",
+    "Win32_System_Com_StructuredStorage",
+    "Win32_System_Ole",
+    "Win32_System_Variant",
+    "Win32_UI_Shell",
+] }
+
+[dev-dependencies]
+png.workspace = true
+
+[target.'cfg(windows)'.dev-dependencies]
+# The Office COM tests serialise across processes with a named mutex.
+windows-sys = { workspace = true, features = ["Win32_Foundation", "Win32_System_Threading"] }
+
+# The `.dep-v0` dependency list (build.rs through host/build-support/auditable.rs, WP-82).
+[build-dependencies]
+flate2.workspace = true
+serde_json.workspace = true
+
+[lints]
+workspace = true

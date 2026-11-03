@@ -1,0 +1,10 @@
+spike-input ready signalling=ws://127.0.0.1:47440/ port=47440 advertise=Some(10.0.2.2) inject=postmessage
+connected in 1722 ms; offer candidates ["a=candidate:2693830880 1 udp 2130706431 127.0.0.1 54241 typ host", "a=candidate:2693830880 2 udp 2130706431 127.0.0.1 54241 typ host"]; answer candidates []
+status epoch_ms=1793600148865 frames_sent=145 dc_echoed=0
+status epoch_ms=1793600153901 frames_sent=296 dc_echoed=0
+status epoch_ms=1793600158932 frames_sent=447 dc_echoed=0
+status epoch_ms=1793600163966 frames_sent=597 dc_echoed=0
+status epoch_ms=1793600168995 frames_sent=748 dc_echoed=0
+status epoch_ms=1793600174025 frames_sent=899 dc_echoed=0
+status epoch_ms=1793600179057 frames_sent=1048 dc_echoed=0
+status epoch_ms=1793600184081 frames_sent=1199 dc_echoed=0

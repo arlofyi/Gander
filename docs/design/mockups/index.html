@@ -1,0 +1,1538 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gander UI Mockups</title>
+<meta name="description" content="Clickable mockups of the Gander UI redesign: Android phone and tablet client, Windows host tray and settings app.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,400;8..144,500;8..144,600;8..144,700&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ---------- Design tokens (see docs/design/2026-11-02-ui-redesign.md) ---------- */
+:root{
+  --ink:#1d2a30; --beak:#e2682a; --paper:#f4f2ec;
+  --bg:#f3f4f2; --surface:#fbfbfa; --s2:#eceeec; --s3:#e3e7e5;
+  --line:#d6dbda; --outline:#7e8b91;
+  --text:#1d2a30; --text2:#46555c; --text3:#5f6e75;
+  --accent:#e2682a; --on-accent:#170d06; --accent-text:#a8460f;
+  --accent-c:#fbe3d4; --on-accent-c:#5a2206;
+  --primary:#1d2a30; --on-primary:#ffffff;
+  --danger:#b3261e; --on-danger:#ffffff; --ok:#2e7d4f; --ok-c:#dcefe2; --warn:#8a6100; --warn-c:#f6e7c4; --bad:#b3261e; --bad-c:#f9dedc;
+  --scrim:rgba(17,23,25,.42);
+  /* Windows host */
+  --mica:#eef0ef; --layer:#fbfbfa; --layer2:#f6f7f6; --wstroke:rgba(29,42,48,.10); --wstroke2:rgba(29,42,48,.16);
+  --desk:#c9d0cd; --taskbar:rgba(238,240,239,.96);
+  --lens-bg:var(--surface);
+  /* mockup page chrome */
+  --page:#e6e9e7; --page-side:#f3f4f2; --page-text:#1d2a30;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111719; --surface:#172023; --s2:#1e282c; --s3:#263236;
+    --line:#33424a; --outline:#6f7d83;
+    --text:#e7ecec; --text2:#b3c0c4; --text3:#8d9ba0;
+    --accent:#ee7a3c; --on-accent:#170d06; --accent-text:#f59a62;
+    --accent-c:#4a2412; --on-accent-c:#ffdccb;
+    --primary:#e7ecec; --on-primary:#1d2a30;
+    --danger:#c4302b; --on-danger:#ffffff; --ok:#6fcf97; --ok-c:#1f3a2a; --warn:#e3b341; --warn-c:#3d3012; --bad:#f2b8b5; --bad-c:#4a1d1a;
+    --scrim:rgba(0,0,0,.55);
+    --mica:#1b2124; --layer:#232b2e; --layer2:#1f2629; --wstroke:rgba(255,255,255,.07); --wstroke2:rgba(255,255,255,.13);
+    --desk:#2a3236; --taskbar:rgba(28,33,36,.96);
+    --page:#0c1012; --page-side:#141a1c; --page-text:#e7ecec;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111719; --surface:#172023; --s2:#1e282c; --s3:#263236;
+  --line:#33424a; --outline:#6f7d83;
+  --text:#e7ecec; --text2:#b3c0c4; --text3:#8d9ba0;
+  --accent:#ee7a3c; --on-accent:#170d06; --accent-text:#f59a62;
+  --accent-c:#4a2412; --on-accent-c:#ffdccb;
+  --primary:#e7ecec; --on-primary:#1d2a30;
+  --danger:#c4302b; --on-danger:#ffffff; --ok:#6fcf97; --ok-c:#1f3a2a; --warn:#e3b341; --warn-c:#3d3012; --bad:#f2b8b5; --bad-c:#4a1d1a;
+  --scrim:rgba(0,0,0,.55);
+  --mica:#1b2124; --layer:#232b2e; --layer2:#1f2629; --wstroke:rgba(255,255,255,.07); --wstroke2:rgba(255,255,255,.13);
+  --desk:#2a3236; --taskbar:rgba(28,33,36,.96);
+  --page:#0c1012; --page-side:#141a1c; --page-text:#e7ecec;
+  color-scheme:dark;
+}
+
+/* ---------- Mockup page chrome ---------- */
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--page);color:var(--page-text);font:14px/1.45 "Roboto Flex",Roboto,"Segoe UI",system-ui,sans-serif;}
+button{font:inherit;color:inherit}
+.app{display:grid;grid-template-columns:268px 1fr;height:100vh}
+.side{background:var(--page-side);border-right:1px solid var(--line);overflow:auto;padding:16px 12px 24px}
+.brand{display:flex;gap:10px;align-items:center;padding:4px 6px 12px}
+.brand svg{width:36px;height:36px;color:var(--text)}
+.brand b{font-size:18px;letter-spacing:.2px;display:block}
+.brand span{font-size:12px;color:var(--text3)}
+.ctl{display:flex;gap:6px;flex-wrap:wrap;padding:0 6px 10px}
+.ctl button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12.5px}
+.ctl button[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.grp{margin-top:12px}
+.grp h3{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--text3);margin:10px 8px 4px;font-weight:600}
+.grp a{display:flex;gap:8px;padding:5px 8px;border-radius:6px;color:var(--text2);text-decoration:none;font-size:13px;line-height:1.3}
+.grp a:hover{background:var(--s2)}
+.grp a.on{background:var(--s3);color:var(--text);font-weight:600;box-shadow:inset 3px 0 0 var(--accent)}
+.grp a i{font-style:normal;color:var(--text3);font-size:11px;min-width:22px;font-family:"Roboto Mono",monospace;padding-top:1px}
+.stage{display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.stagehead{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--line);background:var(--page-side)}
+.stagehead h1{font-size:17px;margin:0;font-weight:600}
+.stagehead .crumb{font-size:12px;color:var(--text3)}
+.stagehead .sp{flex:1}
+.stagehead button{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 11px;cursor:pointer;font-size:12.5px}
+.stagebody{flex:1;display:flex;gap:20px;padding:18px 20px;overflow:auto;min-height:0}
+.framebox{flex:1;display:flex;justify-content:center;align-items:flex-start;min-width:0}
+.fit{transform-origin:top left}
+.notes{width:300px;flex:none;font-size:13px;color:var(--text2)}
+.notes h4{margin:0 0 4px;font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--text3)}
+.notes p{margin:0 0 14px}
+.notes ul{margin:0 0 14px;padding-left:18px}
+.notes li{margin:2px 0}
+.notes .go{display:inline-block;margin:2px 4px 2px 0;padding:2px 8px;border-radius:12px;border:1px solid var(--line);font-size:12px;color:var(--text);text-decoration:none}
+.notes .go:hover{border-color:var(--accent)}
+@media (max-width:900px){.app{grid-template-columns:1fr;height:auto}.side{max-height:40vh}.stagebody{flex-direction:column;padding:16px}.notes{width:auto}}
+body.hot [data-go]{outline:2px dashed var(--accent);outline-offset:-2px}
+[data-go]{cursor:pointer}
+
+/* Capture mode (?capture): only the device frame, at scale 1 and without page chrome or frame
+   shadow, so a headless browser window the size of the frame yields an exact image. Used by
+   `cargo xtask mockups`. Normal viewing is unchanged. */
+html.capture,html.capture body{height:auto;background:transparent;overflow:hidden}
+html.capture .side,html.capture .stagehead,html.capture .notes{display:none}
+html.capture .app,html.capture .stage,html.capture .stagebody,html.capture .framebox{display:block;height:auto;padding:0;overflow:visible;min-width:0}
+html.capture .fit{transform:none}
+html.capture .phone,html.capture .tablet,html.capture .laptop{box-shadow:none}
+html.capture *,html.capture *::before,html.capture *::after{animation:none!important;transition:none!important;caret-color:transparent}
+
+/* ---------- Shared bits ---------- */
+.ic{width:24px;height:24px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+.ic.s{width:18px;height:18px}.ic.xs{width:14px;height:14px;stroke-width:2}.ic.l{width:32px;height:32px}.ic.xl{width:48px;height:48px;stroke-width:1.5}
+.mono{font-family:"Roboto Mono",ui-monospace,Consolas,monospace}
+.tnum{font-variant-numeric:tabular-nums}
+.rail{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--text3);white-space:nowrap}
+.rail svg{width:58px;height:18px;flex:none}
+
+/* ---------- Device frames ---------- */
+.phone{width:412px;height:915px;border-radius:38px;border:9px solid #0b0f10;background:var(--bg);color:var(--text);position:relative;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 1px #2a3236,0 24px 60px rgba(0,0,0,.25);font:14px/1.43 "Roboto Flex",Roboto,system-ui,sans-serif}
+.tablet{width:1280px;height:800px;border-radius:28px;border:12px solid #0b0f10;background:var(--bg);color:var(--text);position:relative;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 0 0 1px #2a3236,0 24px 60px rgba(0,0,0,.25);font:14px/1.43 "Roboto Flex",Roboto,system-ui,sans-serif}
+.laptop{width:960px;height:640px;border-radius:10px;border:10px solid #0b0f10;border-bottom-width:14px;background:var(--desk);color:var(--text);position:relative;overflow:hidden;box-shadow:0 0 0 1px #2a3236,0 24px 60px rgba(0,0,0,.25);font:13px/1.4 "Segoe UI Variable Text","Segoe UI Variable","Segoe UI",system-ui,sans-serif}
+
+/* ---------- Android (Material 3) ---------- */
+.sbar{height:30px;flex:none;display:flex;align-items:center;padding:0 22px 0 26px;font-size:13px;font-weight:500;gap:6px}
+.sbar .sp{flex:1}.sbar .ic{width:15px;height:15px;stroke-width:2.2}
+.gbar{height:22px;flex:none;display:flex;justify-content:center;align-items:center}
+.gbar::after{content:"";width:108px;height:4px;border-radius:2px;background:var(--text);opacity:.55}
+.scr{flex:1;display:flex;flex-direction:column;min-height:0;position:relative}
+.scroll{flex:1;overflow:hidden;min-height:0;position:relative}
+.tb{height:64px;flex:none;display:flex;align-items:center;gap:4px;padding:0 6px 0 4px}
+.tb .tt{flex:1;min-width:0;padding-left:6px}
+.tb .tt b{display:block;font-size:20px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.25}
+.tb .tt span{display:block;font-size:12.5px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib{width:44px;height:44px;border-radius:22px;display:inline-flex;align-items:center;justify-content:center;color:var(--text2);flex:none;position:relative}
+.ib:hover{background:var(--s2)}
+.ib .dot{position:absolute;top:9px;right:9px;width:8px;height:8px;border-radius:4px;background:var(--accent)}
+.lt{padding:6px 20px 10px;font-size:30px;line-height:1.2;font-weight:450;letter-spacing:-.2px}
+.sub{padding:0 20px 8px;color:var(--text3);font-size:13px}
+.sec{padding:16px 20px 6px;font-size:13px;font-weight:600;color:var(--text2);letter-spacing:.1px}
+.li{display:flex;align-items:center;gap:14px;padding:10px 16px 10px 20px;min-height:64px;position:relative}
+.li .bd{flex:1;min-width:0}
+.li .l1{font-size:15.5px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li .l2{font-size:13px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.li .l3{font-size:12.5px;color:var(--text3);margin-top:2px}
+.li.dim{opacity:.48}
+.li.selrow{background:var(--accent-c)}
+.li+.li.div{border-top:1px solid var(--line)}
+.tile{width:42px;height:42px;border-radius:10px;background:var(--s2);color:var(--text2);display:flex;align-items:center;justify-content:center;flex:none;position:relative;overflow:hidden}
+.tile.fd{background:var(--s3);color:var(--text)}
+.tile .badge{position:absolute;right:-2px;bottom:-2px;width:18px;height:18px;border-radius:9px;background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--ok)}
+.chip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:8px;border:1px solid var(--outline);font-size:13px;color:var(--text2);white-space:nowrap;background:transparent}
+.chip.sm{height:24px;padding:0 8px;font-size:12px;border-radius:6px;gap:4px}
+.chip.fill{background:var(--s3);border-color:transparent;color:var(--text)}
+.chip.sel{background:var(--accent-c);border-color:transparent;color:var(--on-accent-c)}
+.chip.warn{border-color:var(--warn);color:var(--warn)}
+.chip.ok{border-color:transparent;background:var(--ok-c);color:var(--ok)}
+.chip.off{opacity:.45;text-decoration:line-through}
+.chips{display:flex;gap:8px;flex-wrap:nowrap;overflow:hidden;padding:4px 20px 8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 22px;border-radius:22px;background:var(--primary);color:var(--on-primary);font-weight:500;font-size:14.5px;border:0;white-space:nowrap}
+.btn.ton{background:var(--s3);color:var(--text)}
+.btn.out{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1px var(--outline)}
+.btn.txt{background:transparent;color:var(--text);padding:0 12px}
+.btn.acc{background:var(--accent);color:var(--on-accent)}
+.btn.bad{background:var(--danger);color:var(--on-danger)}
+.btn.blk{display:flex;width:100%}
+.btn[disabled]{opacity:.38}
+.fab{position:absolute;right:16px;bottom:96px;height:56px;border-radius:16px;padding:0 20px;display:flex;gap:10px;align-items:center;background:var(--primary);color:var(--on-primary);font-weight:500;box-shadow:0 3px 8px rgba(0,0,0,.18)}
+.nav{height:80px;flex:none;display:flex;background:var(--s2);padding-top:12px}
+.nav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:var(--text2);text-decoration:none}
+.nav a .pill{width:64px;height:32px;border-radius:16px;display:flex;align-items:center;justify-content:center;position:relative}
+.nav a.on{color:var(--text);font-weight:600}
+.nav a.on .pill{background:var(--accent-c);color:var(--on-accent-c)}
+.nav a .pill .dot{position:absolute;top:3px;right:14px;width:8px;height:8px;border-radius:4px;background:var(--accent)}
+.banner{display:flex;gap:12px;padding:12px 16px;margin:4px 16px 8px;border-radius:12px;background:var(--s2);font-size:13.5px;align-items:flex-start;color:var(--text)}
+.banner b{display:block;font-weight:600;margin-bottom:1px}
+.banner .ic{margin-top:1px}
+.banner.warn{background:var(--warn-c);box-shadow:inset 3px 0 0 var(--warn)}.banner.warn>.ic{color:var(--warn)}
+.banner.bad{background:var(--bad-c);box-shadow:inset 3px 0 0 var(--bad)}.banner.bad>.ic{color:var(--bad)}
+.banner.ok{background:var(--ok-c)}.banner.ok>.ic{color:var(--ok)}
+.banner.live{background:var(--accent);color:var(--on-accent)}
+.banner .act{margin-top:6px;font-weight:600;color:var(--text)}
+.prog{height:4px;border-radius:2px;background:var(--s3);overflow:hidden;position:relative}
+.prog i{position:absolute;left:0;top:0;bottom:0;background:var(--primary);border-radius:2px}
+.prog.ind i{width:35%;animation:ind 1.6s ease-in-out infinite}
+@keyframes ind{0%{left:-35%}100%{left:100%}}
+@media (prefers-reduced-motion:reduce){.prog.ind i{animation:none;left:30%}}
+.scrim{position:absolute;inset:0;background:var(--scrim);z-index:5}
+.bsheet{position:absolute;left:0;right:0;bottom:0;background:var(--surface);border-radius:28px 28px 0 0;z-index:6;padding:8px 0 22px}
+.bsheet .handle{width:32px;height:4px;border-radius:2px;background:var(--outline);margin:6px auto 12px;opacity:.6}
+.dlg{position:absolute;left:28px;right:28px;top:50%;transform:translateY(-50%);background:var(--s2);border-radius:28px;padding:24px;z-index:6}
+.dlg h2{margin:12px 0 10px;font-size:22px;font-weight:450;line-height:1.25}
+.dlg p{margin:0 0 12px;color:var(--text2);font-size:14px}
+.dlg .acts{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap}
+.radio{width:20px;height:20px;border-radius:10px;border:2px solid var(--outline);flex:none;position:relative}
+.radio.on{border-color:var(--accent)}.radio.on::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--accent)}
+.cbx{width:20px;height:20px;border-radius:4px;border:2px solid var(--outline);flex:none;display:flex;align-items:center;justify-content:center}
+.cbx.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.sw{width:52px;height:32px;border-radius:16px;background:var(--s3);box-shadow:inset 0 0 0 2px var(--outline);position:relative;flex:none}
+.sw::after{content:"";position:absolute;left:8px;top:8px;width:16px;height:16px;border-radius:8px;background:var(--outline)}
+.sw.on{background:var(--primary);box-shadow:none}.sw.on::after{left:24px;top:4px;width:24px;height:24px;border-radius:12px;background:var(--on-primary)}
+.field{margin:8px 20px;border:1px solid var(--outline);border-radius:6px;padding:8px 14px 10px;position:relative}
+.field.foc{border:2px solid var(--primary)}
+.field label{position:absolute;top:-9px;left:10px;background:var(--bg);padding:0 4px;font-size:12px;color:var(--text2)}
+.field .v{font-size:16px}
+.help{padding:2px 34px 8px;font-size:12.5px;color:var(--text3)}
+.sas{display:flex;justify-content:center;gap:18px;font-family:"Roboto Mono",ui-monospace,monospace;font-weight:500;font-size:52px;letter-spacing:4px;line-height:1;color:var(--text)}
+.sas span{padding:14px 12px;border-radius:14px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
+.pairid{display:flex;align-items:center;justify-content:center;gap:10px;padding:8px 20px 4px}
+.pairid .who{display:flex;flex-direction:column;align-items:center;gap:4px;width:130px;text-align:center}
+.pairid .who .tile{width:56px;height:56px;border-radius:16px}
+.pairid .who b{font-size:14.5px;font-weight:600}.pairid .who span{font-size:12px;color:var(--text3)}
+.pairid .link{flex:1;border-top:2px dashed var(--outline);position:relative;top:-16px}
+.immersive{background:#0b0e0f;color:#e9eeee}
+.immersive .ib{color:#e9eeee}
+.immersive .gbar::after{background:#e9eeee}
+.ovbar{position:absolute;left:0;right:0;top:0;z-index:3;background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,0))}
+.kbar{flex:none;background:var(--s2);padding:6px 6px 4px;border-top:1px solid var(--line)}
+.krow{display:flex;gap:5px;margin-bottom:5px}
+.key{flex:1;height:38px;border-radius:8px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--text);box-shadow:0 1px 0 var(--line);white-space:nowrap;padding:0 4px}
+.key.on{background:var(--accent);color:var(--on-accent)}
+.key.w2{flex:1.6}
+.seg{display:inline-flex;border:1px solid var(--outline);border-radius:18px;overflow:hidden;height:32px}
+.seg span{display:flex;align-items:center;gap:6px;padding:0 12px;font-size:12.5px;color:var(--text2)}
+.seg span+span{border-left:1px solid var(--outline)}
+.seg span.on{background:var(--accent-c);color:var(--on-accent-c);font-weight:600}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--accent-text)}
+.live::before{content:"";width:8px;height:8px;border-radius:4px;background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 30%,transparent)}
+.status{display:inline-flex;align-items:center;gap:6px;font-size:13px}
+.status::before{content:"";width:8px;height:8px;border-radius:4px;background:currentColor}
+.status.on{color:var(--ok)}.status.off{color:var(--text3)}.status.off::before{background:transparent;box-shadow:inset 0 0 0 2px currentColor}
+.status.warn{color:var(--warn)}
+/* action rows in the file sheet */
+.act-row{display:flex;gap:14px;align-items:flex-start;margin:0 16px 8px;padding:14px 14px 12px;border-radius:16px;background:var(--s2);position:relative}
+.act-row .ai{width:40px;height:40px;border-radius:12px;background:var(--surface);display:flex;align-items:center;justify-content:center;flex:none;color:var(--text)}
+.act-row .bd{flex:1;min-width:0}
+.act-row .t{font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px}
+.act-row .h{font-size:13px;color:var(--text2);margin-top:1px}
+.act-row .why{font-size:13px;color:var(--text);margin-top:6px;display:flex;gap:6px;align-items:flex-start}
+.act-row.def{background:var(--accent-c);box-shadow:inset 0 0 0 2px var(--accent)}
+.act-row.def .t{color:var(--on-accent-c)}
+.act-row.no{background:transparent;box-shadow:inset 0 0 0 1px var(--line)}
+.act-row.no .t,.act-row.no .h,.act-row.no .ai{opacity:.5}
+.tag{font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 7px;border-radius:5px;background:var(--accent);color:var(--on-accent)}
+.tag.n{background:var(--s3);color:var(--text2)}
+.thumbgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 16px}
+.tcard{border-radius:14px;overflow:hidden;background:var(--s2)}
+.tcard .im{height:118px;display:flex;align-items:center;justify-content:center;background:var(--s3);color:var(--text3);position:relative}
+.tcard .im svg.th{width:100%;height:100%;display:block}
+.tcard .cap{padding:8px 10px 10px;font-size:13px}
+.tcard .cap b{display:block;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tcard .cap span{color:var(--text3);font-size:12px}
+.crumbs{display:flex;align-items:center;gap:2px;padding:0 16px 6px;font-size:13px;color:var(--text3);white-space:nowrap;overflow:hidden}
+.crumbs span{padding:4px 6px;border-radius:6px}
+.crumbs span.cur{color:var(--text);font-weight:600}
+.tabs{display:flex;padding:0 16px;border-bottom:1px solid var(--line)}
+.tabs span{padding:10px 14px 9px;font-size:14px;color:var(--text2);border-bottom:3px solid transparent}
+.tabs span.on{color:var(--text);font-weight:600;border-color:var(--accent)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:13px;padding:0 20px}
+.kv dt{color:var(--text3)}.kv dd{margin:0;color:var(--text)}
+.meter{height:10px;border-radius:5px;background:var(--s3);overflow:hidden;display:flex}
+.meter i{display:block;height:100%}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--text3);flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.camera{flex:1;background:#151a1c;position:relative;overflow:hidden}
+.reticle{position:absolute;left:50%;top:44%;width:240px;height:240px;transform:translate(-50%,-50%)}
+.reticle i{position:absolute;width:44px;height:44px;border:4px solid var(--accent)}
+.reticle i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0;border-radius:14px 0 0 0}
+.reticle i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0;border-radius:0 14px 0 0}
+.reticle i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0;border-radius:0 0 0 14px}
+.reticle i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0;border-radius:0 0 14px 0}
+.empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 32px;gap:10px}
+.empty h2{font-size:22px;font-weight:450;margin:8px 0 0}
+.empty p{margin:0;color:var(--text2);font-size:14px}
+.code{font-family:"Roboto Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.6}
+.code .ln{color:var(--text3);display:inline-block;width:28px;text-align:right;margin-right:12px;user-select:none}
+.code .k{color:var(--accent-text);font-weight:600}.code .c{color:var(--text3)}.code .h{font-weight:700}
+.toolbar-float{position:absolute;left:12px;right:12px;bottom:12px;background:var(--surface);border-radius:20px;padding:10px 12px;display:flex;align-items:center;gap:10px;box-shadow:0 4px 16px rgba(0,0,0,.18);z-index:4}
+.tgrid .act-row{margin:0;min-width:0}
+.tgrid .rail{white-space:normal}
+.rail-v{width:88px;flex:none;background:var(--s2);display:flex;flex-direction:column;align-items:center;gap:14px;padding:18px 0}
+.rail-v a{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;color:var(--text2);text-decoration:none}
+.rail-v a .pill{width:56px;height:32px;border-radius:16px;display:flex;align-items:center;justify-content:center}
+.rail-v a.on{color:var(--text);font-weight:600}.rail-v a.on .pill{background:var(--accent-c);color:var(--on-accent-c)}
+
+/* ---------- Windows host (Fluent) ---------- */
+.desk{position:absolute;inset:0 0 48px 0;background:var(--desk);overflow:hidden}
+.desk::before{content:"";position:absolute;inset:0;background:radial-gradient(1200px 500px at 85% 115%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 60%),radial-gradient(900px 600px at 0% 0%,rgba(255,255,255,.18),transparent 60%)}
+.taskbar{position:absolute;left:0;right:0;bottom:0;height:48px;background:var(--taskbar);border-top:1px solid var(--wstroke);display:flex;align-items:center;padding:0 10px;gap:4px;color:var(--text)}
+.taskbar .mid{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:6px}
+.tbi{width:40px;height:40px;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.tbi.on{background:var(--wstroke)}
+.tbi .sq{width:22px;height:22px;border-radius:4px;background:var(--wstroke2)}
+.tray{margin-left:auto;display:flex;align-items:center;gap:2px}
+.tray .tbi{width:30px;height:40px}
+.clock{font-size:11.5px;text-align:right;line-height:1.3;padding:0 6px}
+.trayicon{position:relative}
+.trayicon.live::after{content:"";position:absolute;right:3px;top:9px;width:8px;height:8px;border-radius:4px;background:var(--accent);box-shadow:0 0 0 2px var(--taskbar)}
+.wwin{position:absolute;left:22px;top:18px;width:896px;height:556px;background:var(--mica);border-radius:8px;border:1px solid var(--wstroke2);box-shadow:0 18px 40px rgba(0,0,0,.28);display:flex;flex-direction:column;overflow:hidden}
+.wtitle{height:36px;flex:none;display:flex;align-items:center;gap:10px;padding-left:14px;font-size:12px}
+.wtitle .sp{flex:1}
+.wctl{display:flex;height:36px}
+.wctl span{width:46px;display:flex;align-items:center;justify-content:center}
+.wctl svg{width:10px;height:10px;stroke:currentColor;stroke-width:1;fill:none}
+.wbody{flex:1;display:flex;min-height:0}
+.wnav{width:212px;flex:none;display:flex;flex-direction:column;padding:4px 6px 10px}
+.wstat{padding:8px 10px 12px}
+.wstat b{display:block;font-size:14px;font-weight:600}
+.wstat .status{font-size:12px}
+.wni{display:flex;align-items:center;gap:12px;height:36px;padding:0 10px;border-radius:5px;position:relative;font-size:13px;color:var(--text)}
+.wni:hover{background:var(--wstroke)}
+.wni.sel{background:var(--wstroke)}
+.wni.sel::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:2px;background:var(--accent)}
+.wni .ic{width:17px;height:17px;stroke-width:1.6}
+.wni .cnt{margin-left:auto;font-size:11px;color:var(--text3)}
+.wnav .sp{flex:1}
+.wpage{flex:1;background:var(--layer2);border-top-left-radius:8px;border-left:1px solid var(--wstroke);border-top:1px solid var(--wstroke);overflow:hidden;padding:20px 26px;position:relative;min-width:0}
+.wh1{font-size:26px;font-weight:600;margin:0 0 2px;font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;letter-spacing:-.2px}
+.wsub{color:var(--text2);margin:0 0 14px;font-size:13px}
+.wcard{background:var(--layer);border:1px solid var(--wstroke);border-radius:6px;padding:12px 14px;margin-bottom:6px}
+.wrow{display:flex;align-items:center;gap:14px;background:var(--layer);border:1px solid var(--wstroke);border-radius:6px;padding:10px 14px;min-height:56px;margin-bottom:4px}
+.wrow .bd{flex:1;min-width:0}
+.wrow .t{font-size:13.5px}
+.wrow .d{font-size:12px;color:var(--text2)}
+.wrow>.ic{width:20px;height:20px;stroke-width:1.5;color:var(--text2)}
+.wlabel{font-size:13px;font-weight:600;margin:14px 0 6px}
+.wbtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:30px;padding:0 12px;border-radius:4px;background:var(--layer);border:1px solid var(--wstroke2);font-size:13px;color:var(--text);white-space:nowrap}
+.wbtn.pri{background:var(--primary);color:var(--on-primary);border-color:transparent}
+.wbtn.acc{background:var(--accent);color:var(--on-accent);border-color:transparent;font-weight:600}
+.wbtn.danger{background:var(--danger);color:var(--on-danger);border-color:transparent}
+.wbtn.dangero{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 55%,transparent)}
+.wbtn.sub{background:transparent;border-color:transparent}
+.wbtn .ic{width:15px;height:15px;stroke-width:1.8}
+.wtog{width:40px;height:20px;border-radius:10px;border:1px solid var(--text2);position:relative;flex:none}
+.wtog::after{content:"";position:absolute;left:3px;top:3px;width:12px;height:12px;border-radius:6px;background:var(--text2)}
+.wtog.on{background:var(--primary);border-color:var(--primary)}.wtog.on::after{left:23px;background:var(--on-primary)}
+.wcb{width:18px;height:18px;border-radius:4px;border:1px solid var(--text2);display:inline-flex;align-items:center;justify-content:center;flex:none}
+.wcb.on{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.wcb.dis{opacity:.35}
+.wcb .ic{width:13px;height:13px;stroke-width:2.6}
+.infobar{display:flex;gap:10px;align-items:flex-start;border-radius:6px;padding:10px 12px;margin-bottom:8px;border:1px solid var(--wstroke);background:var(--layer);font-size:12.5px}
+.infobar .ic{width:18px;height:18px;margin-top:1px}
+.infobar b{font-weight:600}
+.infobar .bd{flex:1}
+.infobar.warn{background:var(--warn-c)}.infobar.warn>.ic{color:var(--warn)}
+.infobar.bad{background:var(--bad-c)}.infobar.bad>.ic{color:var(--bad)}
+.infobar.ok{background:var(--ok-c)}.infobar.ok>.ic{color:var(--ok)}
+.liveband{display:flex;align-items:center;gap:12px;background:var(--accent);color:var(--on-accent);padding:7px 10px 7px 14px;font-size:13px}
+.liveband .ic{width:18px;height:18px}
+.liveband .sp{flex:1}
+.liveband .wbtn{background:rgba(255,255,255,.88);color:#1d2a30;border-color:transparent;height:26px}
+.wtable{width:100%;border-collapse:collapse;font-size:12.5px}
+.wtable th{text-align:left;font-weight:600;color:var(--text2);padding:6px 8px;border-bottom:1px solid var(--wstroke2);font-size:12px}
+.wtable td{padding:7px 8px;border-bottom:1px solid var(--wstroke);vertical-align:middle}
+.wtable td.c,.wtable th.c{text-align:center}
+.wflyout{position:absolute;background:var(--mica);border:1px solid var(--wstroke2);border-radius:8px;box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.wdialog{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:500px;background:var(--layer);border:1px solid var(--wstroke2);border-radius:8px;box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden;z-index:6}
+.wdialog .in{padding:22px 24px 18px}
+.wdialog h2{margin:0 0 10px;font-size:20px;font-weight:600}
+.wdialog .foot{background:var(--mica);border-top:1px solid var(--wstroke);padding:16px 24px;display:flex;gap:8px;justify-content:flex-end}
+.wdialog .foot .wbtn{flex:1}
+.wscrim{position:absolute;inset:0;background:rgba(0,0,0,.28);z-index:5}
+.wfield{height:32px;border:1px solid var(--wstroke2);border-bottom:1px solid var(--text2);border-radius:4px;background:var(--layer);display:flex;align-items:center;padding:0 10px;font-size:13px}
+.wfield.foc{border-bottom:2px solid var(--accent)}
+.toast{position:absolute;right:12px;bottom:60px;width:364px;background:var(--mica);border:1px solid var(--wstroke2);border-radius:8px;box-shadow:0 12px 32px rgba(0,0,0,.3);padding:12px 14px 14px;z-index:8}
+.toast .hd{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);margin-bottom:8px}
+.toast .hd .sp{flex:1}
+.toast b{font-size:14px;display:block}
+.toast p{margin:3px 0 10px;font-size:12.5px;color:var(--text2)}
+.toast .btns{display:flex;gap:8px}.toast .btns .wbtn{flex:1}
+.vpill{position:absolute;left:50%;top:10px;transform:translateX(-50%);z-index:9;display:flex;align-items:center;gap:10px;background:var(--accent);color:var(--on-accent);border-radius:20px;padding:6px 8px 6px 14px;font-size:12.5px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.vpill .wbtn{height:24px;border-radius:12px;background:rgba(255,255,255,.9);color:#1d2a30;border:0;font-weight:600}
+.dsas{font-family:"Cascadia Mono","Roboto Mono",Consolas,monospace;font-size:52px;font-weight:600;letter-spacing:3px;line-height:1}
+.devicecard{display:flex;gap:14px;align-items:flex-start}
+.devicecard .tile{width:52px;height:52px;border-radius:12px;background:var(--s3)}
+.qr{background:#fff;padding:12px;border-radius:8px;border:1px solid var(--wstroke2);display:inline-block}
+.qr svg{display:block;width:196px;height:196px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="lens" viewBox="0 0 100 100"><circle cx="44" cy="44" r="31" fill="none" stroke="currentColor" stroke-width="8"/><path d="M66 66 L86 86" stroke="currentColor" stroke-width="11" stroke-linecap="round"/><path d="M36 72 C33 58 37 45 45 38" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/><circle cx="48" cy="33" r="8" fill="currentColor"/><path d="M54 29.5 L66 33 L54 36.5 Z" fill="#e2682a"/><circle cx="49.5" cy="31" r="1.7" style="fill:var(--lens-bg)"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="12" cy="18.5" r="1.6" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></symbol>
+<symbol id="i-sort" viewBox="0 0 24 24"><path d="M4 7h9M4 12h6M4 17h3M17 5v14M14 16l3 3 3-3"/></symbol>
+<symbol id="i-tune" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+<symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="i-chevd" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3h8l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5M8 13h8M8 17h5"/></symbol>
+<symbol id="i-pdf" viewBox="0 0 24 24"><path d="M6 3h8l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5"/><rect x="7" y="12" width="10" height="5" rx="1"/></symbol>
+<symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M21 16l-5-5-9 9"/></symbol>
+<symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></symbol>
+<symbol id="i-slides" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M12 17v3M8 21h8M7 9h7M7 12h10"/></symbol>
+<symbol id="i-sheet" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 3v18"/></symbol>
+<symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.5-8A6 6 0 0 1 18 9.2 4.4 4.4 0 0 1 17.5 18z"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-desktop" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M9 20h6M12 16v4"/></symbol>
+<symbol id="i-laptop" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="10" rx="1"/><path d="M2.5 19h19"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/></symbol>
+<symbol id="i-tablet" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M18 11v2"/></symbol>
+<symbol id="i-qr" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2M19 14h1M14 19v1h2M19 18v2h1"/></symbol>
+<symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+<symbol id="i-keyboard" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></symbol>
+<symbol id="i-pointer" viewBox="0 0 24 24"><path d="M6 3l12 7-5.2 1.6L10.5 17z"/></symbol>
+<symbol id="i-touch" viewBox="0 0 24 24"><circle cx="12" cy="8" r="2.2"/><path d="M7.2 8a4.8 4.8 0 1 1 9.6 0M12 10.2V21"/></symbol>
+<symbol id="i-fetch" viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></symbol>
+<symbol id="i-preview" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-stream" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M9 21h6M10.5 8.2v5.6l4.6-2.8z"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></symbol>
+<symbol id="i-storage" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M10.3 4.2a2 2 0 0 1 3.4 0l8 13.8A2 2 0 0 1 20 21H4a2 2 0 0 1-1.7-3z"/><path d="M12 10v4M12 17.5h.01"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5h.01"/></symbol>
+<symbol id="i-okc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></symbol>
+<symbol id="i-open" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 16v5M8 3h8l-1 6 3 4H6l3-4z"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" stroke-width="3"/></symbol>
+<symbol id="i-power" viewBox="0 0 24 24"><path d="M12 3v8M6.3 7.5a8 8 0 1 0 11.4 0"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></symbol>
+<symbol id="i-net" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2.2"/><circle cx="19" cy="5.5" r="2.2"/><circle cx="19" cy="18.5" r="2.2"/><path d="M7 11l10-4.5M7 13l10 4.5"/></symbol>
+<symbol id="i-relay" viewBox="0 0 24 24"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><circle cx="12" cy="6" r="2"/><path d="M6 16.2l5-8.4M18 16.2l-5-8.4" stroke-dasharray="2 2.4"/></symbol>
+<symbol id="i-finger" viewBox="0 0 24 24"><path d="M12 11v3c0 3 1 5 2 6.5M8.6 19.5C7.8 18 7 16 7 13a5 5 0 0 1 10 0v1.5M4.8 15.5c-.5-1-.8-2.4-.8-3.7a8 8 0 0 1 13-6.2M19.6 9.2c.3.9.4 1.8.4 2.8"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+<symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2 2M14 9l2 2"/></symbol>
+<symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01"/></symbol>
+<symbol id="i-cell" viewBox="0 0 24 24"><path d="M4 20h2v-4H4zM9 20h2v-8H9zM14 20h2V8h-2zM19 20h2V4h-2z" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-batt" viewBox="0 0 24 24"><rect x="2.5" y="7" width="17" height="10" rx="2"/><path d="M21.5 10.5v3"/><rect x="4.5" y="9" width="10" height="6" rx="1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-zoom" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2M8 11h6M11 8v6"/></symbol>
+<symbol id="i-window" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8.5h18"/></symbol>
+<symbol id="i-eyeoff" viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3 3.8M6.6 6.6C3.8 8.4 2 12 2 12s3.5 7 10 7a9.7 9.7 0 0 0 4.4-1"/></symbol>
+<symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+</defs>
+</svg>
+<div class="app">
+  <aside class="side" id="side"></aside>
+  <main class="stage">
+    <div class="stagehead">
+      <div><div class="crumb" id="crumb"></div><h1 id="title"></h1></div>
+      <div class="sp"></div>
+      <button id="prev" type="button" title="Previous screen (left arrow)">Prev</button>
+      <button id="next" type="button" title="Next screen (right arrow)">Next</button>
+    </div>
+    <div class="stagebody">
+      <div class="framebox" id="framebox"><div class="fit" id="fit"></div></div>
+      <aside class="notes" id="notes"></aside>
+    </div>
+  </main>
+</div>
+<script>
+'use strict';
+/* Gander UI mockups. Every screen is a function that returns HTML; the router at the end
+   draws one screen at a time. data-go="<id>" on any element makes it a tap target. */
+
+const ic = (n, c = '') => `<svg class="ic ${c}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const lens = (sz, col) => `<svg viewBox="0 0 100 100" style="width:${sz}px;height:${sz}px;color:${col || 'currentColor'};flex:none" aria-hidden="true"><use href="#lens"/></svg>`;
+const go = (id) => (id ? ` data-go="${id}"` : '');
+
+/* The work rail: which device does the work for a mode. Filled = that device works. */
+function railSvg(m) {
+  const S = 'var(--text2)';
+  const A = 'var(--accent)';
+  const pc = m === 'fetch' ? 'none' : A;
+  const ph = m === 'fetch' ? A : 'none';
+  let mid = '';
+  if (m === 'preview') {
+    mid = `<path d="M22 8h19" stroke="${S}" stroke-width="1.3" stroke-dasharray="2 2"/><rect x="28.5" y="4.5" width="6" height="7" rx="1" fill="var(--surface)" stroke="${S}" stroke-width="1.3"/><path d="M40.5 5.5l3 2.5-3 2.5" stroke="${S}" stroke-width="1.3" fill="none"/>`;
+  } else if (m === 'fetch') {
+    mid = `<path d="M22 8h20" stroke="${S}" stroke-width="1.6"/><path d="M40 5l3.2 3-3.2 3" stroke="${S}" stroke-width="1.6" fill="none"/><circle cx="27" cy="8" r="1.4" fill="${S}"/><circle cx="32" cy="8" r="1.4" fill="${S}"/>`;
+  } else {
+    mid = `<path d="M22 6.5h21M22 10h21" stroke="${S}" stroke-width="1.2" stroke-dasharray="1.5 2"/><rect x="49" y="5" width="6" height="5" rx=".8" fill="none" stroke="${A}" stroke-width="1.4"/>`;
+  }
+  return `<svg viewBox="0 0 58 18" aria-hidden="true"><rect x="1" y="2" width="18" height="11" rx="2" fill="${pc}" stroke="${S}" stroke-width="1.4"/><path d="M7 16h6" stroke="${S}" stroke-width="1.4" stroke-linecap="round"/><rect x="47" y="1" width="10" height="16" rx="2" fill="${ph}" stroke="${S}" stroke-width="1.4"/>${mid}</svg>`;
+}
+const RAIL_TEXT = { preview: 'Work on studio-pc', fetch: 'Work on this phone', stream: 'Runs on studio-pc' };
+const rail = (m, t) => `<span class="rail">${railSvg(m)}<span>${t || RAIL_TEXT[m]}</span></span>`;
+
+/* ---------- Android chrome ---------- */
+const sbar = (o = {}) => `<div class="sbar"><span class="tnum">14:02</span><span class="sp"></span>${o.novpn ? '' : ic('key')}${ic(o.cell ? 'cell' : 'wifi')}${ic('batt')}</div>`;
+function phone(body, o = {}) {
+  return `<div class="phone${o.imm ? ' immersive' : ''}">${sbar(o)}<div class="scr">${body}</div><div class="gbar"></div></div>`;
+}
+function tb(o) {
+  const nav = o.nav ? `<span class="ib"${go(o.back)} title="Back">${ic(o.nav)}</span>` : '<span style="width:12px"></span>';
+  const acts = (o.a || []).map((a) => `<span class="ib"${go(a[1])} title="${a[2] || ''}">${ic(a[0])}${a[3] ? '<i class="dot"></i>' : ''}</span>`).join('');
+  return `<div class="tb">${nav}<div class="tt"><b>${o.t}</b>${o.s ? `<span>${o.s}</span>` : ''}</div>${acts}</div>`;
+}
+function navbar(on, dl) {
+  const items = [['hosts', 'desktop', 'Computers'], ['fetch', 'fetch', 'Downloads'], ['settings', 'gear', 'Settings']];
+  return `<div class="nav">${items.map((i) => `<a class="${i[0] === on ? 'on' : ''}"${go(i[0])}><span class="pill">${ic(i[1])}${i[0] === 'fetch' && dl ? '<i class="dot"></i>' : ''}</span>${i[2]}</a>`).join('')}</div>`;
+}
+
+/* ---------- Sample data ---------- */
+const FILES = [
+  { n: 'Drawings', k: 'folder', m: '24 items', to: 'browser' },
+  { n: 'Renders', k: 'folder', m: '11 items', to: 'browser-grid' },
+  { n: 'Site survey 2026-10.pdf', k: 'pdf', m: '6.1 MB · 12 Oct', saved: true, to: 'p-pages', sz: 6.1 },
+  { n: 'Q3 review deck.pptx', k: 'slides', m: '38.2 MB · 28 Oct', to: 'sheet', sz: 38.2 },
+  { n: 'Client brief v3.docx', k: 'doc', m: '412 KB · 3 Oct', to: 'sheet', sz: 0.4 },
+  { n: 'Kitchen render 04.png', k: 'image', m: '4.8 MB · 30 Oct', to: 'p-image', sz: 4.8 },
+  { n: 'Structure v14.blend', k: 'cube', m: '1.8 GB · Yesterday', to: 'sheet-na', sz: 1800 },
+  { n: 'site-walkthrough.mp4', k: 'video', m: '612 MB · 19 Oct', cloud: true, to: 'p-video', sz: 612 },
+  { n: 'budget-2026.xlsx', k: 'sheet', m: '220 KB · 1 Nov', to: 'sheet', sz: 0.2 },
+  { n: 'notes.md', k: 'code', m: '9 KB · Today', to: 'p-text', sz: 0.01 },
+];
+const KIND_ICON = { folder: 'folder', pdf: 'pdf', slides: 'slides', doc: 'doc', image: 'image', cube: 'cube', video: 'video', sheet: 'sheet', code: 'code' };
+
+function thumb(k) {
+  const W = 'preserveAspectRatio="xMidYMid slice" class="th" viewBox="0 0 160 118"';
+  if (k === 'slides') return `<svg ${W}><rect width="160" height="118" fill="#dfe3e1"/><rect x="18" y="14" width="124" height="86" rx="2" fill="#fff"/><rect x="28" y="26" width="64" height="8" fill="#1d2a30"/><rect x="28" y="38" width="22" height="3" fill="#e2682a"/><rect x="28" y="50" width="48" height="3" fill="#9aa5a9"/><rect x="28" y="57" width="40" height="3" fill="#9aa5a9"/><rect x="28" y="64" width="44" height="3" fill="#9aa5a9"/><rect x="90" y="48" width="40" height="38" fill="#c9d0cd"/><rect x="96" y="70" width="6" height="12" fill="#1d2a30"/><rect x="106" y="62" width="6" height="20" fill="#1d2a30"/><rect x="116" y="56" width="6" height="26" fill="#e2682a"/></svg>`;
+  if (k === 'image') return `<svg ${W}><rect width="160" height="118" fill="#d8d4cc"/><rect y="78" width="160" height="40" fill="#8f877b"/><rect x="96" y="18" width="46" height="44" fill="#eef1f2"/><path d="M119 18v44M96 40h46" stroke="#b9c0c2" stroke-width="2"/><rect x="10" y="60" width="92" height="24" fill="#2b3a40"/><rect x="10" y="56" width="96" height="6" fill="#e8e6e1"/><path d="M40 0v22M70 0v22" stroke="#2b3a40"/><circle cx="40" cy="25" r="5" fill="#e2682a"/><circle cx="70" cy="25" r="5" fill="#e2682a"/><rect x="112" y="64" width="6" height="30" fill="#5d564c"/><rect x="132" y="64" width="6" height="30" fill="#5d564c"/><rect x="108" y="60" width="34" height="6" fill="#6f675b"/></svg>`;
+  if (k === 'pdf') return `<svg ${W}><rect width="160" height="118" fill="#dfe3e1"/><rect x="34" y="8" width="92" height="118" fill="#fff"/><rect x="44" y="18" width="50" height="5" fill="#1d2a30"/><path d="M48 36h64v44H48z M48 58h30v22 M78 36v22h34" fill="none" stroke="#46555c" stroke-width="1.6"/><path d="M84 66l14 10" stroke="#e2682a" stroke-width="1.6"/><rect x="44" y="88" width="70" height="3" fill="#9aa5a9"/><rect x="44" y="95" width="56" height="3" fill="#9aa5a9"/></svg>`;
+  if (k === 'video') return `<svg ${W}><rect width="160" height="118" fill="#27333a"/><rect y="74" width="160" height="44" fill="#4a5a52"/><path d="M20 74V40l30-18 30 18v34z" fill="#c9cfcb"/><rect x="34" y="50" width="12" height="24" fill="#27333a"/><rect x="56" y="46" width="14" height="12" fill="#e2b47a"/><path d="M96 74V52h44v22" fill="#8a948f"/><circle cx="80" cy="59" r="15" fill="rgba(0,0,0,.45)"/><path d="M75 51v16l13-8z" fill="#fff"/><rect x="118" y="100" width="34" height="12" rx="3" fill="rgba(0,0,0,.6)"/><text x="135" y="109" font-size="8" fill="#fff" text-anchor="middle" font-family="Roboto Mono,monospace">4:37</text></svg>`;
+  if (k === 'doc') return `<svg ${W}><rect width="160" height="118" fill="#dfe3e1"/><rect x="34" y="8" width="92" height="118" fill="#fff"/><rect x="44" y="20" width="56" height="6" fill="#1d2a30"/>${[34, 41, 48, 55, 66, 73, 80, 87].map((y, i) => `<rect x="44" y="${y}" width="${[72, 70, 66, 40, 72, 68, 70, 50][i]}" height="3" fill="#9aa5a9"/>`).join('')}</svg>`;
+  if (k === 'sheet') return `<svg ${W}><rect width="160" height="118" fill="#fff"/>${[0, 1, 2, 3, 4, 5, 6, 7].map((r) => `<path d="M0 ${14 + r * 14}h160" stroke="#d6dbda"/>`).join('')}${[0, 1, 2, 3].map((c) => `<path d="M${40 + c * 34} 0v118" stroke="#d6dbda"/>`).join('')}<rect width="160" height="14" fill="#e3e7e5"/><rect x="44" y="60" width="26" height="10" fill="#fbe3d4"/></svg>`;
+  if (k === 'render2') return `<svg ${W}><rect width="160" height="118" fill="#c7cdd0"/><path d="M0 84l40-30 30 18 40-36 50 40v42H0z" fill="#5f6e75"/><rect x="58" y="58" width="44" height="34" fill="#eef0ef"/><path d="M58 58l22-16 22 16" fill="#1d2a30"/><rect x="74" y="72" width="10" height="20" fill="#e2682a"/></svg>`;
+  if (k === 'render3') return `<svg ${W}><rect width="160" height="118" fill="#e9ebea"/><rect x="20" y="20" width="120" height="78" fill="none" stroke="#1d2a30" stroke-width="2"/><path d="M20 60h60V20M80 60v38M80 76h60" stroke="#1d2a30" stroke-width="2" fill="none"/><path d="M100 30a14 14 0 0 1 14 14" stroke="#e2682a" stroke-width="2" fill="none"/></svg>`;
+  return '';
+}
+function tileFor(f, small) {
+  const t = KIND_ICON[f.k] || 'file';
+  return `<span class="tile${f.k === 'folder' ? ' fd' : ''}">${ic(t, small ? 's' : '')}${f.saved ? `<span class="badge">${ic('check', 'xs')}</span>` : ''}</span>`;
+}
+function fileRow(f, o = {}) {
+  const trail = [];
+  if (f.cloud) trail.push(`<span title="Online only">${ic('cloud', 's')}</span>`);
+  if (o.select) trail.unshift(`<span class="cbx${o.sel ? ' on' : ''}">${o.sel ? ic('check', 'xs') : ''}</span>`);
+  const dim = o.offline && !f.saved && f.k !== 'folder' ? ' dim' : '';
+  const l2 = f.saved ? `${f.m} · <span style="color:var(--ok)">Saved on this phone</span>` : f.m;
+  return `<div class="li${dim}${o.sel ? ' selrow' : ''}"${go(o.select ? null : f.to)}>${tileFor(f)}<div class="bd"><div class="l1">${f.n}</div><div class="l2">${l2}</div></div><span style="display:flex;gap:10px;color:var(--text3)">${trail.join('')}</span></div>`;
+}
+
+/* ---------- Android: Computers ---------- */
+function hostsEmpty() {
+  return phone(`${tb({ t: '', a: [['gear', 'settings', 'Settings']] })}
+  <div class="lt" style="padding-top:0">Your computers</div>
+  <div class="sub"><span class="status on">Private network: connected</span></div>
+  <div class="empty" style="padding-top:56px">
+    <span style="color:var(--text)">${lens(120)}</span>
+    <h2>No computers yet</h2>
+    <p>Add a computer to reach its files from this phone over your private network.</p>
+    <p style="font-size:13px;color:var(--text3);margin-top:6px">You need Gander running on the computer, and both devices on the same private network, for example Tailscale.</p>
+    <span class="btn" style="margin-top:18px"${go('add')}>${ic('plus')}Add a computer</span>
+  </div>
+  <div style="flex:1"></div>${navbar('hosts')}`);
+}
+
+function hostBlock(h) {
+  const shares = (h.shares || []).map((s) => `<span class="chip sm fill"${go(h.go2 || null)}>${ic('folder', 'xs')}${s}</span>`).join('');
+  return `<div class="li" style="align-items:flex-start;padding-top:14px;padding-bottom:14px${h.off ? ';opacity:.92' : ''}"${go(h.go)}>
+    <span class="tile" style="width:48px;height:48px;border-radius:14px;${h.off ? '' : 'background:var(--s3);color:var(--text)'}">${ic(h.icon)}</span>
+    <div class="bd">
+      <div style="display:flex;align-items:center;gap:8px"><span class="l1" style="font-size:17px;font-weight:600">${h.name}</span>${h.relay ? `<span class="chip sm warn">${ic('relay', 'xs')}Relayed</span>` : ''}</div>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:2px">${h.state}<span class="l2">${h.meta}</span></div>
+      ${h.note ? `<div class="l3">${h.note}</div>` : ''}
+      ${shares ? `<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">${shares}</div>` : ''}
+    </div>
+    <span class="ib" style="margin:-6px -8px 0 0" title="More: rename, details, forget">${ic('more')}</span>
+  </div>`;
+}
+function hosts() {
+  return phone(`${tb({ t: '', a: [['search', null, 'Search all computers'], ['gear', 'settings', 'Settings']] })}
+  <div class="lt" style="padding-top:0">Your computers</div>
+  <div class="sub"><span class="status on">Private network: connected</span></div>
+  <div class="scroll">
+  ${hostBlock({ name: 'studio-pc', icon: 'desktop', go: 'shares', go2: 'browser', state: '<span class="status on">Online</span>', meta: 'Windows 11 · direct', note: 'Paired as Pixel 9', shares: ['Projects', 'Documents', 'Photos'] })}
+  <div style="border-top:1px solid var(--line);margin:0 20px"></div>
+  ${hostBlock({ name: 'workshop-laptop', icon: 'laptop', relay: true, state: '<span class="status on">Online</span>', meta: 'Windows 11', note: 'Relayed through Tailscale. Browsing works, streaming may be slow.', shares: ['CAD', 'Exports'] })}
+  <div style="border-top:1px solid var(--line);margin:0 20px"></div>
+  ${hostBlock({ name: 'old-thinkpad', icon: 'laptop', off: true, go: 'browser-offline', state: '<span class="status off">Offline</span>', meta: 'Last seen 2 days ago', note: 'Can\'t reach it. 3 folders and 5 saved files are still here.', shares: ['Taxes 2025'] })}
+  </div>
+  <span class="fab"${go('add')}>${ic('plus')}Add a computer</span>
+  ${navbar('hosts', true)}`);
+}
+
+/* ---------- Android: pairing ---------- */
+function addIntro() {
+  return phone(`${tb({ nav: 'close', back: 'hosts', t: 'Add a computer' })}
+  <div class="scroll">
+  <div style="padding:6px 20px 16px;color:var(--text2);font-size:15px">On the computer, open Gander and choose <b style="color:var(--text)">Add a device</b>. It shows a QR code and its address. Then pair this phone here.</div>
+  <div class="act-row" style="margin-bottom:10px"${go('add-scan')}><span class="ai">${ic('qr')}</span><div class="bd"><div class="t">Scan the QR code</div><div class="h">Fastest. The code also proves which computer you are talking to.</div></div>${ic('chev')}</div>
+  <div class="act-row no" style="background:transparent"${go('add-manual')}><span class="ai" style="opacity:1">${ic('keyboard')}</span><div class="bd"><div class="t" style="opacity:1">Enter the address instead</div><div class="h" style="opacity:1">For a tablet without a usable camera. You then compare a six-digit code.</div></div>${ic('chev')}</div>
+  <div class="banner warn" style="margin-top:22px">${ic('shield')}<div><b>Only add a computer you set up yourself</b>If someone told you to do this, asked you to scan a code they sent, or asked you to read out a code, stop and close this screen. Gander never needs a code to be shared with anyone.</div></div>
+  </div>`);
+}
+function addScan() {
+  return phone(`<div class="tb" style="position:absolute;left:0;right:0;top:0;z-index:2;color:#fff"><span class="ib" style="color:#fff"${go('add')}>${ic('close')}</span><div class="tt"><b style="color:#fff">Scan the code</b></div></div>
+  <div class="camera">
+    <svg viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%"><rect width="400" height="800" fill="#1b2023"/><rect x="40" y="170" width="320" height="230" rx="8" fill="#2c3438"/><rect x="52" y="182" width="296" height="200" fill="#e8ebea"/><rect x="128" y="206" width="146" height="146" fill="#fff"/>${qrPath(29, 7, 132, 210, 4.86)}</svg>
+    <div class="reticle"><i></i><i></i><i></i><i></i></div>
+    <div style="position:absolute;left:24px;right:24px;bottom:120px;text-align:center;color:#e9eeee;font-size:15px">Point the camera at the code in <b>Add a device</b> on your computer.</div>
+    <div style="position:absolute;left:0;right:0;bottom:40px;display:flex;justify-content:center"><span class="btn" style="background:rgba(255,255,255,.14);color:#fff"${go('add-manual')}>${ic('keyboard')}Enter the address instead</span></div>
+    <div style="position:absolute;left:0;right:0;top:78px;text-align:center"><span class="chip sm" style="border-color:rgba(255,255,255,.4);color:#e9eeee">${ic('eyeoff', 'xs')}Screenshots are blocked on this screen</span></div>
+  </div>`, { imm: true });
+}
+function addManual() {
+  return phone(`${tb({ nav: 'back', back: 'add', t: 'Enter the address' })}
+  <div style="padding:4px 20px 18px;color:var(--text2)">Enter the address shown in the <b style="color:var(--text)">Add a device</b> window on your computer.</div>
+  <div class="field foc"><label>Computer address</label><div class="v">studio-pc.tail1234.ts.net<span style="border-left:2px solid var(--primary);margin-left:1px"></span></div></div>
+  <div class="help">An IP address or a name, for example 100.101.102.103 or studio-pc.tail1234.ts.net, optionally with :port.</div>
+  <div class="banner" style="margin-top:12px">${ic('info')}<div>Next you compare a six-digit code on this phone with the one on the computer. Only approve if they are the same.</div></div>
+  <div style="flex:1"></div>
+  <div style="padding:16px 20px;display:flex;justify-content:flex-end"><span class="btn"${go('add-compare')}>Continue</span></div>
+  <div style="height:270px;background:var(--s2);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px">system keyboard</div>`);
+}
+function pairIds(dev) {
+  return `<div class="pairid"><div class="who"><span class="tile">${ic('desktop', 'l')}</span><b>studio-pc</b><span>Windows 11<br>100.101.102.103</span></div><div class="link"></div><div class="who"><span class="tile">${ic(dev === 'tab' ? 'tablet' : 'phone', 'l')}</span><b>${dev === 'tab' ? 'Galaxy Tab S9' : 'Pixel 9'}</b><span>This ${dev === 'tab' ? 'tablet' : 'phone'}<br>Android 16</span></div></div>`;
+}
+function addCompare() {
+  return phone(`${tb({ nav: 'close', back: 'add', t: 'Compare the code' })}
+  ${pairIds()}
+  <div style="text-align:center;font-size:13px;color:var(--text3);margin:16px 0 10px">Pairing code</div>
+  <div class="sas tnum"><span>482</span><span>913</span></div>
+  <div style="padding:20px 24px 8px;font-size:15px;color:var(--text);text-align:center">Compare this code with the one on <b>studio-pc</b>.<br>Only approve there if they are the same.</div>
+  <div style="padding:0 24px;font-size:13.5px;color:var(--text2);text-align:center">If they differ, choose Deny on the computer: someone may be intercepting the connection.</div>
+  <div style="padding:22px 20px 0"><div class="prog ind"><i></i></div><div style="font-size:13px;color:var(--text3);margin-top:8px;text-align:center">Waiting for approval on studio-pc</div></div>
+  <div style="flex:1"></div>
+  <div class="banner bad" style="margin-bottom:12px">${ic('shield')}<div>Did someone tell you to do this, or ask you to read this code to them? Stop and cancel.</div></div>
+  <div style="padding:4px 20px 16px;display:flex;gap:10px;justify-content:space-between"><span class="btn out"${go('add-fail')}>Cancel</span><span class="btn txt"${go('add-ok')}>(demo: approved)</span></div>`);
+}
+function addWaiting() {
+  return phone(`${tb({ nav: 'close', back: 'add', t: 'Waiting for approval' })}
+  ${pairIds()}
+  <div style="margin:18px 20px 0;padding:18px;border-radius:20px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)">
+   <div style="display:flex;align-items:center;gap:10px;color:var(--ok);font-size:13.5px;font-weight:600">${ic('shield', 's')}Identity checked: this is the computer the QR code came from</div>
+   <div style="text-align:center;font-size:13px;color:var(--text3);margin:16px 0 8px">Pairing code</div>
+   <div class="sas tnum" style="font-size:40px"><span style="padding:10px">482</span><span style="padding:10px">913</span></div>
+  </div>
+  <div style="padding:18px 24px 0;font-size:15px;text-align:center">studio-pc should show this same code and the name <b>Pixel 9</b>. Choose <b>Allow</b> on the computer to finish.</div>
+  <div style="padding:22px 20px 0"><div class="prog ind"><i></i></div><div style="font-size:13px;color:var(--text3);margin-top:8px;text-align:center">Waiting on studio-pc · the request expires in 1:48</div></div>
+  <div style="flex:1"></div>
+  <div class="banner bad" style="margin-bottom:12px">${ic('shield')}<div>Did someone tell you to do this, or ask you to read this code to them? Stop and cancel.</div></div>
+  <div style="padding:4px 20px 16px;display:flex;justify-content:space-between"><span class="btn out"${go('add-fail')}>Cancel</span><span class="btn txt"${go('add-ok')}>(demo: approved)</span></div>`);
+}
+function addOk() {
+  return phone(`${tb({ nav: 'close', back: 'hosts', t: '' })}
+  <div class="empty" style="padding-top:30px">
+   <span style="width:96px;height:96px;border-radius:48px;background:var(--ok-c);color:var(--ok);display:flex;align-items:center;justify-content:center">${ic('check', 'xl')}</span>
+   <h2>studio-pc is paired</h2>
+   <p>This phone can now reach the folders you share with it from that computer.</p>
+  </div>
+  <div class="sec">Shared with this phone</div>
+  <div class="li"${go('browser')}><span class="tile fd">${ic('folder')}</span><div class="bd"><div class="l1">Projects</div><div class="l2">Preview · Fetch · Stream</div></div></div>
+  <div class="li"><span class="tile fd">${ic('folder')}</span><div class="bd"><div class="l1">Documents</div><div class="l2">Preview · Fetch</div></div></div>
+  <div style="flex:1"></div>
+  <div style="padding:16px 20px;display:flex;flex-direction:column;gap:8px"><span class="btn blk"${go('shares')}>Browse files</span><span class="btn txt blk"${go('hosts')}>Back to your computers</span></div>`);
+}
+function addFail() {
+  return phone(`${tb({ nav: 'close', back: 'hosts', t: '' })}
+  <div class="empty" style="padding-top:30px">
+   <span style="width:96px;height:96px;border-radius:48px;background:var(--bad-c);color:var(--bad);display:flex;align-items:center;justify-content:center">${ic('shield', 'xl')}</span>
+   <h2>Pairing did not finish</h2>
+   <p style="color:var(--text)">The code on this phone does not match the one the computer reported. Someone on your network may be intercepting the connection.</p>
+  </div>
+  <div class="banner bad">${ic('error')}<div><b>Nothing was shared</b>Pairing was stopped on this phone. If studio-pc still shows the request, choose <b>Deny</b> there.</div></div>
+  <div class="sec">Other ways this can end</div>
+  <div style="padding:0 20px;font-size:13px;color:var(--text2);display:flex;flex-direction:column;gap:6px">
+   <div>Denied on the computer: "The request was denied on the computer."</div>
+   <div>Timed out: "Open Add a device on the computer and start again."</div>
+   <div>Pairing closed: "Pairing is not open on this computer."</div>
+   <div>Wrong computer (QR): "This is not the computer the code came from."</div>
+  </div>
+  <div style="flex:1"></div>
+  <div style="padding:16px 20px;display:flex;flex-direction:column;gap:8px"><span class="btn blk"${go('add')}>Start over</span><span class="btn txt blk"${go('hosts')}>Back to your computers</span></div>`);
+}
+
+/* ---------- Android: shares and browser ---------- */
+function shares() {
+  const sh = [
+    ['Projects', 'D:/Projects', ['Preview', 'Fetch', 'Stream'], 'browser'],
+    ['Documents', '', ['Preview', 'Fetch'], 'browser'],
+    ['Photos', '', ['Preview', 'Fetch'], 'browser-grid'],
+    ['Music', '', ['Fetch'], null],
+  ];
+  return phone(`${tb({ nav: 'back', back: 'hosts', t: 'studio-pc', s: 'Online · Windows 11 · direct', a: [['search', null, 'Search'], ['more', null, 'Computer details']] })}
+  <div class="sec" style="padding-top:6px">Shared with this phone</div>
+  ${sh.map((s) => `<div class="li"${go(s[3])}><span class="tile fd">${ic('folder')}</span><div class="bd"><div class="l1">${s[0]}</div>${s[1] ? `<div class="l2 mono" style="font-size:12px">${s[1]}</div>` : ''}<div style="display:flex;gap:6px;margin-top:6px">${['Preview', 'Fetch', 'Stream'].map((p) => `<span class="chip sm ${s[2].includes(p) ? 'fill' : 'off'}" title="${s[2].includes(p) ? 'Allowed' : 'Not allowed'}">${ic(p.toLowerCase(), 'xs')}${p}</span>`).join('')}</div></div>${ic('chev')}</div>`).join('')}
+  <div style="padding:14px 20px;font-size:12.5px;color:var(--text3)">Read-only. The owner of studio-pc decides what is shared and what this phone may do with it. A crossed-out chip means that mode is not allowed for that folder.</div>
+  <div class="sec">Recent on studio-pc</div>
+  ${fileRow(FILES[3])}${fileRow(FILES[6])}
+  <div style="flex:1"></div>${navbar('hosts')}`);
+}
+
+function browserHead(o = {}) {
+  return `${tb({ nav: 'back', back: 'shares', t: 'Kestrel house', s: o.offline ? 'old-thinkpad' : 'studio-pc · Projects', a: [['search', null, 'Search'], [o.grid ? 'list' : 'grid', o.grid ? 'browser' : 'browser-grid', o.grid ? 'List view' : 'Grid view'], ['more', 'browser-select', 'Select']] })}
+  <div class="crumbs"><span${go('shares')}>Projects</span>${ic('chev', 'xs')}<span>Clients</span>${ic('chev', 'xs')}<span class="cur">Kestrel house</span></div>
+  <div class="tabs"><span class="on">Files</span><span>Recent</span></div>
+  <div class="chips" style="padding-top:10px"><span class="chip"${go('browser-sort')}>${ic('sort', 's')}Name, A to Z</span><span class="chip"${go('browser-sort')}>${ic('tune', 's')}All kinds</span>${o.offline ? '<span class="chip sel">' + ic('clock', 's') + 'Cached 2 days ago</span>' : ''}</div>`;
+}
+function browser() {
+  return phone(`${browserHead()}<div class="scroll">${FILES.map((f) => fileRow(f)).join('')}</div>`);
+}
+function browserGrid() {
+  const g = [['Kitchen render 04.png', '4.8 MB', 'image', 'p-image'], ['Q3 review deck.pptx', '38.2 MB', 'slides', 'sheet'], ['site-walkthrough.mp4', '612 MB', 'video', 'p-video'], ['Site survey 2026-10.pdf', '6.1 MB', 'pdf', 'p-pages'], ['Exterior dusk 02.png', '5.2 MB', 'render2', 'p-image'], ['Ground floor plan.png', '1.1 MB', 'render3', 'p-image']];
+  return phone(`${browserHead({ grid: true })}<div class="scroll"><div class="thumbgrid">${g.map((x) => `<div class="tcard"${go(x[3])}><div class="im">${thumb(x[2])}${x[2] === 'video' ? `<span class="chip sm" style="position:absolute;left:6px;top:6px;background:rgba(0,0,0,.55);color:#fff;border:0">${ic('cloud', 'xs')}Online only</span>` : ''}</div><div class="cap"><b>${x[0]}</b><span>${x[1]}</span></div></div>`).join('')}
+  <div class="tcard"><div class="im" style="flex-direction:column;gap:6px">${ic('cube', 'l')}<span style="font-size:11px">No thumbnail on studio-pc</span></div><div class="cap"><b>Structure v14.blend</b><span>1.8 GB</span></div></div>
+  <div class="tcard"><div class="im"><div class="prog ind" style="width:60%"><i></i></div></div><div class="cap"><b>Exterior dawn 01.png</b><span>Making thumbnail…</span></div></div>
+  </div></div>`);
+}
+function browserSort() {
+  const row = (t, on) => `<div class="li" style="min-height:48px;padding-top:4px;padding-bottom:4px"><span class="radio${on ? ' on' : ''}"></span><div class="bd"><div class="l1" style="font-size:15px">${t}</div></div></div>`;
+  return phone(`${browserHead()}<div class="scroll">${FILES.slice(0, 6).map((f) => fileRow(f)).join('')}</div>
+  <div class="scrim"${go('browser')}></div>
+  <div class="bsheet"><div class="handle"></div>
+   <div style="padding:0 24px 6px;font-size:18px;font-weight:500">Sort and filter</div>
+   <div class="sec" style="padding-top:8px">Sort by</div>
+   ${row('Name', true)}${row('Modified', false)}${row('Size', false)}${row('Type', false)}
+   <div style="padding:6px 20px 4px"><div class="seg"><span class="on">${ic('check', 'xs')}A to Z</span><span>Z to A</span></div></div>
+   <div class="sec">Show</div>
+   <div class="chips" style="flex-wrap:wrap"><span class="chip sel">${ic('check', 'xs')}Files and folders</span><span class="chip">Files only</span><span class="chip">Folders only</span></div>
+   <div class="sec" style="padding-top:8px">Kinds</div>
+   <div class="chips" style="flex-wrap:wrap"><span class="chip">${ic('image', 's')}Images</span><span class="chip">${ic('doc', 's')}Documents</span><span class="chip">${ic('video', 's')}Video</span><span class="chip">${ic('cube', 's')}3D and CAD</span></div>
+   <div style="padding:4px 20px 0;font-size:12.5px;color:var(--text3)">Folders always come first. Sort is remembered for this share.</div>
+  </div>`);
+}
+function browserSelect() {
+  const sel = new Set([2, 3, 5]);
+  return phone(`<div class="tb" style="background:var(--accent-c);color:var(--on-accent-c)"><span class="ib" style="color:inherit"${go('browser')} title="Cancel selection">${ic('close')}</span><div class="tt"><b>3 selected</b><span style="color:inherit;opacity:.8">49.1 MB</span></div><span class="ib" style="color:inherit" title="Select all">${ic('check')}</span></div>
+  <div class="crumbs" style="padding-top:8px"><span>Projects</span>${ic('chev', 'xs')}<span>Clients</span>${ic('chev', 'xs')}<span class="cur">Kestrel house</span></div>
+  <div class="scroll">${FILES.map((f, i) => (f.k === 'folder' ? fileRow(f, { offline: true }) : fileRow(f, { select: true, sel: sel.has(i) }))).join('')}</div>
+  <div style="padding:12px 16px;background:var(--s2);display:flex;align-items:center;gap:12px"><div style="flex:1;font-size:12.5px;color:var(--text2)">Folders cannot be fetched as a whole yet. Over Wi-Fi.</div><span class="btn"${go('fetch')}>${ic('fetch', 's')}Fetch 3 files</span></div>`);
+}
+function browserOffline() {
+  return phone(`${browserHead({ offline: true })}
+  <div class="banner warn" style="margin-top:0">${ic('cloud')}<div><b>Can't reach old-thinkpad</b>Showing what was seen earlier. Files saved on this phone still open. <div class="act"${go('hosts')}>Check it is on and awake, and that Tailscale is connected.</div></div></div>
+  <div class="scroll">${FILES.map((f) => fileRow(f, { offline: true })).join('')}</div>
+  <div style="padding:10px 20px 14px;font-size:12.5px;color:var(--text3)">Only the part of this folder that was loaded earlier is stored for offline use.</div>`, { cell: true });
+}
+
+/* ---------- Android: file sheet ---------- */
+function sheetBody(o) {
+  return `<div class="scrim"${go('browser')}></div>
+  <div class="bsheet"><div class="handle"></div>
+   <div style="display:flex;gap:14px;padding:0 20px 10px;align-items:center"><span class="tile" style="width:52px;height:52px;border-radius:14px">${ic(o.icon, 'l')}</span><div style="min-width:0"><div style="font-size:18px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${o.name}</div><div style="font-size:13px;color:var(--text3)">studio-pc › Projects › Clients › Kestrel house</div></div></div>
+   <div class="chips" style="flex-wrap:wrap;padding-top:0">${o.chips}</div>
+   ${o.banner || ''}
+   <div style="padding:6px 20px 8px;font-size:13px;font-weight:600;color:var(--text2)">Open it how?</div>
+   ${o.rows}
+   <div style="display:flex;align-items:center;gap:12px;padding:8px 20px 0"><span class="cbx"></span><span style="font-size:13.5px;color:var(--text2)">${o.remember}</span></div>
+  </div>`;
+}
+function actRow(m, o) {
+  const icon = { preview: 'preview', fetch: 'fetch', stream: 'stream' }[m];
+  const title = m[0].toUpperCase() + m.slice(1);
+  return `<div class="act-row${o.def ? ' def' : ''}${o.no ? ' no' : ''}"${go(o.no ? null : o.to)}><span class="ai">${ic(icon)}</span><div class="bd"><div class="t">${title}${o.def ? '<span class="tag">Default</span>' : ''}${o.tag || ''}</div><div class="h">${o.h}</div>${o.why ? `<div class="why">${ic(o.whyIc || 'info', 's')}<span>${o.why}</span></div>` : ''}<div style="margin-top:8px">${rail(m, o.railText)}</div></div></div>`;
+}
+function sheet() {
+  return phone(`${browserHead()}<div class="scroll">${FILES.map((f) => fileRow(f)).join('')}</div>
+  ${sheetBody({
+    icon: 'slides', name: 'Q3 review deck.pptx',
+    chips: '<span class="chip sm fill">PowerPoint</span><span class="chip sm fill">38.2 MB</span><span class="chip sm fill">42 slides</span><span class="chip sm fill">Modified 28 Oct, 17:40</span>',
+    rows: actRow('preview', { def: true, to: 'p-pages', h: 'studio-pc renders the pages for you.' })
+      + actRow('fetch', { to: 'fetch', h: 'Copies 38.2 MB to this phone over Wi-Fi.' })
+      + actRow('stream', { to: 'stream-relay', h: 'Opens it in PowerPoint on studio-pc and shows that window here.', why: 'The owner of studio-pc will be asked to approve.', whyIc: 'user' }),
+    remember: 'Remember my choice for .pptx files',
+  })}`);
+}
+function sheetNa() {
+  return phone(`${browserHead()}<div class="scroll">${FILES.map((f) => fileRow(f)).join('')}</div>
+  ${sheetBody({
+    icon: 'cube', name: 'Structure v14.blend',
+    chips: '<span class="chip sm fill">Blender file</span><span class="chip sm fill">1.8 GB</span><span class="chip sm warn">' + ic('cell', 'xs') + 'Metered connection</span>',
+    banner: `<div class="banner" style="margin-top:0">${ic('info')}<div>Your usual choice for .blend files (Stream) is not available now, so Fetch is suggested instead.</div></div>`,
+    rows: actRow('preview', { no: true, h: 'No preview renderer for .blend files on studio-pc.', why: 'Try Stream instead.', whyIc: 'info' })
+      + actRow('fetch', { def: true, to: 'fetch-cellular', h: '1.8 GB over mobile data.', why: 'That is a large download for a metered connection. No app on this phone opens .blend files.', whyIc: 'warn' })
+      + actRow('stream', { no: true, h: 'Opens it in Blender on studio-pc and shows that window here.', why: '<b>studio-pc is locked.</b> Unlock it at the computer, then try again. Preview and Fetch still work while it is locked.', whyIc: 'lock' }),
+    remember: 'Remember my choice for .blend files',
+  })}`, { cell: true });
+}
+
+/* ---------- Android: viewers ---------- */
+function viewerTop(t, s, back, acts) {
+  return `<div class="tb" style="color:#e9eeee"><span class="ib"${go(back)}>${ic('back')}</span><div class="tt"><b style="color:#fff;font-size:17px">${t}</b><span style="color:#b9c4c6">${s}</span></div>${acts || ''}</div>`;
+}
+function pPages() {
+  const slide = `<svg viewBox="0 0 320 180" style="width:100%;display:block;background:#fff;border-radius:2px"><rect width="320" height="180" fill="#fff"/><rect x="22" y="22" width="150" height="14" fill="#1d2a30"/><rect x="22" y="42" width="44" height="4" fill="#e2682a"/><text x="22" y="70" font-size="9" fill="#46555c" font-family="Roboto Flex,sans-serif">Programme: structural works ahead by 9 days</text><text x="22" y="84" font-size="9" fill="#46555c" font-family="Roboto Flex,sans-serif">Budget: 2.4% under forecast at end of Q3</text><text x="22" y="98" font-size="9" fill="#46555c" font-family="Roboto Flex,sans-serif">Risks: steel lead time, planning condition 7</text><g transform="translate(200 60)"><rect x="0" y="70" width="16" height="30" fill="#c9d0cd"/><rect x="22" y="50" width="16" height="50" fill="#c9d0cd"/><rect x="44" y="34" width="16" height="66" fill="#1d2a30"/><rect x="66" y="20" width="16" height="80" fill="#e2682a"/></g><text x="22" y="164" font-size="7" fill="#9aa5a9" font-family="Roboto Flex,sans-serif">Kestrel house · Q3 client review · 3</text></svg>`;
+  return phone(`${viewerTop('Q3 review deck.pptx', 'Page 3 of 42', 'sheet', `<span class="ib" title="Fetch this file"${go('fetch')}>${ic('fetch')}</span><span class="ib">${ic('more')}</span>`)}
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 10px;gap:14px">
+   <div style="opacity:.35;transform:scale(.96)"><div style="height:30px;overflow:hidden;border-radius:2px;background:#fff"></div></div>
+   ${slide}
+   <div style="opacity:.35;transform:scale(.96)"><div style="height:30px;border-radius:2px;background:#fff"></div></div>
+  </div>
+  <div style="display:flex;justify-content:center;padding:6px"><span class="chip sm" style="border-color:rgba(255,255,255,.3);color:#e9eeee">3 / 42</span></div>
+  <div style="display:flex;gap:6px;padding:8px 10px;overflow:hidden">${[1, 2, 3, 4, 5, 6, 7].map((n) => `<div style="flex:none;width:64px;height:36px;border-radius:3px;background:#fff;opacity:${n === 3 ? 1 : .5};box-shadow:${n === 3 ? '0 0 0 2px var(--accent)' : 'none'}"></div>`).join('')}</div>
+  <div style="display:flex;align-items:center;gap:8px;padding:10px 16px 12px;color:#b9c4c6;font-size:12px"><span style="color:#e9eeee">${rail('preview', 'Pages rendered on studio-pc')}</span><span style="flex:1"></span>Pinch to zoom</div>`, { imm: true });
+}
+function pImage() {
+  return phone(`${viewerTop('Kitchen render 04.png', '6000 × 4500 · 4.8 MB', 'browser-grid', `<span class="ib">${ic('share')}</span><span class="ib">${ic('more')}</span>`)}
+  <div style="flex:1;display:flex;align-items:center;justify-content:center"><div style="width:100%;height:290px">${thumb('image').replace('class="th"', 'style="width:100%;height:100%"')}</div></div>
+  <div style="padding:12px 16px 16px;display:flex;flex-direction:column;gap:12px">
+   <div style="display:flex;align-items:center;justify-content:space-between;color:#b9c4c6;font-size:12px"><span style="color:#e9eeee">${rail('preview', 'Screen-sized copy from studio-pc')}</span><span>1440 × 1080</span></div>
+   <span class="btn blk" style="background:#e9eeee;color:#1d2a30"${go('fetch')}>${ic('fetch', 's')}View original (Fetch 4.8 MB)</span>
+  </div>`, { imm: true });
+}
+function pText() {
+  const lines = [
+    ['h', '# Kestrel house: site notes'],
+    ['', ''],
+    ['h', '## 30 Oct, site visit'],
+    ['', '- Steel delivery moved to **11 Nov** (supplier).'],
+    ['', '- Party wall: neighbour at no. 14 signed the award.'],
+    ['', '- Kitchen: client prefers render 04, darker worktop.'],
+    ['', ''],
+    ['h', '## Open questions'],
+    ['', '1. Rooflight size: 900 or 1200? Check condition 7.'],
+    ['', '2. Drainage survey: book before 15 Nov.'],
+    ['', ''],
+    ['c', '<!-- costs live in budget-2026.xlsx, tab "Q4" -->'],
+    ['', ''],
+    ['h', '## Contacts'],
+    ['', '- Structural engineer: Hollis & Pike, ref KH-0412'],
+    ['', '- Building control: application BC/26/0981'],
+  ];
+  return phone(`${tb({ nav: 'back', back: 'browser', t: 'notes.md', s: 'Kestrel house', a: [['search', null, 'Find in file'], ['fetch', 'fetch', 'Fetch'], ['more']] })}
+  <div style="display:flex;gap:8px;padding:0 20px 10px;flex-wrap:wrap"><span class="chip sm fill">Encoding: UTF-8</span><span class="chip sm fill">9 KB of 9 KB</span><span class="chip sm fill">Markdown</span></div>
+  <div class="scroll" style="background:var(--surface);border-top:1px solid var(--line)"><div class="code" style="padding:12px 12px 12px 4px">${lines.map((l, i) => `<div><span class="ln">${i + 1}</span><span class="${l[0]}">${l[1].replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')}</span></div>`).join('')}</div></div>
+  <div style="padding:10px 20px 12px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text3)">${rail('preview', 'Text sent by studio-pc')}<span>Monospace · wrap off</span></div>`);
+}
+function pVideo() {
+  return phone(`${viewerTop('site-walkthrough.mp4', 'H.264 · 1920 × 1080 · 4:37', 'browser-grid', `<span class="ib"${go('fetch')}>${ic('fetch')}</span><span class="ib">${ic('more')}</span>`)}
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;position:relative"><div style="width:100%;height:230px">${thumb('video').replace('class="th"', 'style="width:100%;height:100%"')}</div></div>
+  <div style="padding:0 16px 8px">
+   <div style="display:flex;justify-content:space-between;font-size:12px;color:#b9c4c6" class="tnum"><span>1:12</span><span>4:37</span></div>
+   <div style="height:4px;background:rgba(255,255,255,.2);border-radius:2px;position:relative;margin:6px 0 14px"><i style="position:absolute;left:0;width:26%;top:0;bottom:0;background:#fff;border-radius:2px"></i><i style="position:absolute;left:26%;width:18%;top:0;bottom:0;background:rgba(255,255,255,.35)"></i><i style="position:absolute;left:calc(26% - 7px);top:-5px;width:14px;height:14px;border-radius:7px;background:#fff"></i></div>
+   <div style="display:flex;justify-content:center;gap:28px;align-items:center"><span class="ib">${ic('refresh')}</span><span style="width:60px;height:60px;border-radius:30px;background:#e9eeee;color:#1d2a30;display:flex;align-items:center;justify-content:center">${ic('pause', 'l')}</span><span class="ib">${ic('zoom')}</span></div>
+  </div>
+  <div class="banner" style="background:rgba(255,255,255,.08);color:#e9eeee;margin-bottom:6px">${ic('cloud')}<div>Online only on studio-pc: it downloads the video from its cloud drive first, so the start can be slow.</div></div>
+  <div style="padding:6px 16px 14px;color:#e9eeee;font-size:12px">${rail('preview', 'Plays from studio-pc, no copy kept')}</div>`, { imm: true });
+}
+
+/* ---------- Android: fetch, storage, settings, lock ---------- */
+function fetchPanel() {
+  return phone(`${tb({ t: 'Downloads', a: [['storage', 'storage', 'Storage'], ['more', null, 'Clear finished']] })}
+  <div class="scroll">
+  <div class="sec" style="padding-top:2px">In progress</div>
+  <div class="li" style="align-items:flex-start"><span class="tile">${ic('video')}</span><div class="bd"><div class="l1">site-walkthrough.mp4</div><div class="l2">studio-pc · Kestrel house</div><div class="prog" style="margin:10px 0 6px"><i style="width:35%"></i></div><div class="l2 tnum" style="display:flex;justify-content:space-between"><span>212 MB of 612 MB · 8.4 MB/s</span><span>48 s left</span></div></div><span class="ib" title="Pause">${ic('pause', 's')}</span></div>
+  <div class="li" style="align-items:flex-start"><span class="tile">${ic('slides')}</span><div class="bd"><div class="l1">Q3 review deck.pptx</div><div class="l2">Checking the copy against studio-pc</div><div class="prog ind" style="margin:10px 0 6px"><i></i></div><div class="l2">38.2 MB · BLAKE3</div></div><span class="ib">${ic('close', 's')}</span></div>
+  <div class="li"><span class="tile">${ic('sheet')}</span><div class="bd"><div class="l1">budget-2026.xlsx</div><div class="l2">Waiting to start</div></div><span class="ib">${ic('close', 's')}</span></div>
+  <div class="sec">Finished</div>
+  <div style="margin:4px 16px 8px;padding:14px;border-radius:16px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)">
+   <div style="display:flex;gap:14px;align-items:center">${tileFor({ k: 'pdf', saved: true })}<div style="flex:1;min-width:0"><div class="l1" style="font-size:15.5px">Site survey 2026-10.pdf</div><div style="font-size:13px;color:var(--ok)">Fetched, 6.1 MB, checked with BLAKE3</div></div></div>
+   <div style="display:flex;gap:8px;margin-top:12px;align-items:center"><span class="btn" style="height:38px;padding:0 16px">${ic('open', 's')}Open with</span><span class="btn out" style="height:38px;padding:0 16px">${ic('share', 's')}Share</span><span style="flex:1"></span><span style="font-size:12.5px;color:var(--text2)">Keep offline</span><span class="sw on" style="transform:scale(.8)"></span></div>
+  </div>
+  <div class="li" style="align-items:flex-start"><span class="tile" style="color:var(--bad)">${ic('error')}</span><div class="bd"><div class="l1">Kitchen render 04.png</div><div class="l2" style="white-space:normal;color:var(--text)">The copy did not match the file on the computer and was deleted.</div><div style="display:flex;gap:8px;margin-top:8px"><span class="btn ton" style="height:34px;padding:0 14px">${ic('refresh', 's')}Retry</span><span class="btn txt" style="height:34px">Remove</span></div></div></div>
+  <div class="li" style="align-items:flex-start"><span class="tile">${ic('pause')}</span><div class="bd"><div class="l1">Survey photos.zip</div><div class="l2" style="white-space:normal">Paused at 1.1 GB of 2.3 GB. Android limits background downloads; it continues from here.</div></div><span class="ib">${ic('play', 's')}</span></div>
+  </div>
+  ${navbar('fetch')}`);
+}
+function fetchCellular() {
+  return phone(`${browserHead()}<div class="scroll">${FILES.map((f) => fileRow(f)).join('')}</div>
+  <div class="scrim"${go('sheet-na')}></div>
+  <div class="dlg">
+   <span style="color:var(--warn)">${ic('cell', 'l')}</span>
+   <h2>Fetch over mobile data?</h2>
+   <p>Structure v14.blend is <b style="color:var(--text)">1.8 GB</b> and this phone is on a metered connection.</p>
+   <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+    <div class="act-row no" style="margin:0;padding:10px 12px"><span class="ai" style="width:32px;height:32px">${ic('stream', 's')}</span><div class="bd"><div class="t" style="font-size:14px">Stream instead</div><div class="h">Not now: studio-pc is locked.</div></div></div>
+   </div>
+   <div class="acts"><span class="btn txt"${go('sheet-na')}>Cancel</span><span class="btn"${go('fetch')}>Fetch 1.8 GB</span></div>
+  </div>`, { cell: true });
+}
+function storage() {
+  return phone(`${tb({ nav: 'back', back: 'settings', t: 'Storage' })}
+  <div class="scroll">
+  <div style="padding:6px 20px 0"><div style="font-size:28px;font-weight:450" class="tnum">1.24 GB <span style="font-size:15px;color:var(--text3)">of 2 GB used</span></div>
+   <div class="meter" style="margin:12px 0 10px"><i style="width:15%;background:var(--accent)"></i><i style="width:42%;background:var(--primary)"></i><i style="width:5%;background:var(--outline)"></i></div>
+   <div class="legend"><span><i style="background:var(--accent)"></i>Kept offline 310 MB</span><span><i style="background:var(--primary)"></i>Other saved files 840 MB</span><span><i style="background:var(--outline)"></i>Thumbnails and previews 86 MB</span></div>
+  </div>
+  <div class="sec" style="padding-top:20px">studio-pc · 1.05 GB</div>
+  <div class="li">${tileFor({ k: 'pdf', saved: true })}<div class="bd"><div class="l1">Site survey 2026-10.pdf</div><div class="l2">6.1 MB, used today</div></div><span style="color:var(--accent-text)" title="Kept offline">${ic('pin', 's')}</span></div>
+  <div class="li">${tileFor({ k: 'video', saved: true })}<div class="bd"><div class="l1">site-walkthrough.mp4</div><div class="l2">612 MB, used yesterday</div></div><span class="ib">${ic('trash', 's')}</span></div>
+  <div class="li">${tileFor({ k: 'slides', saved: true })}<div class="bd"><div class="l1">Q3 review deck.pptx</div><div class="l2">38.2 MB, used 3 days ago</div></div><span class="ib">${ic('trash', 's')}</span></div>
+  <div class="sec">old-thinkpad · 190 MB <span style="font-weight:400;color:var(--text3)">· offline</span></div>
+  <div class="li">${tileFor({ k: 'pdf', saved: true })}<div class="bd"><div class="l1">Tax return 2025.pdf</div><div class="l2">2.4 MB, used 2 weeks ago</div></div><span style="color:var(--accent-text)">${ic('pin', 's')}</span></div>
+  <div class="sec">Thumbnails and previews</div>
+  <div class="li"><span class="tile">${ic('image')}</span><div class="bd"><div class="l1">86 MB</div><div class="l2" style="white-space:normal">The computer sends them again when they are needed.</div></div><span class="btn txt">Clear</span></div>
+  <div style="padding:10px 20px"><span class="btn out blk">${ic('trash', 's')}Delete files not kept offline (930 MB)</span></div>
+  <div style="padding:0 20px 12px;font-size:12.5px;color:var(--text3)">When saved files add up to more than 2 GB, the ones used least recently are deleted. Files you keep offline are never deleted.</div>
+  </div>`);
+}
+function settings() {
+  const row = (t, s, ctl, to) => `<div class="li" style="min-height:60px"${go(to)}><div class="bd"><div class="l1" style="white-space:normal">${t}</div>${s ? `<div class="l2" style="white-space:normal">${s}</div>` : ''}</div>${ctl || ''}</div>`;
+  return phone(`${tb({ t: 'Settings' })}
+  <div class="scroll">
+  <div class="sec" style="padding-top:0">Downloads</div>
+  ${row('Ask before fetching on mobile data', 'Files of 50 MB or more')}
+  ${row('Check downloads', 'Files of 100 MB or more, with BLAKE3')}
+  <div class="sec">Storage</div>
+  ${row('Saved files size limit', '2 GB')}
+  ${row('Storage and offline files', '1.24 GB used on this phone', ic('chev'), 'storage')}
+  <div class="sec">Opening files</div>
+  ${row('Remembered choices', '.pptx: Preview · .blend: Stream · .xlsx: Fetch', ic('chev'))}
+  ${row('Open on the computer first', '34 file types, such as .blend, .psd and .dwg', ic('chev'))}
+  <div class="sec">Security and privacy</div>
+  ${row('Lock Gander', 'Ask for your fingerprint, face or screen lock to open the app.', '<span class="sw on"></span>', 'lock')}
+  ${row('Lock after', '1 minute in the background')}
+  ${row('Export diagnostics', 'A text file with tokens, addresses, names and paths left out.')}
+  <div class="sec">Computers</div>
+  ${row('studio-pc', 'Paired 1 Nov · Pixel 9', ic('chev'))}
+  ${row('workshop-laptop', 'Paired 1 Nov · Pixel 9', ic('chev'))}
+  <div class="sec">About</div>
+  ${row('Gander 0.2.0', 'No accounts, no analytics. Your files only travel on your private network.')}
+  </div>
+  ${navbar('settings')}`);
+}
+function lock() {
+  return phone(`<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;text-align:center;gap:12px">
+   <span style="color:var(--text)">${lens(104)}</span>
+   <div style="font-size:24px;font-weight:450;margin-top:12px">Gander is locked</div>
+   <div style="color:var(--text2);max-width:300px">Unlock with your fingerprint, face or screen lock to see your computers.</div>
+   <span class="btn" style="margin-top:24px">${ic('finger')}Unlock</span>
+   <div style="font-size:12.5px;color:var(--text3);margin-top:28px;max-width:300px">Downloads keep running while Gander is locked. Nothing on your computers is shown until you unlock.</div>
+  </div>
+  <div style="padding:16px;margin:0 16px 16px;border-radius:16px;background:var(--s2);font-size:13px;color:var(--text2)"><b style="color:var(--text)">If the phone lock was removed</b><br>This phone has no screen lock, fingerprint or face set up any more, so Gander cannot check who is opening it. <span style="color:var(--text);font-weight:600">Turn off app lock</span></div>`, { novpn: false });
+}
+
+/* ---------- Android: stream viewer ---------- */
+function pptWindow(o = {}) {
+  /* A plain, unbranded stand-in for a desktop presentation app window, fitted to the phone. */
+  return `<svg viewBox="0 0 400 ${o.h || 560}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block">
+   <rect width="400" height="${o.h || 560}" fill="#f3f3f3"/>
+   <rect width="400" height="30" fill="#c4512a"/><text x="12" y="20" font-size="11" fill="#fff" font-family="Segoe UI,sans-serif">Q3 review deck.pptx - PowerPoint</text>
+   <rect y="30" width="400" height="46" fill="#fafafa"/><g fill="#9aa5a9">${[0, 1, 2, 3, 4, 5, 6, 7].map((i) => `<rect x="${12 + i * 46}" y="42" width="34" height="22" rx="3"/>`).join('')}</g>
+   <rect x="0" y="76" width="84" height="${(o.h || 560) - 76}" fill="#ececec"/>${[0, 1, 2, 3, 4].map((i) => `<rect x="12" y="${88 + i * 52}" width="60" height="34" fill="#fff" stroke="${i === 2 ? '#c4512a' : '#d0d0d0'}" stroke-width="${i === 2 ? 2 : 1}"/>`).join('')}
+   <rect x="96" y="92" width="292" height="166" fill="#fff" stroke="#d6d6d6"/>
+   <rect x="112" y="108" width="140" height="13" fill="#1d2a30"/><rect x="112" y="127" width="40" height="4" fill="#e2682a"/>
+   <rect x="112" y="146" width="150" height="5" fill="#9aa5a9"/><rect x="112" y="158" width="130" height="5" fill="#9aa5a9"/><rect x="112" y="170" width="140" height="5" fill="#9aa5a9"/>
+   <g transform="translate(280 150)"><rect x="0" y="54" width="14" height="30" fill="#c9d0cd"/><rect x="20" y="36" width="14" height="48" fill="#1d2a30"/><rect x="40" y="16" width="14" height="68" fill="#e2682a"/><rect x="60" y="4" width="14" height="80" fill="#1d2a30"/></g>
+   <rect x="96" y="272" width="292" height="70" fill="#fff" stroke="#d6d6d6"/><text x="106" y="292" font-size="10" fill="#666" font-family="Segoe UI,sans-serif">Click to add notes</text>
+   ${o.cursor ? '<path d="M240 200l0 22 6-6 5 10 4-2-5-10 8 0z" fill="#fff" stroke="#000" stroke-width="1.2"/>' : ''}
+  </svg>`;
+}
+function streamTop(mode) {
+  return `<div style="display:flex;align-items:center;gap:6px;padding:4px 6px 6px 4px;background:var(--surface);border-bottom:1px solid var(--line)">
+   <span class="ib"${go('stream-end')} title="Leave stream">${ic('close')}</span>
+   <div style="flex:1;min-width:0"><div class="live">LIVE · 02:41</div><div style="font-size:12.5px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">PowerPoint on studio-pc</div></div>
+   <div class="seg"><span class="${mode === 'direct' ? 'on' : ''}"${go('stream-live')}>${ic('touch', 'xs')}Direct</span><span class="${mode === 'trackpad' ? 'on' : ''}"${go('stream-trackpad')}>${ic('pointer', 'xs')}Trackpad</span></div>
+   <span class="ib" title="Reset zoom">${ic('zoom')}</span>
+  </div>`;
+}
+function kbar() {
+  return `<div class="kbar">
+   <div class="krow"><span class="key on">Ctrl</span><span class="key">Alt</span><span class="key">Shift</span><span class="key">Esc</span><span class="key">Tab</span><span class="key">Fn</span></div>
+   <div class="krow"><span class="key">←</span><span class="key">↑</span><span class="key">↓</span><span class="key">→</span><span class="key">Ctrl+Z</span><span class="key">Ctrl+Y</span><span class="key">Ctrl+S</span></div>
+   <div class="krow"><span class="key w2">${ic('keyboard', 's')}&nbsp;Type text</span><span class="key w2">${ic('keyboard', 's')}&nbsp;Keyboard</span><span class="key">Bksp</span><span class="key">Enter</span></div>
+  </div>`;
+}
+function streamLive() {
+  return phone(`${streamTop('direct')}
+  <div style="flex:1;background:#1a1f21;position:relative;overflow:hidden">${pptWindow()}
+   <div style="position:absolute;left:50%;top:44%;width:44px;height:44px;margin:-22px;border-radius:22px;border:2px solid var(--accent);background:color-mix(in srgb,var(--accent) 22%,transparent)"></div>
+   <div style="position:absolute;left:10px;bottom:10px" class="chip sm fill">Ctrl is held: next key is Ctrl+key</div>
+  </div>
+  ${kbar()}`);
+}
+function streamTrackpad() {
+  return phone(`${streamTop('trackpad')}
+  <div style="flex:1;background:#1a1f21;position:relative;overflow:hidden">${pptWindow({ cursor: true })}
+   <div style="position:absolute;left:12px;right:12px;bottom:12px;background:rgba(17,23,25,.86);color:#e9eeee;border-radius:14px;padding:10px 14px;font-size:12.5px;line-height:1.5"><b>Trackpad</b>: one finger moves the pointer · tap clicks · two-finger tap right-clicks · two fingers scroll. Pinch zooms only this phone's view.</div>
+  </div>
+  <div style="display:flex;gap:8px;padding:8px;background:var(--s2);border-top:1px solid var(--line)"><span class="key">Left click</span><span class="key">Right click</span><span class="key" title="Show keyboard bar"${go('stream-live')}>${ic('keyboard', 's')}</span></div>`);
+}
+function streamPaused() {
+  return phone(`${streamTop('direct')}
+  <div class="banner warn" style="margin:8px 8px 0;border-radius:12px">${ic('pause')}<div><b>Paused: someone is using studio-pc</b>Your view is frozen and nothing you tap is sent. It continues when the computer is idle again, or the person there allows it.</div></div>
+  <div style="flex:1;background:#1a1f21;position:relative;overflow:hidden;margin-top:8px"><div style="position:absolute;inset:0;filter:grayscale(1);opacity:.45">${pptWindow()}</div></div>
+  <div style="padding:10px 16px;background:var(--s2);font-size:12.5px;color:var(--text2)">Other pause reasons use the same banner: another window is in front on studio-pc · the connection is weak · this app was in the background.</div>`);
+}
+function streamReconnecting() {
+  return phone(`${streamTop('direct')}
+  <div style="flex:1;background:#1a1f21;position:relative;overflow:hidden"><div style="position:absolute;inset:0;opacity:.35">${pptWindow()}</div>
+   <div style="position:absolute;left:24px;right:24px;top:36%;background:var(--surface);border-radius:20px;padding:20px;text-align:center">
+    <div class="prog ind" style="margin:0 20px 14px"><i></i></div>
+    <div style="font-size:17px;font-weight:600">Reconnecting to studio-pc…</div>
+    <div style="font-size:13.5px;color:var(--text2);margin-top:6px">PowerPoint stays open there. The session is kept for 1:52 more.</div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:14px"><span class="btn out" style="height:38px"${go('stream-end')}>Leave stream</span></div>
+   </div>
+  </div>`, { cell: true });
+}
+function streamPicker() {
+  const w = (t, sub, on) => `<div style="border-radius:14px;overflow:hidden;background:var(--s2);${on ? 'box-shadow:0 0 0 2px var(--accent)' : ''}"${go('stream-live')}><div style="height:150px;background:#1a1f21">${pptWindow({ h: 420 })}</div><div style="padding:8px 10px;font-size:13px"><b style="display:block;font-weight:600">${t}</b><span style="color:var(--text3);font-size:12px">${sub}</span></div></div>`;
+  return phone(`${tb({ nav: 'close', back: 'stream-end', t: 'Choose a window', s: 'PowerPoint on studio-pc' })}
+  <div class="banner">${ic('window')}<div>studio-pc found more than one window. Tap the one to stream, within <b class="tnum">0:24</b>.</div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:6px 16px">${w('Q3 review deck.pptx', 'PowerPoint · 1920 × 1080', true)}${w('Presenter view', 'PowerPoint · 1920 × 1080')}${w('Sign in to Office', 'Dialog · 480 × 600')}</div>
+  <div style="padding:10px 20px;font-size:12.5px;color:var(--text3)">Only windows of the app studio-pc opened for this file are listed. Nothing else on the computer is shown.</div>`);
+}
+function streamEnd() {
+  return phone(`${streamTop('direct')}<div style="flex:1;background:#1a1f21">${pptWindow()}</div>
+  <div class="scrim"></div>
+  <div class="dlg">
+   <span style="color:var(--text)">${ic('stream', 'l')}</span>
+   <h2>Stop streaming?</h2>
+   <p>PowerPoint is open on studio-pc.</p>
+   <div style="display:flex;flex-direction:column;gap:12px;margin:8px 0">
+    <div style="display:flex;gap:12px;align-items:center"><span class="radio on"></span><span>Leave PowerPoint open on studio-pc</span></div>
+    <div style="display:flex;gap:12px;align-items:center"><span class="radio"></span><span>Close PowerPoint</span></div>
+   </div>
+   <div class="banner" style="margin:12px 0 0;background:var(--surface)">${ic('info')}<div>The file changed on studio-pc while you were streaming. <div class="act"${go('fetch')}>Fetch the saved file</div></div></div>
+   <div class="acts"><span class="btn txt"${go('stream-live')}>Keep streaming</span><span class="btn"${go('browser')}>Stop</span></div>
+  </div>`);
+}
+function streamRelay() {
+  return phone(`${browserHead()}<div class="scroll">${FILES.map((f) => fileRow(f)).join('')}</div>
+  <div class="scrim"></div>
+  <div class="dlg">
+   <span style="color:var(--warn)">${ic('relay', 'l')}</span>
+   <h2>Relayed connection</h2>
+   <p>Your connection to studio-pc is relayed through Tailscale. Expect low quality: a few Mbit/s, blurry text and delay.</p>
+   <p style="font-size:13px">Preview sends finished pages, so it works well on a relay.</p>
+   <div class="acts"><span class="btn txt"${go('p-pages')}>Preview instead</span><span class="btn txt"${go('sheet')}>Not now</span><span class="btn"${go('stream-picker')}>Stream anyway</span></div>
+  </div>`);
+}
+
+/* ---------- Sample QR (not scannable: finder patterns plus seeded noise) ---------- */
+function qrPath(n, seed, x0, y0, c) {
+  let s = seed;
+  const rnd = () => { s = (s * 1103515245 + 12345) % 2147483648; return s / 2147483648; };
+  const finder = (fx, fy, x, y) => {
+    const dx = x - fx;
+    const dy = y - fy;
+    if (dx < 0 || dy < 0 || dx > 6 || dy > 6) return null;
+    const edge = dx === 0 || dy === 0 || dx === 6 || dy === 6;
+    const core = dx >= 2 && dx <= 4 && dy >= 2 && dy <= 4;
+    return edge || core;
+  };
+  let d = '';
+  for (let y = 0; y < n; y++) {
+    for (let x = 0; x < n; x++) {
+      let on = finder(0, 0, x, y);
+      if (on === null) on = finder(n - 7, 0, x, y);
+      if (on === null) on = finder(0, n - 7, x, y);
+      if (on === null) {
+        const nearFinder = (x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9);
+        on = nearFinder ? false : rnd() > 0.52;
+      }
+      if (on) d += `M${(x0 + x * c).toFixed(2)} ${(y0 + y * c).toFixed(2)}h${c}v${c}h-${c}z`;
+    }
+  }
+  return `<path d="${d}" fill="#111"/>`;
+}
+const qrSvg = (seed) => `<svg viewBox="0 0 29 29" shape-rendering="crispEdges" aria-label="Sample pairing QR code">${qrPath(29, seed, 0, 0, 1)}</svg>`;
+
+/* ---------- Android tablet (Galaxy Tab S9, landscape, 1280 x 800 dp) ---------- */
+function tablet(body) {
+  return `<div class="tablet">${sbar()}<div class="scr" style="flex-direction:row">${body}</div><div class="gbar"></div></div>`;
+}
+function railNav(on) {
+  const items = [['hosts', 'desktop', 'Computers'], ['fetch', 'fetch', 'Downloads'], ['settings', 'gear', 'Settings']];
+  return `<div class="rail-v"><span style="color:var(--text);margin-bottom:10px">${lens(34)}</span>${items.map((i) => `<a class="${i[0] === on ? 'on' : ''}"${go(i[0])}><span class="pill">${ic(i[1])}</span>${i[2]}</a>`).join('')}</div>`;
+}
+function tBrowser() {
+  const list = FILES.map((f, i) => {
+    const row = fileRow(f);
+    return i === 3 ? row.replace('class="li"', 'class="li selrow" style="border-radius:16px;margin:0 8px"') : row;
+  }).join('');
+  return tablet(`${railNav('hosts')}
+  <div style="width:440px;flex:none;display:flex;flex-direction:column;border-right:1px solid var(--line);min-height:0">
+   ${tb({ nav: 'back', back: 'shares', t: 'Kestrel house', s: 'studio-pc · Projects', a: [['search'], ['grid', 'browser-grid'], ['more']] })}
+   <div class="crumbs"><span>Projects</span>${ic('chev', 'xs')}<span>Clients</span>${ic('chev', 'xs')}<span class="cur">Kestrel house</span></div>
+   <div class="chips"><span class="chip">${ic('sort', 's')}Name, A to Z</span><span class="chip">${ic('tune', 's')}All kinds</span></div>
+   <div class="scroll">${list}</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;min-width:0;background:var(--surface)">
+   <div class="tb"><div class="tt" style="padding-left:20px"><b>Q3 review deck.pptx</b><span>studio-pc › Projects › Clients › Kestrel house</span></div><span class="ib">${ic('share')}</span><span class="ib">${ic('more')}</span></div>
+   <div style="display:flex;gap:24px;padding:4px 24px 0">
+    <div style="width:380px;height:214px;border-radius:12px;overflow:hidden;flex:none;background:var(--s3)">${thumb('slides')}</div>
+    <div style="flex:1;min-width:0">
+     <div class="chips" style="padding:0 0 12px;flex-wrap:wrap"><span class="chip sm fill">PowerPoint</span><span class="chip sm fill">38.2 MB</span><span class="chip sm fill">42 slides</span></div>
+     <dl class="kv" style="padding:0"><dt>Modified</dt><dd>28 Oct 2026, 17:40</dd><dt>Created</dt><dd>2 Sep 2026</dd><dt>Size</dt><dd>38.2 MB</dd><dt>Saved here</dt><dd>No</dd></dl>
+     <div style="margin-top:14px;font-size:13px;color:var(--text3)">First page rendered by studio-pc. Tap the image to open all 42 pages.</div>
+    </div>
+   </div>
+   <div style="padding:22px 24px 8px;font-size:13px;font-weight:600;color:var(--text2)">Open it how?</div>
+   <div class="tgrid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:0 24px">
+    ${actRow('preview', { def: true, to: 'p-pages', h: 'studio-pc renders the pages for you.' })}
+    ${actRow('fetch', { to: 'fetch', h: 'Copies 38.2 MB to this tablet over Wi-Fi.', railText: 'Work on this tablet' })}
+    ${actRow('stream', { to: 't-stream', h: 'Opens it in PowerPoint on studio-pc and shows that window here.', why: 'The owner of studio-pc will be asked to approve.', whyIc: 'user' })}
+   </div>
+   <div style="display:flex;align-items:center;gap:12px;padding:6px 24px"><span class="cbx"></span><span style="font-size:13.5px;color:var(--text2)">Remember my choice for .pptx files</span></div>
+  </div>`);
+}
+function pptWide() {
+  return `<svg viewBox="0 0 960 600" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block">
+   <rect width="960" height="600" fill="#f3f3f3"/><rect width="960" height="32" fill="#c4512a"/><text x="14" y="21" font-size="12" fill="#fff" font-family="Segoe UI,sans-serif">Q3 review deck.pptx - PowerPoint</text>
+   <rect y="32" width="960" height="70" fill="#fafafa"/><g fill="#9aa5a9">${Array.from({ length: 16 }, (_, i) => `<rect x="${14 + i * 58}" y="48" width="44" height="38" rx="3"/>`).join('')}</g>
+   <rect y="102" width="150" height="498" fill="#ececec"/>${[0, 1, 2, 3, 4, 5].map((i) => `<rect x="18" y="${116 + i * 78}" width="114" height="64" fill="#fff" stroke="${i === 2 ? '#c4512a' : '#d0d0d0'}" stroke-width="${i === 2 ? 2 : 1}"/>`).join('')}
+   <rect x="180" y="124" width="740" height="416" fill="#fff" stroke="#d6d6d6"/>
+   <rect x="220" y="164" width="330" height="30" fill="#1d2a30"/><rect x="220" y="206" width="90" height="8" fill="#e2682a"/>
+   ${[0, 1, 2].map((i) => `<rect x="220" y="${250 + i * 30}" width="${[340, 300, 320][i]}" height="10" fill="#9aa5a9"/>`).join('')}
+   <g transform="translate(640 240)"><rect x="0" y="130" width="40" height="80" fill="#c9d0cd"/><rect x="56" y="90" width="40" height="120" fill="#1d2a30"/><rect x="112" y="40" width="40" height="170" fill="#e2682a"/><rect x="168" y="10" width="40" height="200" fill="#1d2a30"/></g>
+  </svg>`;
+}
+function tStream() {
+  return tablet(`<div style="flex:1;display:flex;flex-direction:column;min-width:0">
+   <div style="display:flex;align-items:center;gap:10px;padding:6px 12px;background:var(--surface);border-bottom:1px solid var(--line)">
+    <span class="ib"${go('stream-end')}>${ic('close')}</span><div class="live">LIVE · 02:41</div><span style="color:var(--text2);font-size:13px">PowerPoint on studio-pc</span><span style="flex:1"></span>
+    <span class="chip sm fill">Local zoom 100%</span>
+    <div class="seg"><span class="on">${ic('touch', 'xs')}Direct</span><span>${ic('pointer', 'xs')}Trackpad</span></div>
+    <span class="ib" title="Keyboard bar">${ic('keyboard')}</span>
+   </div>
+   <div style="flex:1;background:#1a1f21;min-height:0">${pptWide()}</div>
+   <div class="kbar" style="display:flex;gap:5px;padding:6px 8px">${['Ctrl', 'Alt', 'Shift', 'Esc', 'Tab', 'Fn', '←', '↑', '↓', '→', 'Ctrl+Z', 'Ctrl+Y', 'Ctrl+S', 'Bksp', 'Enter'].map((k, i) => `<span class="key${i === 0 ? ' on' : ''}">${k}</span>`).join('')}<span class="key w2">${ic('keyboard', 's')}&nbsp;Type text</span></div>
+  </div>`);
+}
+
+/* ---------- Windows host ---------- */
+function taskbar(o = {}) {
+  return `<div class="taskbar"><div class="mid"><span class="tbi"><svg viewBox="0 0 20 20" width="20" height="20"><rect x="1" y="1" width="8" height="8" rx="1" fill="#3a86c8"/><rect x="11" y="1" width="8" height="8" rx="1" fill="#3a86c8"/><rect x="1" y="11" width="8" height="8" rx="1" fill="#3a86c8"/><rect x="11" y="11" width="8" height="8" rx="1" fill="#3a86c8"/></svg></span><span class="tbi">${ic('search', 's')}</span><span class="tbi"><i class="sq"></i></span><span class="tbi"><i class="sq"></i></span>${o.app ? `<span class="tbi on">${lens(22)}</span>` : ''}${o.ppt ? '<span class="tbi on"><i class="sq" style="background:#c4512a"></i></span>' : ''}</div>
+  <div class="tray"><span class="tbi">${ic('chevd', 'xs')}</span><span class="tbi trayicon${o.live ? ' live' : ''}" title="Gander" style="${o.paused ? 'opacity:.45' : ''}">${lens(18)}</span><span class="tbi">${ic('wifi', 's')}</span><span class="tbi">${ic('batt', 's')}</span><div class="clock tnum">14:${o.min || '02'}<br>02/11/2026</div></div></div>`;
+}
+function laptop(inner, o = {}) {
+  return `<div class="laptop"><div class="desk">${inner}</div>${taskbar(o)}${o.over || ''}</div>`;
+}
+const wctl = '<div class="wctl"><span><svg viewBox="0 0 10 10"><path d="M0 5h10"/></svg></span><span><svg viewBox="0 0 10 10"><rect x=".5" y=".5" width="9" height="9"/></svg></span><span><svg viewBox="0 0 10 10"><path d="M0 0l10 10M10 0 0 10"/></svg></span></div>';
+function wnav(sel, o) {
+  const items = [['h-shares', 'folder', 'Shares', '3'], ['h-devices', 'phone', 'Devices', '2'], ['h-activity', 'pulse', 'Activity', ''], ['h-network', 'net', 'Network', o.netWarn ? '!' : ''], ['h-settings', 'gear', 'Settings', '']];
+  let stat = '<span class="status on">Listening on Tailscale</span>';
+  if (o.live) stat = '<span class="live">Being viewed by Pixel 9</span>';
+  if (o.paused) stat = '<span class="status off">Paused · 9:52 left</span>';
+  return `<div class="wnav"><div class="wstat"><b>studio-pc</b>${stat}</div>
+   ${items.map((i) => `<div class="wni${i[0] === sel ? ' sel' : ''}"${go(i[0])}>${ic(i[1])}${i[2]}<span class="cnt"${i[3] === '!' ? ' style="color:var(--warn);font-weight:700"' : ''}>${i[3]}</span></div>`).join('')}
+   <div class="sp"></div>
+   <div style="display:flex;flex-direction:column;gap:6px;padding:0 4px"><span class="wbtn pri"${go('h-add')}>${ic('plus')}Add a device</span><span class="wbtn dangero"${go('h-kill')} title="Kill switch: drops every session and pauses the listener">${ic('power')}Disconnect everyone</span></div></div>`;
+}
+function liveband() {
+  return `<div class="liveband">${ic('preview')}<b>Pixel 9 is viewing PowerPoint</b><span>Q3 review deck.pptx · 04:12 · it can click and type in that window</span><span class="sp"></span><span class="wbtn"${go('h-kill')}>Stop stream</span></div>`;
+}
+function win(sel, content, o = {}) {
+  return `<div class="wwin"><div class="wtitle">${lens(16)}<span>Gander</span><span class="sp"></span>${wctl}</div>${o.live ? liveband() : ''}<div class="wbody">${wnav(sel, o)}<div class="wpage">${content}</div></div></div>`;
+}
+const hhead = (t, s, right) => `<div style="display:flex;align-items:flex-start;gap:12px"><div style="flex:1"><div class="wh1">${t}</div><div class="wsub">${s}</div></div>${right || ''}</div>`;
+const cb = (on, dis) => `<span class="wcb${on ? ' on' : ''}${dis ? ' dis' : ''}">${on ? ic('check') : ''}</span>`;
+
+function sharesPage() {
+  const item = (n, p, chips, sel) => `<div class="wcard" style="padding:10px 12px;${sel ? 'box-shadow:inset 3px 0 0 var(--accent);background:var(--layer)' : 'background:transparent;border-color:transparent'}"><div style="display:flex;gap:10px;align-items:center">${ic('folder', 's')}<div style="min-width:0"><div style="font-weight:600">${n}</div><div class="mono" style="font-size:11.5px;color:var(--text3)">${p}</div></div></div><div style="font-size:11.5px;color:var(--text2);margin:4px 0 0 28px">${chips}</div></div>`;
+  return `${hhead('Shares', 'Nothing is reachable until you share a folder with a device. Always read-only.', `<span class="wbtn pri"${go('h-shares-add')}>${ic('plus')}Share a folder</span>`)}
+  <div style="display:flex;gap:14px;height:420px">
+   <div style="width:210px;flex:none">${item('Projects', 'D:/Projects', '2 devices · Stream for 1', true)}${item('Documents', 'C:/Users/alice/Documents', '1 device')}${item('Photos', 'D:/Photos', '2 devices')}</div>
+   <div style="flex:1;min-width:0;overflow:hidden">
+    <div class="wcard"><div style="display:flex;gap:10px;align-items:center"><div style="flex:1"><div style="font-size:11.5px;color:var(--text2)">Name devices see</div><div class="wfield" style="margin-top:3px">Projects</div></div><div style="flex:1.3"><div style="font-size:11.5px;color:var(--text2)">Folder on this computer</div><div class="wfield mono" style="margin-top:3px;font-size:12px;background:var(--layer2)">D:/Projects</div></div><span class="wbtn" style="margin-top:17px">Change…</span></div></div>
+    <div class="wcard" style="padding:6px 14px;display:flex;flex-direction:column;gap:2px">
+     <div style="display:flex;align-items:center;height:30px"><span style="flex:1">Show hidden and system files</span><span class="wtog"></span></div>
+     <div style="display:flex;align-items:center;height:30px"><span style="flex:1">Tell devices the folder path <span style="color:var(--text3);font-size:12px">· otherwise they only see the name</span></span><span class="wtog"></span></div>
+     <div style="display:flex;align-items:center;height:30px"><span style="flex:1">Hidden patterns <span class="mono" style="color:var(--text3);font-size:11.5px">**/.git · **/node_modules</span></span><span class="wbtn sub" style="height:26px">Edit</span></div>
+    </div>
+    <div class="wlabel">Who can use this share</div>
+    <div class="wcard" style="padding:4px 12px">
+     <table class="wtable"><tr><th>Device</th><th class="c">List</th><th class="c">Preview</th><th class="c">Fetch</th><th class="c">Stream</th></tr>
+      <tr><td>${ic('phone', 'xs')} Pixel 9</td><td class="c">${cb(true)}</td><td class="c">${cb(true)}</td><td class="c">${cb(true)}</td><td class="c" style="background:var(--accent-c)">${cb(true)}</td></tr>
+      <tr><td>${ic('tablet', 'xs')} Galaxy Tab S9</td><td class="c">${cb(true)}</td><td class="c">${cb(true)}</td><td class="c">${cb(false)}</td><td class="c">${cb(false)}</td></tr>
+     </table></div>
+    <div class="infobar warn">${ic('warn')}<div class="bd"><b>Stream is on for Pixel 9.</b> It opens files in apps here, and an app's own Open and Save dialogs can reach folders outside this share. Only for devices you trust.</div></div>
+   </div>
+  </div>`;
+}
+const hShares = () => laptop(win('h-shares', sharesPage()), { app: true });
+function hSharesAdd() {
+  return laptop(`${win('h-shares', sharesPage())}<div class="wscrim"></div>
+  <div class="wdialog"><div class="in"><h2>Share a folder</h2>
+   <div style="font-size:12px;color:var(--text2);margin-bottom:3px">Folder</div>
+   <div style="display:flex;gap:8px"><div class="wfield mono" style="flex:1;font-size:12px">D:/Projects/Clients/Kestrel house</div><span class="wbtn">Browse…</span></div>
+   <div style="font-size:12px;color:var(--text2);margin:12px 0 3px">Name devices see</div>
+   <div class="wfield foc">Kestrel house</div>
+   <div style="font-size:12px;color:var(--text2);margin:14px 0 6px">Who can use it</div>
+   <div style="display:flex;flex-direction:column;gap:8px;font-size:13px"><label style="display:flex;gap:10px;align-items:center">${cb(false)}Pixel 9 <span style="color:var(--text3)">· list, preview, fetch</span></label><label style="display:flex;gap:10px;align-items:center">${cb(false)}Galaxy Tab S9 <span style="color:var(--text3)">· list, preview, fetch</span></label></div>
+   <div class="infobar" style="margin-top:14px">${ic('lock')}<div class="bd">Nobody can use this folder until you tick a device. Access is read-only. Stream stays off; turn it on per device afterwards.</div></div>
+  </div><div class="foot"><span class="wbtn pri"${go('h-shares')}>Share folder</span><span class="wbtn"${go('h-shares')}>Cancel</span></div></div>`, { app: true });
+}
+function hDevices() {
+  const dev = (o) => `<div class="wcard" style="padding:14px"><div class="devicecard"><span class="tile">${ic(o.icon, 'l')}</span><div style="flex:1;min-width:0">
+    <div style="display:flex;align-items:center;gap:10px"><b style="font-size:15px">${o.name}</b>${o.state}</div>
+    <div style="color:var(--text2);font-size:12.5px">${o.meta}</div>
+    <div style="display:flex;gap:18px;margin-top:8px;font-size:12px;color:var(--text2);flex-wrap:wrap"><span>${ic('shield', 'xs')} ${o.id}</span><span>${ic('net', 'xs')} ${o.addr}</span><span>${ic('folder', 'xs')} ${o.shares}</span></div>
+   </div><div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">${o.btns}</div></div></div>`;
+  return laptop(win('h-devices', `${hhead('Devices', 'Phones and tablets paired with this computer. Revoking a device cuts it off at once.', `<span class="wbtn pri"${go('h-add')}>${ic('plus')}Add a device</span>`)}
+   ${dev({ icon: 'phone', name: 'Pixel 9', state: '<span class="live">Streaming PowerPoint · 04:12</span>', meta: 'Android 16 · Gander 0.2.0 · paired 1 Nov 2026', id: 'alice@example.com · pixel-9 (Tailscale)', addr: '100.101.102.104 · direct', shares: 'Projects, Documents, Photos', btns: `<span class="wbtn"${go('h-kill')}>Stop stream</span><span class="wbtn dangero">Revoke</span>` })}
+   ${dev({ icon: 'tablet', name: 'Galaxy Tab S9', state: '<span class="status on" style="font-size:12px">Connected · browsing</span>', meta: 'Android 15 · Gander 0.2.0 · paired 2 Nov 2026', id: 'alice@example.com · galaxy-tab-s9 (Tailscale)', addr: '100.101.102.118 · <span style="color:var(--warn)">relayed (DERP)</span>', shares: 'Projects, Photos', btns: '<span class="wbtn dangero">Revoke</span>' })}
+   <div class="wlabel" style="color:var(--text2);font-weight:600">Revoked, kept 30 days for the activity log</div>
+   <div class="wrow" style="opacity:.65;min-height:44px">${ic('phone')}<div class="bd"><div class="t">Old Galaxy</div><div class="d">Revoked 28 Oct · last seen 27 Oct from 100.101.102.97</div></div></div>`, { live: true }), { app: true, live: true, ppt: true });
+}
+function addWin(content) {
+  return `<div class="wwin" style="left:150px;top:44px;width:660px;height:500px"><div class="wtitle">${lens(16)}<span>Gander · Add a device</span><span class="sp"></span>${wctl}</div><div class="wpage" style="border-radius:0;border-left:0">${content}</div></div>`;
+}
+function hAdd() {
+  return laptop(`${win('h-devices', '', {})}${addWin(`${hhead('Add a device', 'Pairing is only possible while this window is open.')}
+   <div style="display:flex;gap:24px">
+    <div style="text-align:center"><div class="qr">${qrSvg(41)}</div><div style="font-size:11.5px;color:var(--text3);margin-top:6px">Sample code, not scannable</div></div>
+    <div style="flex:1;font-size:13px">
+     <div style="display:flex;gap:10px;margin-bottom:10px"><b style="width:18px">1</b><span>On the phone or tablet, open Gander and tap <b>Add a computer</b>.</span></div>
+     <div style="display:flex;gap:10px;margin-bottom:10px"><b style="width:18px">2</b><span>Scan this code. The code only works on this computer and only while this window is open.</span></div>
+     <div style="display:flex;gap:10px;margin-bottom:14px"><b style="width:18px">3</b><span>Check the name and the six-digit code here, then click <b>Allow</b>.</span></div>
+     <div class="wcard"><div style="font-size:12px;color:var(--text2);margin-bottom:4px">No camera? Enter one of these addresses instead</div><div class="mono" style="font-size:12.5px;line-height:1.7">100.101.102.103<br>studio-pc.tail1234.ts.net<br><span style="color:var(--text3)">port 42637</span></div></div>
+    </div>
+   </div>
+   <div style="display:flex;align-items:center;gap:10px;margin-top:16px;font-size:12.5px;color:var(--text2)"><span class="tnum">${ic('clock', 'xs')} Closes in 4:31</span><span>·</span><span>No failed attempts</span><span class="sp" style="flex:1"></span><span class="wbtn"${go('h-add-approve')}>(demo: a device scans)</span><span class="wbtn"${go('h-devices')}>Close</span></div>`)}`, { app: true });
+}
+function hAddApprove() {
+  return laptop(`${win('h-devices', '', {})}${addWin(`<div class="wh1" style="font-size:22px">Galaxy Tab S9 wants to pair</div><div class="wsub">Check that this is your device and that the code matches the one on its screen.</div>
+   <div class="wcard" style="padding:14px"><div class="devicecard"><span class="tile">${ic('tablet', 'l')}</span><div style="flex:1">
+     <b style="font-size:15px">Galaxy Tab S9</b><div style="font-size:12.5px;color:var(--text2)">Android 15 · Gander 0.2.0</div>
+     <div style="font-size:12.5px;margin-top:6px;display:flex;gap:6px;align-items:center;color:var(--ok)">${ic('shield', 'xs')}<span>Tailscale: <b>alice@example.com</b>'s galaxy-tab-s9</span></div>
+     <div style="font-size:12px;color:var(--text3)">From 100.101.102.118</div></div>
+     <div style="text-align:right"><div style="font-size:12px;color:var(--text2);margin-bottom:6px">Code on the tablet should be</div><div class="dsas tnum">482 913</div></div></div></div>
+   <div class="infobar warn">${ic('warn')}<div class="bd"><b>Only approve if the code on your tablet matches.</b> If someone is telling you a code over the phone, or asked you to do this, click Deny.</div></div>
+   <div style="display:flex;align-items:center;gap:10px;margin-top:14px"><span style="font-size:12.5px;color:var(--text2)">${ic('clock', 'xs')} Request expires in 1:44</span><span style="flex:1"></span><span class="wbtn" style="min-width:120px"${go('h-add')}>Deny</span><span class="wbtn pri" style="min-width:200px"${go('h-devices')}>Allow Galaxy Tab S9</span></div>
+   <div style="font-size:12px;color:var(--text3);margin-top:12px">Not a Tailscale peer? The line above then reads "Identity unknown (not a Tailscale peer)" in amber. Shared-in devices say "shared from another tailnet".</div>`)}`, { app: true });
+}
+function hActivity() {
+  const r = (t, ico, tone, ev, dev, det) => `<tr><td class="tnum" style="color:var(--text2)">${t}</td><td><span style="display:inline-flex;gap:6px;align-items:center;color:${tone}">${ic(ico, 'xs')}<span style="color:var(--text)">${ev}</span></span></td><td>${dev}</td><td style="color:var(--text2)">${det}</td></tr>`;
+  return laptop(win('h-activity', `${hhead('Activity', 'Who did what on this computer, newest first. Times are in your time zone.', '<span class="wbtn">Open log folder</span>')}
+   <div style="display:flex;gap:8px;margin-bottom:10px;align-items:center"><div class="seg" style="height:30px;border-radius:4px"><span class="on">All events</span><span>Only problems</span></div><div class="wfield" style="flex:1;color:var(--text3)">${ic('search', 'xs')}&nbsp; Filter by device, file or event</div></div>
+   <div class="wcard" style="padding:2px 10px"><table class="wtable">
+    <tr><th style="width:62px">Time</th><th>Event</th><th>Device</th><th>Detail</th></tr>
+    ${r('14:02', 'stream', 'var(--accent)', 'Stream started', 'Pixel 9', 'PowerPoint · Projects/Clients/Kestrel house/Q3 review deck.pptx')}
+    ${r('13:58', 'okc', 'var(--ok)', 'App approved for streaming', 'Pixel 9', 'PowerPoint (Microsoft Corporation) · always')}
+    ${r('13:41', 'fetch', 'var(--text2)', 'File fetched', 'Pixel 9', 'Site survey 2026-10.pdf · 6.1 MB')}
+    ${r('13:40', 'preview', 'var(--text2)', 'Preview', 'Pixel 9', 'Q3 review deck.pptx · pages 1-4')}
+    ${r('12:15', 'error', 'var(--bad)', 'Request refused (no valid token)', '<span style="color:var(--text3)">unknown</span>', 'from 100.101.102.140')}
+    ${r('11:02', 'okc', 'var(--ok)', 'Device approved', 'Galaxy Tab S9', 'alice@example.com · code matched')}
+    ${r('10:58', 'warn', 'var(--warn)', 'Pairing denied', 'Galaxy A15', 'from 100.101.102.140 · denied by you')}
+    ${r('09:30', 'net', 'var(--text2)', 'Listener started', '', '127.0.0.1:42637, 100.101.102.103:42637')}
+   </table></div>
+   <div style="font-size:12px;color:var(--text3);margin-top:8px">Showing 8 of the last 412 events. Paths appear only here, on this computer. Tokens, codes and file contents are never logged.</div>`), { app: true });
+}
+function hNetwork() {
+  const chk = (ok, t, d, btn) => `<div class="wrow" style="align-items:flex-start;min-height:44px"><span style="color:${ok === 1 ? 'var(--ok)' : ok === 0 ? 'var(--bad)' : 'var(--warn)'}">${ic(ok === 1 ? 'okc' : ok === 0 ? 'error' : 'warn', 's')}</span><div class="bd"><div class="t">${t}</div>${d ? `<div class="d">${d}</div>` : ''}</div>${btn || ''}</div>`;
+  return laptop(win('h-network', `${hhead('Network', 'Gander only listens on this computer and on your private network, never on the internet.', '<span class="wbtn">' + ic('refresh') + 'Check again</span>')}
+   <div style="display:flex;gap:12px">
+    <div class="wcard" style="flex:1"><div style="font-weight:600;margin-bottom:6px">Listening on</div>
+     <div class="mono" style="font-size:12px;line-height:1.8">127.0.0.1:42637 <span style="color:var(--text3);font-family:inherit">this computer only</span><br>100.101.102.103:42637 <span style="color:var(--text3)">Tailscale</span><br>[fd7a:115c:a1e0::6f]:42637 <span style="color:var(--text3)">Tailscale</span></div>
+     <div style="font-size:12px;color:var(--text2);margin-top:6px">Adapter: <b>Tailscale</b>, devices are identified by their tailnet login. <span style="color:var(--accent-text)">Change</span></div></div>
+    <div class="wcard" style="flex:1"><div style="font-weight:600;margin-bottom:6px">Connected now</div>
+     <div style="font-size:12.5px;display:flex;gap:8px;align-items:center;margin-bottom:6px">${ic('phone', 'xs')}<b>Pixel 9</b><span class="status on" style="font-size:12px">direct</span></div>
+     <div style="font-size:12.5px;display:flex;gap:8px;align-items:center">${ic('tablet', 'xs')}<b>Galaxy Tab S9</b><span class="status warn" style="font-size:12px">relayed (DERP)</span></div>
+     <div style="font-size:12px;color:var(--text2);margin-top:6px">A relay carries only a few Mbit/s. Browsing and previews work; streaming will be blurry. A direct path usually appears within a minute; if it never does, a router or firewall is blocking UDP.</div></div>
+   </div>
+   <div class="wlabel">Connectivity check <span style="font-weight:400;color:var(--text3)">· checked 14:01</span></div>
+   ${chk(1, 'Tailscale is running and signed in', '')}
+   ${chk(1, 'Incoming connections are allowed', 'Tailscale "Shields Up" is off.')}
+   ${chk(0, 'A Windows Firewall rule blocks Gander', 'Inbound Block rule for gander-host.exe on Public networks. A Block rule overrides every Allow rule, so devices cannot connect.', `<span class="wbtn">${ic('shield')}Remove rule…</span>`)}
+   ${chk(2, 'This network is marked Public', 'Gander\'s own firewall rule still covers it. Nothing to do unless a check above fails.')}`, { netWarn: true }), { app: true });
+}
+function hSettings() {
+  const row = (icn, t, d, ctl) => `<div class="wrow">${ic(icn)}<div class="bd"><div class="t">${t}</div>${d ? `<div class="d">${d}</div>` : ''}</div>${ctl}</div>`;
+  const dd = (v) => `<span class="wbtn" style="min-width:150px;justify-content:space-between">${v}${ic('chevd')}</span>`;
+  return laptop(win('h-settings', `${hhead('Settings', '')}
+   <div style="height:470px;overflow:hidden">
+   <div class="wlabel" style="margin-top:0">General</div>
+   ${row('power', 'Start Gander when I sign in', 'Nothing is reachable after a restart until you sign in.', '<span class="wtog on"></span>')}
+   ${row('info', 'Tell me when a device connects', 'A notification each time a paired device starts using this computer.', '<span class="wtog on"></span>')}
+   ${row('window', 'Theme', '', dd('Use system setting'))}
+   <div class="wlabel">Streaming</div>
+   ${row('user', 'When someone is using this computer', 'A stream only starts after the person here allows it.', dd('Ask the person here'))}
+   ${row('stream', 'Apps allowed for streaming', 'PowerPoint, Acrobat Reader, Blender', '<span class="wbtn">Manage</span>')}
+   <div class="wlabel">Listener</div>
+   ${row('net', 'Port', 'Takes effect after Gander restarts. Paired devices remember the port they paired with.', '<div class="wfield mono" style="width:90px">42637</div>')}
+   ${row('pause', 'Pause listener for', 'Used by the tray menu and the kill switch.', dd('10 minutes'))}
+   <div class="wlabel">Storage</div>
+   ${row('storage', 'Thumbnail and preview cache', 'Using 412 MB of the 2 GB limit.', '<span class="wbtn">Empty cache</span>')}
+   </div>`), { app: true });
+}
+function trayFlyout(o = {}) {
+  return `<div class="wflyout" style="right:12px;bottom:58px;width:340px;padding:14px">
+   <div style="display:flex;align-items:center;gap:10px">${lens(30)}<div style="flex:1"><b style="font-size:14px">Gander</b><div style="font-size:12px;color:var(--text2)">studio-pc</div></div><span class="ib" style="width:30px;height:30px"${go('h-settings')}>${ic('gear', 's')}</span></div>
+   <div style="margin:10px 0 12px"><span class="status on" style="font-size:12.5px">Ready · listening on Tailscale</span></div>
+   <div style="font-size:12px;color:var(--text2);margin-bottom:6px">Connected now</div>
+   <div class="wrow" style="min-height:44px;padding:8px 10px">${ic('phone', 's')}<div class="bd"><div class="t">Pixel 9</div><div class="d">Browsing Projects · direct</div></div><span class="wbtn sub" style="height:26px">Disconnect</span></div>
+   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:10px 0">
+    <div class="wcard" style="text-align:center;padding:10px 4px;margin:0"${go('h-add')}>${ic('plus', 's')}<div style="font-size:12px;margin-top:4px">Add a device</div></div>
+    <div class="wcard" style="text-align:center;padding:10px 4px;margin:0">${ic('pause', 's')}<div style="font-size:12px;margin-top:4px">Pause 10 min</div></div>
+    <div class="wcard" style="text-align:center;padding:10px 4px;margin:0"${go('h-shares')}>${ic('window', 's')}<div style="font-size:12px;margin-top:4px">Open Gander</div></div>
+   </div>
+   <span class="wbtn danger" style="width:100%;height:36px"${go('h-kill')}>${ic('power')}Disconnect everyone</span>
+   <div style="display:flex;justify-content:space-between;margin-top:10px;font-size:12px;color:var(--text2)"><span>Ends every session and pauses for 10 min</span><span>Quit</span></div>
+  </div>`;
+}
+function hTray() {
+  return laptop('', {
+    over: `${trayFlyout()}
+    <div class="wflyout" style="right:372px;bottom:58px;width:250px;padding:4px;font-size:12.5px">
+     <div style="padding:4px 10px 6px;font-size:11.5px;color:var(--text3)">Right-click menu</div>
+     <div class="wni" style="height:32px">${ic('window')}Open Gander</div>
+     <div class="wni" style="height:32px">${ic('pause')}Pause listener for 10 minutes</div>
+     <div class="wni" style="height:32px;color:var(--bad)"${go('h-kill')}>${ic('power')}Disconnect everyone</div>
+     <div style="border-top:1px solid var(--wstroke);margin:4px 0"></div>
+     <div class="wni" style="height:32px">${ic('close')}Quit Gander</div>
+    </div>`,
+  });
+}
+function hViewing() {
+  return laptop(`<div class="wwin" style="left:40px;top:54px;width:860px;height:500px;border:2px solid #f2c200;box-shadow:0 18px 40px rgba(0,0,0,.28)">${pptWide()}</div>
+   <div style="position:absolute;left:40px;top:560px;font-size:11px;color:var(--text2);background:var(--mica);padding:2px 8px;border-radius:4px;border:1px solid var(--wstroke)">Yellow frame: Windows' own capture border, kept on by the launch policy</div>
+   <div class="vpill">${ic('preview', 's')}Pixel 9 is viewing PowerPoint · <span class="tnum">00:41</span><span class="wbtn"${go('h-kill')}>Stop</span></div>`, {
+    ppt: true, live: true,
+    over: `<div class="toast"><div class="hd">${lens(16)}Gander<span class="sp"></span>now ${ic('close', 'xs')}</div>
+     <b>Pixel 9 is viewing</b><p>Q3 review deck.pptx is open in PowerPoint and shown on Pixel 9. It can click and type in that window only.</p>
+     <div class="btns"><span class="wbtn danger"${go('h-kill')}>Stop stream</span><span class="wbtn"${go('h-devices')}>Open Gander</span></div></div>`,
+  });
+}
+function hPrompt() {
+  return laptop('', {
+    over: `<div class="toast" style="bottom:60px"><div class="hd">${lens(16)}Gander<span class="sp"></span>now</div>
+     <b>Pixel 9 wants to open a file in PowerPoint</b><p>Q3 review deck.pptx, with POWERPNT.EXE (Microsoft Corporation). The window will be shown on Pixel 9 and take mouse and keyboard input.</p>
+     <div class="btns"><span class="wbtn pri"${go('h-viewing')}>Allow once</span><span class="wbtn">Always</span><span class="wbtn">Deny</span></div></div>
+     <div class="toast" style="bottom:258px"><div class="hd">${lens(16)}Gander<span class="sp"></span>2 min ago</div>
+     <b>Pixel 9 wants to stream while you are here</b><p>It opens in PowerPoint and will move the mouse. Allow, or Not now.</p>
+     <div class="btns"><span class="wbtn pri"${go('h-viewing')}>Allow</span><span class="wbtn">Not now</span></div></div>`,
+  });
+}
+function hKill() {
+  return laptop(win('h-shares', `<div class="infobar" style="background:var(--primary);color:var(--on-primary);border:0;padding:14px 16px">${ic('power')}<div class="bd"><b style="font-size:14px">Everyone was disconnected at 14:07.</b><br>1 stream and 2 connections ended. Pairing is closed and Gander is not listening for 9:52 more. PowerPoint was left open here.</div><span class="wbtn"${go('h-shares')}>Resume now</span></div>
+   ${sharesPage().replace('<div class="wh1">Shares</div>', '<div class="wh1" style="margin-top:6px">Shares</div>')}`, { paused: true }), {
+    app: true, paused: true, min: '07',
+    over: `<div class="toast"><div class="hd">${lens(16)}Gander<span class="sp"></span>now</div><b>Everyone was disconnected</b><p>Gander is paused for 10 minutes. Devices see "Someone at studio-pc stopped the stream."</p><div class="btns"><span class="wbtn">Resume now</span></div></div>`,
+  });
+}
+
+/* ---------- Design tokens page ---------- */
+function tokens() {
+  const sw = (v, n, note) => `<div style="display:flex;gap:10px;align-items:center;padding:6px 0"><span style="width:44px;height:32px;border-radius:8px;background:var(${v});box-shadow:inset 0 0 0 1px var(--line);flex:none"></span><div><div class="mono" style="font-size:12px">${n}</div><div style="font-size:11.5px;color:var(--text3)">${note}</div></div></div>`;
+  return `<div style="width:900px;background:var(--bg);color:var(--text);border-radius:16px;padding:28px;box-shadow:0 0 0 1px var(--line)">
+   <div style="display:flex;align-items:center;gap:16px">${lens(64)}<div><div style="font-size:30px;font-weight:600;letter-spacing:-.3px">Gander</div><div style="color:var(--text2)">Have a gander. Calm, private, file-first.</div></div></div>
+   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px 28px;margin-top:22px">
+    <div><div class="sec" style="padding:0 0 4px">Neutrals</div>${sw('--bg', 'bg', 'goose-down, page')}${sw('--surface', 'surface', 'sheets, cards')}${sw('--s2', 'surface-2', 'containers')}${sw('--s3', 'surface-3', 'tiles, selected')}${sw('--line', 'line', 'dividers, 1px')}${sw('--outline', 'outline', 'control edges, 3:1')}</div>
+    <div><div class="sec" style="padding:0 0 4px">Ink and accent</div>${sw('--text', 'text', 'ink, 13:1')}${sw('--text2', 'text-2', 'secondary, 7:1')}${sw('--text3', 'text-3', 'muted, 4.5:1 min')}${sw('--primary', 'primary', 'commands are ink')}${sw('--accent', 'accent (beak)', 'live, default, selection')}${sw('--accent-c', 'accent-container', 'selected row, default action')}</div>
+    <div><div class="sec" style="padding:0 0 4px">Status</div>${sw('--ok', 'ok', 'connected, verified')}${sw('--warn', 'warn', 'relay, metered, caution')}${sw('--bad', 'bad', 'refused, mismatch, kill')}${sw('--ok-c', 'ok-container', '')}${sw('--warn-c', 'warn-container', '')}${sw('--bad-c', 'bad-container', '')}</div>
+   </div>
+   <div class="sec" style="padding:22px 0 8px">Signature: the work rail (who does the work)</div>
+   <div style="display:flex;gap:28px">${rail('preview')}${rail('fetch')}${rail('stream')}</div>
+   <div class="sec" style="padding:22px 0 8px">Orange means "looking"</div>
+   <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span class="live">LIVE · 02:41</span><span class="tag">Default</span><span class="chip sel">${ic('check', 'xs')}Selected</span><span class="btn">Primary command</span><span class="btn out">Secondary</span><span class="btn bad">Destructive</span></div>
+   <div class="sec" style="padding:22px 0 8px">Type</div>
+   <div style="display:flex;gap:40px"><div><div style="font-size:30px">Your computers</div><div style="font-size:20px;font-weight:500">studio-pc</div><div style="font-size:15.5px">Q3 review deck.pptx</div><div style="font-size:13px;color:var(--text3)">38.2 MB · 28 Oct</div><div style="font-size:11px;color:var(--text3)">Android: Roboto Flex / system</div></div>
+   <div><div class="sas tnum" style="font-size:44px;justify-content:flex-start"><span>482</span><span>913</span></div><div style="font-size:11px;color:var(--text3);margin-top:6px">Pairing code: Roboto Mono 52, grouped 3+3</div></div>
+   <div style="font-family:'Segoe UI Variable Text','Segoe UI',system-ui"><div style="font-size:26px;font-weight:600">Shares</div><div style="font-size:13.5px">Start Gander when I sign in</div><div style="font-size:12px;color:var(--text2)">Windows: Segoe UI Variable</div></div></div>
+  </div>`;
+}
+
+/* ---------- Registry ---------- */
+const S = [];
+const add = (g, id, n, f, r, purpose, states) => S.push({ g, id, n, f, r, purpose, states });
+const PH = 'Android phone';
+const TB = 'Android tablet';
+const WH = 'Windows host';
+const DS = 'Design system';
+add(DS, 'tokens', 'Tokens and signatures', 'page', tokens, 'The palette in the current theme, the work rail, how orange is used, and the type pairing. Switch the theme to compare.', ['Light and dark use the same token names; only values change.']);
+add(PH, 'hosts-empty', 'Computers: empty', 'phone', hostsEmpty, 'First run. One clear action, and a plain explanation of what is needed on the computer.', ['Empty (shown)', 'Private network not detected: the status line turns amber and says so']);
+add(PH, 'hosts', 'Computers', 'phone', hosts, 'Home: your computers, with state, path and quick jumps into shares.', ['Online direct (studio-pc)', 'Online relayed: amber "Relayed" chip plus one-line explanation', 'Offline: hollow dot, last seen, what is still available offline', 'Checking: neutral dot "Checking…"', 'Needs attention (revoked, identity mismatch): bad text line with the fix']);
+add(PH, 'add', 'Add computer: start', 'phone', addIntro, 'Choose QR or manual, with the anti-scam warning before anything else.', ['Default', 'Camera unavailable: scan row disabled with reason']);
+add(PH, 'add-scan', 'Add computer: scan', 'phone', addScan, 'Camera with an orange reticle. FLAG_SECURE is on, so screenshots are blocked and the screen says so.', ['Scanning', 'Not a Gander code / damaged / other version: inline message under the reticle', 'No camera permission: explanation plus Allow camera']);
+add(PH, 'add-manual', 'Add computer: address', 'phone', addManual, 'Manual address entry (flow B) and a preview of the code comparison that follows.', ['Empty', 'Invalid address: field error text', 'Connecting… with progress']);
+add(PH, 'add-compare', 'Add computer: compare code', 'phone', addCompare, 'Flow B: the code is the integrity check, so it is the largest thing on the screen, with both device identities above it.', ['Waiting for approval (shown)', 'Approved -> success', 'Denied / expired / mismatch -> failure']);
+add(PH, 'add-waiting', 'Add computer: waiting (QR)', 'phone', addWaiting, 'Flow A: identity already proved by the QR; the code is informational, shown smaller with a green identity check.', ['Waiting with countdown', 'Another device is waiting on the computer: error with what to do']);
+add(PH, 'add-ok', 'Add computer: success', 'phone', addOk, 'Confirms the pairing and shows what is shared with this phone right away.', ['Shares listed', 'Nothing shared yet: says the owner must share a folder with this phone']);
+add(PH, 'add-fail', 'Add computer: failure', 'phone', addFail, 'The code mismatch case, worded as a possible interception, with the other failure texts listed.', ['Code mismatch (shown)', 'Denied', 'Expired', 'Pairing closed', 'Rate limited', 'Wrong computer', 'Could not store securely']);
+add(PH, 'shares', 'Shares', 'phone', shares, 'The folders this phone may use on one computer, with what each allows.', ['Loaded', 'Nothing shared: empty state', 'Offline: cached chip, list from last visit', 'Share removed on host: row disappears with a snackbar']);
+add(PH, 'browser', 'Browser: list', 'phone', browser, 'A folder: breadcrumb, Files/Recent tabs, sort and filter chips, rows with type tiles and flags.', ['Loaded', 'Loading: skeleton rows', 'Empty folder', 'Filter matches nothing', 'Paging error at the bottom: "Couldn\'t load more" + Retry']);
+add(PH, 'browser-grid', 'Browser: grid', 'phone', browserGrid, 'Thumbnail grid. Thumbnails are made on the computer; the type glyph stands in when it has none.', ['Thumbnail ready', 'Generating (progress)', 'No thumbnail on the host: glyph plus reason', 'Online-only file badge']);
+add(PH, 'browser-sort', 'Browser: sort and filter', 'phone', browserSort, 'Bottom sheet for sort, direction, show and kinds. Remembered per share.', ['Default selections']);
+add(PH, 'browser-select', 'Browser: multi-select', 'phone', browserSelect, 'Long-press enters selection; the bar shows count and total size, and Fetch many. Folders are not selectable in v1.', ['Some selected', 'Share does not allow fetching: bar says why']);
+add(PH, 'browser-offline', 'Browser: offline / cached', 'phone', browserOffline, 'Host unreachable: the cached listing is shown with its age; only saved files are fully available.', ['Offline with cache (shown)', 'Offline without cache: empty state with the same explanation']);
+add(PH, 'sheet', 'File sheet', 'phone', sheet, 'The decision point: three modes, each with a cost hint and a work rail showing which device does the work. The default is outlined in orange.', ['All available, default Preview (shown)', 'Saved on this phone: Fetch becomes "Open the saved copy"', 'Loading details: chips shimmer, actions available from the listing']);
+add(PH, 'sheet-na', 'File sheet: unavailable modes', 'phone', sheetNa, 'Honesty rules: every unavailable mode says why, in the sheet. The remembered default is overridden and that is said too.', ['No renderer', 'Host locked', 'Metered and large', 'Stream not allowed by share', 'Stream refused by policy (for example macro-enabled files)']);
+add(PH, 'p-pages', 'Preview: pages', 'phone', pPages, 'Paged document preview rendered on the computer, with a filmstrip and a Fetch shortcut.', ['Page rendering: spinner on that page only', 'Low fidelity (no Office renderer): banner "Page 1 only, in low quality"', 'Failure: reason plus Fetch / Stream']);
+add(PH, 'p-image', 'Preview: image', 'phone', pImage, 'Screen-sized copy; the original is one tap away and costs a Fetch, said in the button.', ['Loaded', 'Loading poster blur-free: neutral box with progress']);
+add(PH, 'p-text', 'Preview: text', 'phone', pText, 'Monospace text with encoding shown and light highlighting.', ['Loaded', 'Load more', 'Capped: "Showing the first 2 MB. Fetch the file to read the rest."', 'Empty file']);
+add(PH, 'p-video', 'Preview: video', 'phone', pVideo, 'Plays straight from the computer by range requests; no copy kept.', ['Poster', 'Playing', 'Codec not supported on this phone: reason plus Fetch / Stream', 'Online-only source warning']);
+add(PH, 'fetch', 'Downloads (fetch panel)', 'phone', fetchPanel, 'Every fetch in one place: progress, verifying, done with Open with / Share / Keep offline, failed with the reason.', ['Queued', 'Downloading', 'Verifying', 'Done (verified)', 'Failed (mismatch, gone, no space)', 'Paused by Android', 'Empty']);
+add(PH, 'fetch-cellular', 'Fetch: mobile data dialog', 'phone', fetchCellular, 'Before a large fetch on a metered network: size first, cheaper alternatives offered (or why they are not available).', ['Alternatives available', 'Alternatives unavailable (shown)']);
+add(PH, 'storage', 'Storage', 'phone', storage, 'What is saved on this phone, per computer, and what may be deleted.', ['Normal', 'Kept-offline over cap: warn banner', 'Empty', 'Computer removed: section "A computer that was removed"']);
+add(PH, 'settings', 'Settings', 'phone', settings, 'Downloads, storage, opening rules, security, computers, about.', ['Default']);
+add(PH, 'lock', 'App lock', 'phone', lock, 'Biometric gate after a minute in the background. Shows nothing about the computers until unlocked.', ['Locked', 'Declined: "Not unlocked yet"', 'No screen lock any more (shown as a card)']);
+add(PH, 'stream-relay', 'Stream: relay warning', 'phone', streamRelay, 'Before a stream on a relayed path: quality expectation in plain words, with Preview as the honest alternative.', ['Tailscale DERP (shown)', 'Generic private network wording']);
+add(PH, 'stream-picker', 'Stream: window picker', 'phone', streamPicker, 'When the app opens more than one window, the user picks within a countdown.', ['Several windows', 'None yet: "The stream ends in 0:20 if none appears"', 'Picked window gone']);
+add(PH, 'stream-live', 'Stream: live, Direct touch', 'phone', streamLive, 'The streamed window with a compact session bar (LIVE + time + where), mode switch, and the keyboard bar with sticky modifiers.', ['Live', 'Asking / approving / launching: same bar, banner under it', 'Ctrl latched (shown)']);
+add(PH, 'stream-trackpad', 'Stream: Trackpad mode', 'phone', streamTrackpad, 'Pointer mode with a one-time gesture card, and click buttons in place of the keyboard bar.', ['First use: gesture card', 'After: card hidden']);
+add(PH, 'stream-paused', 'Stream: paused', 'phone', streamPaused, 'The host paused input; the frame is greyed so it is never mistaken for live.', ['Someone is using the computer (shown)', 'Another window in front', 'Weak connection', 'App in background']);
+add(PH, 'stream-reconnecting', 'Stream: reconnecting', 'phone', streamReconnecting, 'Connection lost; the session is kept for 120 s and the countdown is shown.', ['Reconnecting', 'Gave up: ended screen "The connection to studio-pc was lost"']);
+add(PH, 'stream-end', 'Stream: end dialog', 'phone', streamEnd, 'Leaving: keep or close the app on the computer, and fetch the saved file if it changed.', ['End by user (shown)', 'Ended by kill switch / locked / revoked / window closed: ended screen with that reason']);
+add(TB, 't-browser', 'Tablet: two-pane browser', 'tablet', tBrowser, 'Galaxy Tab S9 landscape: navigation rail, folder pane, and the file sheet as a persistent detail pane.', ['File selected (shown)', 'Nothing selected: detail pane shows the folder summary', 'Portrait: single pane with the sheet as a bottom sheet']);
+add(TB, 't-stream', 'Tablet: stream', 'tablet', tStream, 'Landscape stream with a single-row keyboard bar and the session bar on top.', ['Live', 'Hardware keyboard attached: keyboard bar hidden, modifiers still available']);
+add(WH, 'h-tray', 'Tray flyout and menu', 'laptop', hTray, 'Left-click flyout (status, who is connected, quick actions, kill switch) and the minimal right-click menu.', ['Idle', 'Connected (shown)', 'Live: orange dot on the tray icon and an orange status line', 'Paused: grey icon with time left']);
+add(WH, 'h-shares', 'Shares', 'laptop', hShares, 'Master-detail: shares on the left, the selected share with options and the per-device permission grid.', ['Shares (shown)', 'No shares: empty state "Nothing is reachable yet"', 'Folder missing: bad infobar on that share', 'Unsaved changes: Save / Revert bar']);
+add(WH, 'h-shares-add', 'Shares: add a folder', 'laptop', hSharesAdd, 'Content dialog for a new share. Every device starts unticked; Stream is never set here.', ['New share', 'Whole drive or user profile chosen: warn infobar asking to pick a narrower folder']);
+add(WH, 'h-devices', 'Devices (while being viewed)', 'laptop', hDevices, 'Paired devices with identity, path and what they are doing now. The live band runs across the window while a stream is on.', ['Live (shown)', 'No devices', 'Revoked list']);
+add(WH, 'h-add', 'Add a device: QR', 'laptop', hAdd, 'Pairing window: QR, three steps, manual addresses, expiry and failed-attempt count.', ['Open, waiting (shown)', 'Rate limited: bad infobar, "Close and open again to reset"', 'Expired: QR greyed, "Open again"']);
+add(WH, 'h-add-approve', 'Add a device: approve', 'laptop', hAddApprove, 'The device asks to pair: identity, network login, large code, and Deny as wide as Allow.', ['Tailscale identity (shown)', 'Identity unknown', 'Shared from another tailnet', 'Tagged node refused']);
+add(WH, 'h-activity', 'Activity', 'laptop', hActivity, 'The audit log in plain words, newest first, filterable.', ['Events', 'Only problems', 'Nothing yet']);
+add(WH, 'h-network', 'Network', 'laptop', hNetwork, 'Where Gander listens, how each device is connected, and a connectivity check with fixes.', ['All good', 'Shields Up on', 'Firewall block rule (shown)', 'No private network: listener on loopback only, explained']);
+add(WH, 'h-settings', 'Settings', 'laptop', hSettings, 'Fluent settings cards: general, streaming, listener, storage.', ['Default']);
+add(WH, 'h-viewing', 'Being viewed: toast and indicator', 'laptop', hViewing, 'Unmistakable: an orange pill at the top of the screen with Stop, a toast naming the device and the file, an orange dot on the tray icon, and the yellow Windows capture border around the streamed window (kept on, per the stream launch policy).', ['Streaming (shown)', 'Browsing only: toast "Pixel 9 connected", no pill']);
+add(WH, 'h-prompt', 'Stream approval prompts', 'laptop', hPrompt, 'Owner prompts: an app not yet approved, and someone at the keyboard.', ['App approval', 'Attended computer']);
+add(WH, 'h-kill', 'Kill switch used', 'laptop', hKill, 'One click, no confirmation. The result is stated, and undo is "Resume now".', ['Just used (shown)', 'Paused by menu: same band without the counts']);
+
+/* ---------- Router ---------- */
+const byId = Object.fromEntries(S.map((s) => [s.id, s]));
+const side = document.getElementById('side');
+const THEMES = ['system', 'light', 'dark'];
+function getTheme() { try { return localStorage.getItem('gander-theme') || 'system'; } catch (e) { return 'system'; } }
+function setTheme(t) {
+  if (t === 'system') document.documentElement.removeAttribute('data-theme');
+  else document.documentElement.setAttribute('data-theme', t);
+  try { localStorage.setItem('gander-theme', t); } catch (e) { /* storage blocked: theme still applies */ }
+  document.querySelectorAll('[data-theme-btn]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.themeBtn === t)));
+}
+function buildSide() {
+  const groups = [...new Set(S.map((s) => s.g))];
+  let n = 0;
+  side.innerHTML = `<div class="brand">${lens(36)}<div><b>Gander</b><span>UI redesign · 2026-11-02</span></div></div>
+   <div class="ctl">${THEMES.map((t) => `<button type="button" data-theme-btn="${t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join('')}<button type="button" id="hot" aria-pressed="false">Tap targets</button></div>
+   ${groups.map((g) => `<div class="grp"><h3>${g}</h3>${S.filter((s) => s.g === g).map((s) => `<a href="#/${s.id}" data-id="${s.id}"><i>${String(++n).padStart(2, '0')}</i>${s.n}</a>`).join('')}</div>`).join('')}`;
+  side.querySelectorAll('[data-theme-btn]').forEach((b) => b.addEventListener('click', () => setTheme(b.dataset.themeBtn)));
+  document.getElementById('hot').addEventListener('click', (e) => {
+    const on = document.body.classList.toggle('hot');
+    e.currentTarget.setAttribute('aria-pressed', String(on));
+  });
+}
+function current() { const id = location.hash.replace(/^#\/?/, ''); return byId[id] ? id : 'hosts'; }
+const CAPTURE = new URLSearchParams(location.search).has('capture');
+if (CAPTURE) document.documentElement.classList.add('capture');
+function fit() {
+  if (CAPTURE) return; // capture mode shows the frame at scale 1 (see the .capture rules)
+  const box = document.getElementById('framebox');
+  const f = document.getElementById('fit');
+  const fb = document.getElementById('fitbox');
+  if (!f || !f.firstElementChild) return;
+  const w = f.firstElementChild.offsetWidth;
+  const h = f.firstElementChild.offsetHeight;
+  const ah = box.parentElement.clientHeight - 40;
+  const aw = box.clientWidth;
+  const sc = Math.max(0.4, Math.min(1, aw / w, ah / h));
+  f.style.transform = `scale(${sc})`;
+  fb.style.width = `${w * sc}px`;
+  fb.style.height = `${h * sc}px`;
+}
+function render(id) {
+  const s = byId[id];
+  document.getElementById('framebox').innerHTML = `<div id="fitbox"><div class="fit" id="fit">${s.r()}</div></div>`;
+  document.getElementById('title').textContent = s.n;
+  document.getElementById('crumb').textContent = `${s.g} · ${{ phone: 'Pixel 9, 412 x 915 dp', tablet: 'Galaxy Tab S9, 1280 x 800 dp', laptop: 'Windows 11, 960 x 640', page: 'Reference' }[s.f]}`;
+  const targets = [...new Set([...document.querySelectorAll('#fit [data-go]')].map((e) => e.dataset.go))].filter((t) => byId[t] && t !== id);
+  document.getElementById('notes').innerHTML = `<h4>Purpose</h4><p>${s.purpose}</p><h4>States</h4><ul>${s.states.map((x) => `<li>${x}</li>`).join('')}</ul>${targets.length ? `<h4>Taps on this screen go to</h4><p>${targets.map((t) => `<a class="go" href="#/${t}">${byId[t].n}</a>`).join('')}</p>` : ''}<h4>Keys</h4><p>Left and right arrows step through screens. "Tap targets" outlines what is clickable.</p>`;
+  side.querySelectorAll('a[data-id]').forEach((a) => a.classList.toggle('on', a.dataset.id === id));
+  const on = side.querySelector('a.on');
+  if (on && on.scrollIntoView) on.scrollIntoView({ block: 'nearest' });
+  fit();
+}
+function step(d) {
+  const i = S.findIndex((s) => s.id === current());
+  location.hash = `#/${S[(i + d + S.length) % S.length].id}`;
+}
+document.getElementById('framebox').addEventListener('click', (e) => {
+  const t = e.target.closest('[data-go]');
+  if (t && byId[t.dataset.go]) location.hash = `#/${t.dataset.go}`;
+});
+document.getElementById('prev').addEventListener('click', () => step(-1));
+document.getElementById('next').addEventListener('click', () => step(1));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') step(1);
+  if (e.key === 'ArrowLeft') step(-1);
+});
+window.addEventListener('hashchange', () => render(current()));
+window.addEventListener('resize', fit);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+buildSide();
+const qpTheme = new URLSearchParams(location.search).get('theme');
+setTheme(THEMES.includes(qpTheme) ? qpTheme : getTheme());
+render(current());
+
+/* Manifest: open with ?capture&manifest and the screen registry plus each frame's size is written to
+   the console, one "GANDER-SCREEN {json}" line per screen and a "GANDER-FONTS {json}" line. `cargo xtask
+   mockups` reads them from the browser log, so the registry stays the one source of truth for sizes
+   and the README. The fonts line says whether the web fonts loaded: a render without them differs. */
+if (CAPTURE && new URLSearchParams(location.search).has('manifest')) {
+  for (const s of S) {
+    render(s.id);
+    const el = document.getElementById('fit').firstElementChild;
+    console.log('GANDER-SCREEN ' + JSON.stringify({ id: s.id, group: s.g, name: s.n, form: s.f, purpose: s.purpose, states: s.states, width: el.offsetWidth, height: el.offsetHeight }));
+  }
+  const fonts = () => {
+    const faces = document.fonts ? [...document.fonts] : [];
+    console.log('GANDER-FONTS ' + JSON.stringify({ faces: faces.length, loaded: faces.filter((f) => f.status === 'loaded').length }));
+  };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fonts); else fonts();
+}
+
+/* Self-test: open with ?selftest to render every screen in both themes and report. */
+if (location.search.indexOf('selftest') >= 0) {
+  const out = [];
+  let bad = 0;
+  const bgs = {};
+  for (const t of ['light', 'dark']) {
+    setTheme(t);
+    bgs[t] = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+    for (const s of S) {
+      try {
+        render(s.id);
+        const html = document.getElementById('fit').innerHTML;
+        if (html.length < 200) { bad++; out.push(`EMPTY ${t} ${s.id}`); }
+        if (/undefined|\[object Object\]|NaN/.test(html)) { bad++; out.push(`BADTEXT ${t} ${s.id}`); }
+      } catch (err) {
+        bad++;
+        out.push(`ERROR ${t} ${s.id}: ${err.message}`);
+        console.error(err);
+      }
+    }
+  }
+  if (bgs.light === bgs.dark) { bad++; out.push(`THEME-TOGGLE-NOOP ${bgs.light}`); }
+  setTheme('system');
+  const size = document.documentElement.outerHTML.length;
+  out.unshift(`SELFTEST screens=${S.length} failures=${bad} bg.light=${bgs.light} bg.dark=${bgs.dark} domsize=${size}`);
+  const pre = document.createElement('pre');
+  pre.id = 'selftest';
+  pre.textContent = out.join('\n');
+  document.body.appendChild(pre);
+}
+</script>
+</body>
+</html>

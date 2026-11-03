@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App lock (WP-28). The system prompt shows the title and subtitle. -->
+    <string name="lock_title">Gander is locked</string>
+    <string name="lock_body">Unlock with your fingerprint, face or screen lock to see your computers.</string>
+    <string name="lock_declined">Not unlocked yet. Try again when you are ready.</string>
+    <string name="lock_unlock">Unlock</string>
+    <string name="lock_not_set_up">This phone has no screen lock, fingerprint or face set up any more, so Gander cannot check who is opening it. Turn app lock off, or set a screen lock in the phone\'s settings first.</string>
+    <string name="lock_turn_off">Turn off app lock</string>
+    <string name="lock_unavailable">The phone cannot check your fingerprint, face or screen lock right now.</string>
+    <string name="lock_try_again">Try again</string>
+    <string name="lock_prompt_title">Unlock Gander</string>
+    <string name="lock_prompt_subtitle">Confirm it is you</string>
+
+    <!-- Hosts screen entries -->
+    <string name="hosts_storage">Storage and offline files</string>
+    <string name="hosts_settings">Settings</string>
+    <string name="host_menu_details">Details</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_section_downloads">Downloads</string>
+    <string name="settings_cellular_title">Ask before fetching on mobile data</string>
+    <string name="settings_cellular_always">Always ask</string>
+    <string name="settings_cellular_never">Never ask</string>
+    <string name="settings_cellular_from">Files of %1$s or more</string>
+    <string name="settings_cellular_dialog_body">On a metered connection such as mobile data, Gander asks before it fetches a file. Choose from what size it should ask.</string>
+    <string name="settings_verify_title">Check downloads</string>
+    <string name="settings_verify_never">Never</string>
+    <string name="settings_verify_large">Files of %1$s or more</string>
+    <string name="settings_verify_always">Every file</string>
+    <string name="settings_verify_dialog_body">When a download finishes, the phone can ask the computer for the file\'s checksum and compare it, to catch a damaged copy.</string>
+
+    <string name="settings_section_storage">Storage</string>
+    <string name="settings_cache_title">Saved files size limit</string>
+    <string name="settings_cache_dialog_body">When fetched files add up to more than this, the ones used least recently are deleted. Files you keep offline are never deleted.</string>
+    <string name="settings_storage_open">Storage and offline files</string>
+    <string name="settings_storage_open_summary">See what is saved on this phone, per computer</string>
+
+    <string name="settings_section_opening">Opening files</string>
+    <string name="settings_remembered_title">Remembered choices</string>
+    <string name="settings_remembered_empty">Nothing yet. Choose \"Always do this\" on a file to remember what to do with that type.</string>
+    <string name="settings_remembered_reset_all">Reset all</string>
+    <string name="settings_remembered_change">Change</string>
+    <string name="settings_remembered_reset">Forget the choice for .%1$s</string>
+    <string name="settings_stream_types_title">Open on the computer first</string>
+    <plurals name="settings_stream_types_count">
+        <item quantity="one">%d file type</item>
+        <item quantity="other">%d file types</item>
+    </plurals>
+    <string name="settings_stream_types_dialog_title">File types to open on the computer</string>
+    <string name="settings_stream_types_dialog_body">Files with these extensions list Stream first, because a phone cannot show them well. Separate them with spaces or commas.</string>
+    <string name="settings_stream_types_label">Extensions</string>
+    <string name="settings_stream_types_reset">Reset to the standard list</string>
+    <string name="settings_files_app_title">Show computers in the Files app</string>
+    <string name="settings_files_app_summary">Other apps can open files from your computers, read only, through the Files app on this phone. With the app lock on, they ask you to unlock Gander first.</string>
+
+    <!-- The Files-app provider (WP-60): what the Files app shows for Gander. -->
+    <string name="files_app_root_summary">Gander</string>
+    <string name="files_app_locked_title">Gander</string>
+    <string name="files_app_locked_summary">Unlock Gander to browse</string>
+    <string name="files_app_offline_info">Not reachable now. This is the list from the last visit.</string>
+    <string name="files_app_error">Gander could not list this folder: %1$s</string>
+
+    <string name="settings_section_security">Security and privacy</string>
+    <string name="settings_lock_title">Lock Gander</string>
+    <string name="settings_lock_summary">Ask for your fingerprint, face or screen lock to open the app.</string>
+    <string name="settings_lock_after_title">Lock after</string>
+    <string name="settings_lock_after_now">Right away</string>
+    <plurals name="settings_lock_after_minutes">
+        <item quantity="one">After %d minute away</item>
+        <item quantity="other">After %d minutes away</item>
+    </plurals>
+    <string name="settings_lock_prompt_enable">Turn on app lock</string>
+    <string name="settings_lock_prompt_disable">Turn off app lock</string>
+    <string name="settings_lock_setup_title">Set up a screen lock first</string>
+    <string name="settings_lock_setup_body">App lock uses your phone\'s fingerprint, face or screen lock. Set one up in the phone\'s settings, then come back here.</string>
+    <string name="settings_diagnostics_title">Export diagnostics</string>
+    <string name="settings_diagnostics_summary">A text file about this phone\'s state with tokens, addresses, names and paths left out. Look at it, then send it to whoever is helping you.</string>
+    <string name="settings_diagnostics_working">Preparing the report&#8230;</string>
+    <string name="settings_diagnostics_failed">The report could not be created or shared.</string>
+    <string name="settings_diagnostics_share_title">Share diagnostics</string>
+    <string name="settings_diagnostics_subject">Gander diagnostics</string>
+
+    <string name="settings_section_computers">Computers</string>
+    <string name="settings_computers_empty">No computers are paired with this phone.</string>
+    <string name="settings_section_about">About</string>
+    <string name="settings_version">Version %1$s</string>
+
+    <!-- Storage -->
+    <string name="storage_title">Storage</string>
+    <string name="storage_downloads_title">Downloads</string>
+    <string name="storage_downloads_summary">Fetches in progress and finished</string>
+    <string name="storage_empty_title">No saved files</string>
+    <string name="storage_empty_body">Files you fetch are saved here and open without the computer. Turn on Keep offline to protect a file from being deleted when space runs out.</string>
+    <string name="storage_used">%1$s of %2$s used</string>
+    <string name="storage_kept">%1$s kept offline</string>
+    <string name="storage_kept_over_cap">The files you keep offline take more room than the limit. Delete some, or raise the limit in Settings.</string>
+    <string name="storage_clear_all">Delete files not kept offline (%1$s)</string>
+    <string name="storage_clear_title">Delete saved files?</string>
+    <plurals name="storage_clear_body">
+        <item quantity="one">This deletes %1$d file (%2$s) that you have not chosen to keep offline.</item>
+        <item quantity="other">This deletes %1$d files (%2$s) that you have not chosen to keep offline.</item>
+    </plurals>
+    <string name="storage_clear_confirm">Delete</string>
+    <string name="storage_host_removed">A computer that was removed</string>
+    <plurals name="storage_host_total">
+        <item quantity="one">%1$s in %2$d file</item>
+        <item quantity="other">%1$s in %2$d files</item>
+    </plurals>
+    <string name="storage_host_clear">Delete unkept</string>
+    <string name="storage_file_line">%1$s, used %2$s</string>
+    <string name="storage_delete">Delete %1$s</string>
+    <string name="storage_derived_title">Thumbnails and previews</string>
+    <string name="storage_derived_clear">Clear</string>
+
+    <!-- Host details -->
+    <string name="host_details_title">Computer details</string>
+    <string name="host_details_system">System</string>
+    <string name="host_details_paired_as">This phone is known as</string>
+    <string name="host_details_last_seen">Last seen</string>
+    <string name="host_details_addresses">Addresses</string>
+    <string name="host_details_port">Port %1$d</string>
+    <string name="host_details_fingerprint">Certificate fingerprint</string>
+    <string name="host_details_fingerprint_hint">This is the identity Gander checks every time it connects. Only the computer that has the matching key can be reached.</string>
+    <string name="host_details_access">Access</string>
+    <string name="host_details_rotate">Replace access token</string>
+    <string name="host_details_rotate_summary">Gets a new token from the computer. The old one stops working at once. Do this if you think someone saw this phone\'s token.</string>
+    <string name="host_details_forget">Forget this computer</string>
+    <string name="host_details_forget_summary">Removes the computer, its token and everything saved from it (files, thumbnails, previews) from this phone.</string>
+    <string name="host_rotate_confirm_title">Replace the access token?</string>
+    <string name="host_rotate_confirm_body">%1$s will give this phone a new token and stop accepting the old one. Nothing else changes.</string>
+    <string name="host_rotate_confirm">Replace</string>
+    <string name="host_rotate_done">The token was replaced. The old one no longer works.</string>
+    <string name="host_rotate_failed">The token was not replaced. %1$s</string>
+</resources>

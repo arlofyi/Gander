@@ -1,0 +1,15 @@
+date (host): 2026-11-02 06:17:33
+emulator: Android emulator version 37.2.13.0 (build_id 16740729) (CL:N/A)
+system image package: system-images;android-36;google_apis;x86_64, revision 7 (Google APIs Intel x86_64 Atom System Image)
+avd: gander (pixel_6 profile)
+ro.build.fingerprint: google/sdk_gphone64_x86_64/emu64xa:16/BE2A.250530.026.F3/13894323:userdebug/dev-keys
+ro.build.version.release: 16
+ro.build.version.sdk: 36
+ro.build.version.security_patch: 2025-07-05
+ro.product.cpu.abi: x86_64
+kernel: 6.6.66-android15-8-gd0c43a640eab-ab13812146
+documentsui: versionName=16
+documentsui apk: package:/system/priv-app/DocumentsUIGoogle/DocumentsUIGoogle.apk
+photos: versionName=7.8.0.697873850
+video VIEW handlers: com.google.android.apps.photos/.pager.HostPhotoPagerActivity
+test media: sample-faststart.mp4 and sample-moovend.mp4, 30811338 bytes each, 1280x720 H.264 Main 30 fps 40 s + AAC; moov at start / at end

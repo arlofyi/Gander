@@ -1,0 +1,76 @@
+spike-input ready signalling=ws://127.0.0.1:47440/ port=47440 advertise=Some(10.0.2.2) inject=postmessage
+connected in 1844 ms; offer candidates ["a=candidate:2693830880 1 udp 2130706431 127.0.0.1 65130 typ host", "a=candidate:2693830880 2 udp 2130706431 127.0.0.1 65130 typ host"]; answer candidates ["a=candidate:2236198105 1 udp 2122260223 10.0.2.15 60785 typ host generation 0 network-id 1 network-cost 900", "a=candidate:1276071014 1 udp 2122187263 fec0::5054:ff:fe12:3456 32911 typ host generation 0 network-id 2 network-cost 900"]
+driver: phone layout {"ev":"layout","pic_h":2280,"pic_l":0,"pic_t":60,"pic_w":1080,"t_ns":218798886200,"video_h":2280,"video_w":1080,"view_h":2400,"view_w":1080,"view_x":0,"view_y":0}
+tap seq 1 (0.407, 0.825) postmessage client Some((279, 1182)): rx->inject 37.7 ms, inject 0.04 ms, effect 0.2 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 0 at screen (440, 1942) aimed at client (279, 1182); host rx 158 ms after the command; phone tap_effect 229 ms
+tap seq 2 (0.717, 0.882) postmessage client Some((493, 1267)): rx->inject 0.5 ms, inject 0.04 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 1 at screen (774, 2072) aimed at client (493, 1267); host rx 103 ms after the command; phone tap_effect 153 ms
+tap seq 3 (0.823, 0.785) postmessage client Some((566, 1122)): rx->inject 1.3 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 2 at screen (889, 1850) aimed at client (566, 1122); host rx 121 ms after the command; phone tap_effect 161 ms
+tap seq 4 (0.480, 0.679) postmessage client Some((329, 964)): rx->inject 0.7 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 3 at screen (518, 1608) aimed at client (329, 964); host rx 87 ms after the command; phone tap_effect 127 ms
+tap seq 5 (0.168, 0.582) postmessage client Some((113, 820)): rx->inject 1.1 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 4 at screen (181, 1387) aimed at client (113, 820); host rx 118 ms after the command; phone tap_effect 183 ms
+tap seq 6 (0.325, 0.475) postmessage client Some((222, 660)): rx->inject 3.5 ms, inject 0.03 ms, effect 0.4 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 5 at screen (351, 1142) aimed at client (222, 660); host rx 131 ms after the command; phone tap_effect 180 ms
+tap seq 7 (0.664, 0.370) postmessage client Some((456, 504)): rx->inject 1.1 ms, inject 0.02 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 6 at screen (717, 903) aimed at client (456, 504); host rx 116 ms after the command; phone tap_effect 157 ms
+tap seq 8 (0.855, 0.264) postmessage client Some((588, 348)): rx->inject 2.4 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 7 at screen (923, 663) aimed at client (588, 348); host rx 82 ms after the command; phone tap_effect 151 ms
+tap seq 9 (0.533, 0.219) postmessage client Some((366, 280)): rx->inject 0.4 ms, inject 0.02 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 8 at screen (576, 559) aimed at client (366, 280); host rx 67 ms after the command; phone tap_effect 118 ms
+tap seq 10 (0.220, 0.316) postmessage client Some((150, 424)): rx->inject 0.6 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 9 at screen (238, 780) aimed at client (150, 424); host rx 85 ms after the command; phone tap_effect 142 ms
+tap seq 11 (0.240, 0.413) postmessage client Some((163, 568)): rx->inject 0.6 ms, inject 0.02 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 10 at screen (259, 1001) aimed at client (163, 568); host rx 81 ms after the command; phone tap_effect 128 ms
+tap seq 12 (0.556, 0.511) postmessage client Some((382, 714)): rx->inject 0.6 ms, inject 0.02 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 11 at screen (601, 1225) aimed at client (382, 714); host rx 54 ms after the command; phone tap_effect 115 ms
+tap seq 13 (0.860, 0.605) postmessage client Some((592, 854)): rx->inject 0.6 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 12 at screen (929, 1439) aimed at client (592, 854); host rx 75 ms after the command; phone tap_effect 104 ms
+tap seq 14 (0.693, 0.699) postmessage client Some((476, 994)): rx->inject 0.5 ms, inject 0.02 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 13 at screen (748, 1654) aimed at client (476, 994); host rx 60 ms after the command; phone tap_effect 86 ms
+tap seq 15 (0.394, 0.792) postmessage client Some((270, 1132)): rx->inject 0.5 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 14 at screen (426, 1865) aimed at client (270, 1132); host rx 63 ms after the command; phone tap_effect 92 ms
+tap seq 16 (0.094, 0.885) postmessage client Some((63, 1270)): rx->inject 0.7 ms, inject 0.04 ms, effect 0.2 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 15 at screen (102, 2077) aimed at client (63, 1270); host rx 85 ms after the command; phone tap_effect 82 ms
+tap seq 17 (0.359, 0.824) postmessage client Some((246, 1180)): rx->inject 0.6 ms, inject 0.02 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 16 at screen (388, 1939) aimed at client (246, 1180); host rx 82 ms after the command; phone tap_effect 94 ms
+tap seq 18 (0.668, 0.729) postmessage client Some((459, 1038)): rx->inject 0.6 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 17 at screen (721, 1721) aimed at client (459, 1038); host rx 86 ms after the command; phone tap_effect 103 ms
+tap seq 19 (0.876, 0.632) postmessage client Some((603, 894)): rx->inject 1.1 ms, inject 0.03 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 18 at screen (946, 1501) aimed at client (603, 894); host rx 80 ms after the command; phone tap_effect 104 ms
+tap seq 20 (0.568, 0.536) postmessage client Some((390, 752)): rx->inject 1.4 ms, inject 0.04 ms, effect 0.1 ms after inject; PostMessage accepted 3/3 error None
+driver: tap 19 at screen (613, 1283) aimed at client (390, 752); host rx 134 ms after the command; phone tap_effect 111 ms
+
+# adb-driven taps (post20): 20 issued, 20 received by the host
+| seq | aimed client | mode | clicked | hit | host inject->colour ms | phone tap->pixels ms | echo rtt ms |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | (279, 1182) | postmessage | true | true | 0.2 | 229 | 18.9 |
+| 2 | (493, 1267) | postmessage | true | true | 0.1 | 153 | 2.8 |
+| 3 | (566, 1122) | postmessage | true | true | 0.1 | 161 | 4.0 |
+| 4 | (329, 964) | postmessage | true | true | 0.1 | 127 | 1.8 |
+| 5 | (113, 820) | postmessage | true | true | 0.1 | 183 | 14.7 |
+| 6 | (222, 660) | postmessage | true | true | 0.4 | 180 | 8.0 |
+| 7 | (456, 504) | postmessage | true | true | 0.1 | 157 | 18.8 |
+| 8 | (588, 348) | postmessage | true | true | 0.1 | 151 | 10.2 |
+| 9 | (366, 280) | postmessage | true | true | 0.1 | 118 | 2.5 |
+| 10 | (150, 424) | postmessage | true | true | 0.1 | 142 | 3.9 |
+| 11 | (163, 568) | postmessage | true | true | 0.1 | 128 | 5.6 |
+| 12 | (382, 714) | postmessage | true | true | 0.1 | 115 | 5.4 |
+| 13 | (592, 854) | postmessage | true | true | 0.1 | 104 | 6.7 |
+| 14 | (476, 994) | postmessage | true | true | 0.1 | 86 | 2.1 |
+| 15 | (270, 1132) | postmessage | true | true | 0.1 | 92 | 1.5 |
+| 16 | (63, 1270) | postmessage | true | true | 0.2 | 82 | 4.8 |
+| 17 | (246, 1180) | postmessage | true | true | 0.1 | 94 | 3.7 |
+| 18 | (459, 1038) | postmessage | true | true | 0.1 | 103 | 3.5 |
+| 19 | (603, 894) | postmessage | true | true | 0.1 | 104 | 3.8 |
+| 20 | (390, 752) | postmessage | true | true | 0.1 | 111 | 9.6 |
+hits 20/20 taps; phone tap->changed pixels p50 118 / p95 183 / max 229 ms (n=20); host inject->colour change (pipe poll) p50 0.1 ms (n=20); command->host rx p50 85 ms
+phone decoded 753 frames in 27.1 s = 27.8 fps; last stats: {"bytes_received":12731056,"decode_ms_per_frame":13.361538461538458,"decoder":"c2.goldfish.h264.decoder","ev":"inbound_video","frame_height":2280,"frame_width":1080,"frames_decoded":780,"frames_dropped":1,"frames_per_second":30,"frames_received":783,"freeze_count":1,"jitter_buffer_ms":51.009062740076814,"key_frames_decoded":14,"nack_count":0,"packets_lost":0,"packets_received":12356,"pli_count":0,"t_ns":246633886000}
+phone events: 161 total, 20 echo, 20 tap_effect, 0 colour_change
+
+# spike-input serve (post20)
+source: Intel(R) Graphics / Intel® Quick Sync Video H.264 Encoder MFT, 1080x2280 @ 30 fps
+inject mode postmessage, advertise Some(10.0.2.2), taps handled 20
+postmessage: 20 taps, 20 reached the window (clicks +1), 20 hit the box; rx->inject p50 0.6 ms; inject call p50 0.03 ms; inject->colour change seen on the pipe p50 0.1 / p95 0.2 ms (n=20)
+  first outcome: PostMessage accepted 3/3 error None
