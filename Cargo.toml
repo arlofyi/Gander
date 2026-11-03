@@ -69,7 +69,7 @@ rcgen = { version = "0.14", default-features = false, features = ["crypto", "rin
 ring = "0.17"
 socket2 = "0.6"
 base64 = "0.22"
-ulid = "1"
+ulid = "3"
 tracing = "0.1"
 # Content hashes for `GET /hash` and the listing ETag (WP-14). CC0-1.0 / Apache-2.0.
 blake3 = "1"
