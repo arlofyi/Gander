@@ -120,7 +120,7 @@ image = { version = "0.25", default-features = false, features = ["png", "jpeg",
 # Lossy WebP encoder (libwebp, BSD-3-Clause, built from source by libwebp-sys).
 webp = { version = "0.3", default-features = false }
 # Embedded key-value store for the thumbnail cache index.
-redb = "3"
+redb = "4"
 # Test-only: streaming PNG writer for the decompression-bomb fixture.
 png = "0.18"
 # WGC capture helper library (MIT). WP-41 compares it with the own thin wrapper in
