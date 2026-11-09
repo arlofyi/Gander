@@ -8,7 +8,7 @@
 
 [versions]
 # Build toolchain
-agp = "9.5.0"                  # needs Gradle 9.6.0 (wrapper), JDK 17, build-tools 36.0.0
+agp = "9.5.1"                  # needs Gradle 9.6.0 (wrapper), JDK 17, build-tools 36.0.0
 kotlin = "2.4.21"              # AGP 9 built-in Kotlin; the plugins below pull this KGP version
 ksp = "2.3.13"                 # KSP2 (Room compiler)
 cyclonedx = "3.5.1"            # CycloneDX SBOM plugin (Apache-2.0, built with Gradle 9.8, runs on 9.6); WP-82
@@ -39,7 +39,7 @@ kotlinx-serialization = "1.12.0"
 
 # Test
 junit = "4.13.2"
-snakeyaml = "2.4"                       # test only: reads protocol/openapi.yaml examples
+snakeyaml = "2.7"                       # test only: reads protocol/openapi.yaml examples
 androidx-test-ext-junit = "1.3.0"
 androidx-test-runner = "1.7.0"
 androidx-test-espresso = "3.7.0"
