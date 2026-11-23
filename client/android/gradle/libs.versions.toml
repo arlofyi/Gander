@@ -8,10 +8,10 @@
 
 [versions]
 # Build toolchain
-agp = "9.5.0"                  # needs Gradle 9.6.0 (wrapper), JDK 17, build-tools 36.0.0
+agp = "9.5.2"                  # needs Gradle 9.6.0 (wrapper), JDK 17, build-tools 36.0.0
 kotlin = "2.4.21"              # AGP 9 built-in Kotlin; the plugins below pull this KGP version
-ksp = "2.3.13"                 # KSP2 (Room compiler)
-cyclonedx = "3.5.1"            # CycloneDX SBOM plugin (Apache-2.0, built with Gradle 9.8, runs on 9.6); WP-82
+ksp = "2.3.14"                 # KSP2 (Room compiler)
+cyclonedx = "3.6.1"            # CycloneDX SBOM plugin (Apache-2.0, built with Gradle 9.8, runs on 9.6); WP-82
 ndk = "28.2.13676358"          # NDK r28c: 16 KB page-size aware linker defaults
 compileSdk = "36"
 targetSdk = "36"
@@ -21,25 +21,25 @@ minSdk = "26"
 androidx-core = "1.18.0"                 # 1.19.x needs compileSdk 37
 androidx-activity = "1.13.0"
 androidx-lifecycle = "2.10.0"            # 2.11.x needs compileSdk 37
-androidx-navigation = "2.9.8"            # 2.10.x needs compileSdk 37
+androidx-navigation = "2.10.2"            # 2.10.x needs compileSdk 37
 androidx-room = "2.8.5"
 androidx-datastore = "1.3.0"
 androidx-biometric = "1.4.0-alpha05"       # app lock; newest line that compiles against compileSdk 36 (alpha06+ needs 36.1)
-androidx-camera = "1.6.2"
+androidx-camera = "1.7.0"
 androidx-media3 = "1.11.1"
-compose-bom = "2026.06.01"                # Compose 1.11.4; BOM 2026.08.00+ is 1.12 (compileSdk 37)
+compose-bom = "2026.11.01"                # Compose 1.11.4; BOM 2026.08.00+ is 1.12 (compileSdk 37)
 
 # Networking, images, scanning, realtime
-okhttp = "5.4.0"                        # 5.5.x needs compileSdk 37
-coil = "3.5.0"                          # 3.6.x needs compileSdk 37
+okhttp = "5.5.1"                        # 5.5.x needs compileSdk 37
+coil = "3.6.3"                          # 3.6.x needs compileSdk 37
 zxing = "3.5.4"
 webrtc = "155.0.1"             # org.jitsi:webrtc, the libwebrtc build used by stream mode (ADR-0001)
 kotlinx-coroutines = "1.11.0"
-kotlinx-serialization = "1.12.0"
+kotlinx-serialization = "1.13.0"
 
 # Test
 junit = "4.13.2"
-snakeyaml = "2.4"                       # test only: reads protocol/openapi.yaml examples
+snakeyaml = "2.7"                       # test only: reads protocol/openapi.yaml examples
 androidx-test-ext-junit = "1.3.0"
 androidx-test-runner = "1.7.0"
 androidx-test-espresso = "3.7.0"
