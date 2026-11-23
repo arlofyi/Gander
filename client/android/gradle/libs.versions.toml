@@ -10,7 +10,7 @@
 # Build toolchain
 agp = "9.5.0"                  # needs Gradle 9.6.0 (wrapper), JDK 17, build-tools 36.0.0
 kotlin = "2.4.21"              # AGP 9 built-in Kotlin; the plugins below pull this KGP version
-ksp = "2.3.13"                 # KSP2 (Room compiler)
+ksp = "2.3.14"                 # KSP2 (Room compiler)
 cyclonedx = "3.5.1"            # CycloneDX SBOM plugin (Apache-2.0, built with Gradle 9.8, runs on 9.6); WP-82
 ndk = "28.2.13676358"          # NDK r28c: 16 KB page-size aware linker defaults
 compileSdk = "36"
@@ -35,7 +35,7 @@ coil = "3.5.0"                          # 3.6.x needs compileSdk 37
 zxing = "3.5.4"
 webrtc = "155.0.1"             # org.jitsi:webrtc, the libwebrtc build used by stream mode (ADR-0001)
 kotlinx-coroutines = "1.11.0"
-kotlinx-serialization = "1.12.0"
+kotlinx-serialization = "1.13.0"
 
 # Test
 junit = "4.13.2"
